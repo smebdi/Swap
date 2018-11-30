@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from "../model/user.model";
-import { Observable } from '../../../node_modules/rxjs';
+import { of, Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -14,7 +14,7 @@ export class UserService {
       {id: 2, firstName: 'Caleb', lastName: 'Davenport', email: 'calebmackdaven@gmail.com'},
       {id: 2, firstName: 'Min', lastName: 'Seo', email: 'mhseo2180@gmail.com'},
     ];
-    return (fakeUsers);
+    return of(fakeUsers);
     // return this.http.get<User[]>(this.baseUrl);
   }
 
