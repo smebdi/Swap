@@ -1,0 +1,32 @@
+<div class="col-md-6 user-container">
+  <h2 style="margin: auto"> User Details</h2>
+  <button class="btn btn-danger" style="width:100px" (click)="addUser()"> Add User</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Created By</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let comment of comments">
+      <td class="hidden">{{comment.id}}</td>
+      <td>{{comment.title}}</td>
+      <td>{{comment.body}}</td>
+      <td>{{comment.created_by}}</td>
+      <td><button class="btn btn-success" (click)="deleteUser(user)"> Delete</button>
+        <button class="btn btn-success" (click)="editUser(user)" style="margin-left: 20px;"> Edit</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 
+body: "This is certainly noteworthy",
+        created_at: "2018-12-03T18:44:55.506525",
+        created_by: "Caleb",
+        id: 1,
+        resource_uri: "/api/comment/1/",
+        title: "First Comment" -->

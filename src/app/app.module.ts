@@ -12,7 +12,10 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { ListUserComponent } from "./list-user/list-user.component";
 import { UserService } from "./service/user.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CustomMaterialModule } from "./material/material.module"
+import { CustomMaterialModule } from "./material/material.module";
+import { CommentsComponent } from './comments/comments.component'
+import { CommentService } from './service/comments.service';
+import { HomeComponent } from './home/home.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +24,9 @@ import { CustomMaterialModule } from "./material/material.module"
     LoginComponent,
     ListUserComponent,
     AddUserComponent,
-    EditUserComponent
+    EditUserComponent,
+    CommentsComponent,
+    HomeComponent,
   ],
   imports: [
     // Supporting modules
@@ -33,7 +38,7 @@ import { CustomMaterialModule } from "./material/material.module"
     CustomMaterialModule
   ],
   // Services
-  providers: [AuthenticationService, UserService],
+  providers: [AuthenticationService, UserService, CommentService],
 
   bootstrap: [AppComponent]
 })
