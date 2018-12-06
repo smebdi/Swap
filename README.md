@@ -1,10 +1,13 @@
 # Angular 7
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Specify ng serve --port #### to use the non default port number.
+To connect to the associated Django API, you will need to do so through a service.
+Leveraging the content created for the comment service/component/model is enough to get started with something.
 
 ## Code scaffolding
 
