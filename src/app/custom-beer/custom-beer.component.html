@@ -1,0 +1,33 @@
+<div class="col-md-12 beer-container">
+  <h2 style="margin: auto"> Users Beer</h2>
+  <button class="btn btn-danger" style="width:100px" (click)="addCustomBeer()"> Add</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Name</th>
+      <th>Brewery</th>
+      <th>IBU</th>
+      <th>ABV</th>
+      <th>Style</th>
+      <th>Description</th>
+      <th>Image</th>
+      <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let beer of customBeer">
+      <td class="hidden">{{beer.id}}</td>
+      <td>{{beer.name}}</td>
+      <td>{{beer.brewery}}</td>
+      <td>{{beer.ibu}}</td>
+      <td>{{beer.abv}}</td>
+      <td>{{beer.style}}</td>
+      <td>{{beer.description}}</td>
+      <td><img src="{{beer.imageUrl}}" style="height: 50px; width: 30px;"></td>
+      <td><button class="btn btn-success" (click)="deleteCustomBeer(beer)"> Delete</button>
+        <button class="btn btn-success" (click)="editCustomBeer(beer)" style="margin-left: 20px;"> Edit</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

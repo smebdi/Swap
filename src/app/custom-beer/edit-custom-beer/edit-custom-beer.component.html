@@ -1,0 +1,42 @@
+<div class="col-md-6">
+    <h2 class="text-center">Edit Beer</h2>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="name" formControlName="name" name="name" class="form-control" id="name">
+      </div>
+  
+      <div class="form-group">
+        <label for="brewery">Brewery</label>
+        <input formControlName="brewery" name="brewery" class="form-control" id="brewery">
+      </div>
+
+      <div class="form-group">
+        <label for="ibu">IBU</label>
+        <input formControlName="ibu" name="ibu" class="form-control" id="ibu">
+      </div>
+
+      <div class="form-group">
+        <label for="abv">ABV</label>
+        <input formControlName="abv" name="abv" class="form-control" id="abv">
+      </div>
+
+      <div class="form-group">
+        <label for="style">Style</label>
+        <input formControlName="style" name="style" class="form-control" id="style">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input formControlName="description" name="description" class="form-control" id="description">
+      </div>
+
+      <div class="form-group">
+        <label for="imageUrl">Image</label>
+        <input formControlName="imageUrl" name="imageUrl" class="form-control" id="imageUrl">
+      </div>
+  
+      <button class="btn btn-success">Update</button>
+    </form>
+  </div>

@@ -13,15 +13,28 @@ import { ListUserComponent } from "./list-user/list-user.component";
 import { UserService } from "./service/user.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from "./material/material.module";
+
+// Views
+import { HomeComponent } from './home/home.component';
+
+// Comments
 import { CommentsComponent } from './comments/comments.component'
 import { CommentService } from './service/comments.service';
-import { HomeComponent } from './home/home.component';
+import { AddCommentComponent } from './comments/add-comment/add-comment.component';
+import { EditCommentComponent } from './comments/edit-comment/edit-comment.component';
+
+// CustomBeer
+import { CustomBeerComponent } from './custom-beer/custom-beer.component'
+import { CustomBeerService } from './service/custom-beer.service';
+import { AddCustomBeerComponent } from './custom-beer/add-custom-beer/add-custom-beer.component';
+import { EditCustomBeerComponent } from './custom-beer/edit-custom-beer/edit-custom-beer.component';
+
+// Generic components
 import { NavbarComponent } from './generic/navbar/navbar.component'
 
 // Angular Core imports
 import { NgModule } from '@angular/core';
-import { AddCommentComponent } from './comments/add-comment/add-comment.component';
-import { EditCommentComponent } from './comments/edit-comment/edit-comment.component';
+import { CustomBeer } from './model/custom-beer.model';
 
 // Angular Material imports
 // import { MatMenuModule } from '@angular/material';
@@ -34,11 +47,16 @@ import { EditCommentComponent } from './comments/edit-comment/edit-comment.compo
     ListUserComponent,
     AddUserComponent,
     EditUserComponent,
-    CommentsComponent,
     HomeComponent,
     NavbarComponent,
+
+    CommentsComponent,
     AddCommentComponent,
     EditCommentComponent,
+
+    CustomBeerComponent,
+    EditCustomBeerComponent,
+    AddCustomBeerComponent
   ],
   imports: [
     // Supporting modules
@@ -50,7 +68,7 @@ import { EditCommentComponent } from './comments/edit-comment/edit-comment.compo
     CustomMaterialModule
   ],
   // Services
-  providers: [AuthenticationService, UserService, CommentService],
+  providers: [AuthenticationService, UserService, CommentService, CustomBeerService],
 
   bootstrap: [AppComponent]
 })
