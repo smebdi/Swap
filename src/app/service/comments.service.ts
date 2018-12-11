@@ -9,26 +9,6 @@ export class CommentService {
   baseUrl: string = 'http://127.0.0.1:8000/api/comments/';
 
   getComments() {
-    let fakeComments = 
-    [ 
-      {
-        body: "This is certainly noteworthy",
-        created_at: "2018-12-03T18:44:55.506525",
-        created_by: "Caleb",
-        id: 1,
-        resource_uri: "/api/comment/1/",
-        title: "First Comment"
-      },
-      {
-        body: "This is also noteworthy",
-        created_at: "2018-12-03T18:46:26.746327",
-        created_by: "Caleb",
-        id: 2,
-        resource_uri: "/api/comment/2/",
-        title: "Second Comment"
-      }
-    ]
-    // return of(fakeComments);
     return this.http.get<Comment[]>(this.baseUrl);
   }
 
@@ -41,15 +21,16 @@ export class CommentService {
     return this.http.get<Comment>(this.baseUrl + '/' + id);
   }
 
-  createComment(user: Comment) {
-    return this.http.post(this.baseUrl, user);
+  createComment(comment: Comment) {
+    return this.http.post(this.baseUrl, comment);
   }
 
-  updateComment(user: Comment) {
-    return this.http.put(this.baseUrl + '/' + user.id, user);
+  updateComment(comment: Comment) {
+    console.log(comment)
+    return this.http.put(this.baseUrl + comment.id, comment);
   }
 
-  deleteComment(id: Comment) {
+  deleteComment(id: number) {
     return this.http.delete(this.baseUrl + '/' + id);
   }
 }

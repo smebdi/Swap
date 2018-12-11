@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {first} from "rxjs/operators";
-import {AuthenticationService} from "../service/auth.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { first } from "rxjs/operators";
+import { AuthenticationService } from "../service/auth.service";
+import { NavbarComponent } from "../generic/navbar/navbar.component"
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 
@@ -19,9 +20,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
-      return;
+      return false;
     }
-    if(this.loginForm.controls.email.value == 'dhiraj@gmail.com' && this.loginForm.controls.password.value == 'password') {
+    if(this.loginForm.controls.email.value == 'calebmackdaven@gmail.com' && this.loginForm.controls.password.value == 'password') {
         this.router.navigate(['list-user']);
     }else {
       this.invalidLogin = true;

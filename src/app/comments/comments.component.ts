@@ -21,20 +21,22 @@ export class CommentsComponent implements OnInit {
       });
   }
 
-  // ngOnInit() {
-  //   this.commentService.getCommentResponse()
-  //     .subscribe( data => {
-  //       this.comments = data;
-  //     });
-  // }
+  deleteComment(comment: Comment): void {
+    this.commentService.deleteComment(comment.id)
+      .subscribe( data => {
+        this.comments = this.comments.filter(c => c !== comment);
+      })
+  };
 
-  // showConfigResponse() {
-  //   this.commentService.getCommentResponse()
-  //     // resp is of type `HttpResponse<Config>`
-  //     .subscribe(resp => {
-  //       // access the body directly, which is typed as `Config`.
-  //       this.comment = { ... resp.body };
-  //     });
-  // }
+  editComment(comment: Comment): void {
+    localStorage.removeItem("editCommentId");
+    localStorage.setItem("editCommentId", comment.id.toString());
+    localStorage.setItem("editCommentTitle", comment.title.toString());
+    localStorage.setItem("editCommentBody", comment.body.toString());
+    this.router.navigate(['comments/edit']);
+  };
 
+  addComment(): void {
+    this.router.navigate(['add-comment']);
+  };
 }

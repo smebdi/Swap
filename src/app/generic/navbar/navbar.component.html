@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <span>Swap the Hop</span>
+
+  <span class="example-fill-remaining-space"></span>
+
+  <span>
+      <button mat-button [matMenuTriggerFor]="userMenu">Users</button>
+      <mat-menu #userMenu="matMenu">
+        <a routerLink="/list-user"><button mat-menu-item>List</button></a>
+        <a routerLink="/add-user"><button mat-menu-item>Add</button></a>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="commentMenu">Comments</button>
+      <mat-menu #commentMenu="matMenu">
+        <a routerLink="/comments"><button mat-menu-item>List</button></a>
+        <a routerLink="/comments"><button mat-menu-item>Add</button></a>
+      </mat-menu>
+
+      <a routerLink="/login"><button mat-button>Login</button></a>
+  </span>
+</mat-toolbar>
