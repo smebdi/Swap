@@ -11,6 +11,9 @@ import { AddCommentComponent } from './comments/add-comment/add-comment.componen
 import { CustomBeerComponent } from './custom-beer/custom-beer.component';
 import { EditCustomBeerComponent } from './custom-beer/edit-custom-beer/edit-custom-beer.component';
 import { AddCustomBeerComponent } from './custom-beer/add-custom-beer/add-custom-beer.component';
+import { CustomBreweryComponent } from './custom-brewery/custom-brewery.component';
+import { EditCustomBreweryComponent } from './custom-brewery/edit-custom-brewery/edit-custom-brewery.component';
+import { AddCustomBreweryComponent } from './custom-brewery/add-custom-brewery/add-custom-brewery.component';
 
 const routes: Routes = [
   { path: '', component : HomeComponent },
@@ -24,16 +27,21 @@ const routes: Routes = [
 
   // Comment
   { path: 'comments', component: CommentsComponent },
-  { path: 'comments/edit', component: EditCommentComponent},
-  { path: 'comments/add', component: AddCommentComponent},
+  { path: 'comments/edit', component: EditCommentComponent },
+  { path: 'comments/add', component: AddCommentComponent },
 
   // Custom beer
   { path: 'beer', component: CustomBeerComponent },
-  { path: 'beer/edit', component: EditCustomBeerComponent},
-  { path: 'beer/add', component: AddCustomBeerComponent},
+  { path: 'beer/edit', component: EditCustomBeerComponent },
+  { path: 'beer/add', component: AddCustomBeerComponent },
+
+  // Custom brewery
+  { path: 'brewery', component: CustomBreweryComponent },
+  { path: 'brewery/edit', component: EditCustomBreweryComponent },
+  { path: 'brewery/add', component: AddCustomBreweryComponent },
 
   // Testing routes
-  { path: 'navbar', component: NavbarComponent},
+  { path: 'navbar', component: NavbarComponent },
 ];
 
 export const routing = RouterModule.forRoot(routes);

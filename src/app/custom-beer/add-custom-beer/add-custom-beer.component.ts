@@ -19,14 +19,14 @@ export class AddCustomBeerComponent implements OnInit {
   ngOnInit() {
 
     this.addForm = this.formBuilder.group({
-      id: [],
-      name: [Validators.required],
-      brewery: [Validators.required],
-      ibu: [Validators.required],
-      abv: [Validators.required],
-      style: [Validators.required],
-      description: [Validators.required],
-      imageUrl: [Validators.required],
+      id: [''],
+      name: ['',Validators.required],
+      brewery: ['',Validators.required],
+      ibu: ['',Validators.required],
+      abv: ['',Validators.required],
+      style: ['',Validators.required],
+      description: ['',Validators.required],
+      imageUrl: ['',Validators.required],
     });
 
   }

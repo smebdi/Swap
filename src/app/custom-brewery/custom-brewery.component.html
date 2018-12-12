@@ -1,0 +1,27 @@
+<div class="col-md-12 brewery-container">
+  <h2 style="margin: auto"> User Breweries</h2>
+  <button class="btn btn-danger" style="width:100px" (click)="addCustomBrewery()"> Add</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Website</th>
+      <th>Image</th>
+      <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let brewery of customBrewery">
+      <td class="hidden">{{brewery.id}}</td>
+      <td>{{brewery.name}}</td>
+      <td>{{brewery.location}}</td>
+      <td>{{brewery.website}}</td>
+      <td><img src="{{brewery.imageUrl}}" style="height: 50px; width: 30px;"></td>
+      <td><button class="btn btn-success" (click)="deleteCustomBrewery(brewery)"> Delete</button>
+        <button class="btn btn-success" (click)="editCustomBrewery(brewery)" style="margin-left: 20px;"> Edit</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -29,15 +29,18 @@ import { CustomBeerService } from './service/custom-beer.service';
 import { AddCustomBeerComponent } from './custom-beer/add-custom-beer/add-custom-beer.component';
 import { EditCustomBeerComponent } from './custom-beer/edit-custom-beer/edit-custom-beer.component';
 
+// CustomBrewery
+import { CustomBreweryComponent } from './custom-brewery/custom-brewery.component';
+import { CustomBreweryService } from './service/custom-brewery.service';
+import { AddCustomBreweryComponent } from './custom-brewery/add-custom-brewery/add-custom-brewery.component';
+import { EditCustomBreweryComponent } from './custom-brewery/edit-custom-brewery/edit-custom-brewery.component';
+
 // Generic components
 import { NavbarComponent } from './generic/navbar/navbar.component'
 
 // Angular Core imports
 import { NgModule } from '@angular/core';
-import { CustomBeer } from './model/custom-beer.model';
 
-// Angular Material imports
-// import { MatMenuModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,11 @@ import { CustomBeer } from './model/custom-beer.model';
 
     CustomBeerComponent,
     EditCustomBeerComponent,
-    AddCustomBeerComponent
+    AddCustomBeerComponent,
+
+    CustomBreweryComponent,
+    EditCustomBreweryComponent,
+    AddCustomBreweryComponent
   ],
   imports: [
     // Supporting modules
@@ -68,7 +75,7 @@ import { CustomBeer } from './model/custom-beer.model';
     CustomMaterialModule
   ],
   // Services
-  providers: [AuthenticationService, UserService, CommentService, CustomBeerService],
+  providers: [AuthenticationService, UserService, CommentService, CustomBeerService, CustomBreweryService],
 
   bootstrap: [AppComponent]
 })

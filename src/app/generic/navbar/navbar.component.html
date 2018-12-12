@@ -10,10 +10,22 @@
         <a routerLink="/add-user"><button mat-menu-item>Add</button></a>
       </mat-menu>
 
+      <button mat-button [matMenuTriggerFor]="beerMenu">Beer</button>
+      <mat-menu #beerMenu="matMenu">
+        <a routerLink="/beer"><button mat-menu-item>List</button></a>
+        <a routerLink="/beer/add"><button mat-menu-item>Add</button></a>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="breweryMenu">Brewery</button>
+      <mat-menu #breweryMenu="matMenu">
+        <a routerLink="/brewery"><button mat-menu-item>List</button></a>
+        <a routerLink="/brewery/add"><button mat-menu-item>Add</button></a>
+      </mat-menu>
+
       <button mat-button [matMenuTriggerFor]="commentMenu">Comments</button>
       <mat-menu #commentMenu="matMenu">
         <a routerLink="/comments"><button mat-menu-item>List</button></a>
-        <a routerLink="/comments"><button mat-menu-item>Add</button></a>
+        <a routerLink="/comments/add"><button mat-menu-item>Add</button></a>
       </mat-menu>
 
       <a routerLink="/login"><button mat-button>Login</button></a>

@@ -1,0 +1,27 @@
+<div class="col-md-6">
+  <h2 class="text-center">Add Brewery</h2>
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="name" formControlName="name" name="name" class="form-control" id="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input formControlName="location" name="location" class="form-control" id="location" required>
+    </div>
+
+    <div class="form-group">
+      <label for="website">Website</label>
+      <input formControlName="website" name="website" class="form-control" id="website" required>
+    </div>
+
+    <div class="form-group">
+      <label for="imageUrl">Image</label>
+      <input formControlName="imageUrl" name="imageUrl" class="form-control" id="imageUrl" required>
+    </div>
+
+    <button class="btn btn-success">Add</button>
+  </form>
+</div>
