@@ -2,7 +2,6 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.
 
 # Getting started
-[todo](https://medium.com/@jh3y/how-to-update-all-npm-packages-in-your-project-at-once-17a8981860ea): wipe dependencies  
 _In the app_
 - `npm install`
 - `npm start`  
