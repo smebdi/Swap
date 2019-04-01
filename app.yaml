@@ -1,0 +1,9 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+handlers:
+- url: /
+  static_files: dist/angular6-example/index.html
+  upload: dist/angular6-example/index.html
+- url: /
+  static_dir: dist/angular6-example
