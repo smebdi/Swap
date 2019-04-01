@@ -46,6 +46,7 @@ _Back in the app_
 This application interfaces with a python project, coloquially named DjangularAPI.   
 It references a number of custom build API endpoints.  
 You can see an example of that [here](https://djangular-back-end.appspot.com/api/beer/).  
+  
 These endpoints are accessed through services associated with each component.  
 The _not-necessarily-comprehensive_ list of endpoints is available [here](https://djangular-back-end.appspot.com/api/list).  
 
