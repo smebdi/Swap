@@ -45,7 +45,8 @@ _Back in the app_
 ## The Back End
 This application interfaces with a python project, coloquially named DjangularAPI.  
 It references a number of custom build API endpoints. You can see an example of that [here](https://djangular-back-end.appspot.com/api/beer/)  
-These endpoints are accessed through services associated with each component.  
+These endpoints are accessed through services associated with each component  
+The _not-necessarily-comprehensive_ list is available [here](https://djangular-back-end.appspot.com/api/list)
 
 ## The Other Back End
 User profiles, preferences, comments, interactions, _etc_ will be managed through a node back end.  
