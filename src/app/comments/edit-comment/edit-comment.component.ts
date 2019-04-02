@@ -32,7 +32,7 @@ export class EditCommentComponent implements OnInit {
       title: [commentTitle, Validators.required],
       body: [commentBody, Validators.required],
       created_at: [],
-      created_by: ["Mack"]
+      created_by: ['Mack']
     });
     this.commentService.getCommentById(+commentId)
       .subscribe( data => {

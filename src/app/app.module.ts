@@ -40,6 +40,8 @@ import { NavbarComponent } from './generic/navbar/navbar.component'
 
 // Angular Core imports
 import { NgModule } from '@angular/core';
+import { SwapComponent } from './swap/swap.component';
+import { ChatComponent } from './swap/chat/chat.component';
 
 
 @NgModule({
@@ -63,7 +65,9 @@ import { NgModule } from '@angular/core';
 
     CustomBreweryComponent,
     EditCustomBreweryComponent,
-    AddCustomBreweryComponent
+    AddCustomBreweryComponent,
+    SwapComponent,
+    ChatComponent
   ],
   imports: [
     // Supporting modules
