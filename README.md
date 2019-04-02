@@ -34,7 +34,7 @@ _In the root of the app_
 _In Google cloud_
 - Navigate to [Google Storage Bucket](https://console.cloud.google.com/storage/browser) 
 - Then into [djangular-bucket](https://console.cloud.google.com/storage/browser/djangular-bucket?project=djangular-front-end&folder&organizationId)
-- Delete current build folder, replace with newly created build folder (_if app.yaml has been updated, replace it_)
+- Delete current dist folder, replace with newly created dist folder (_if app.yaml has been updated, replace it_)
 - Open project cloud shell
 - gsutil rsync -r gs://djangular-bucket ./angular-app-gcp  
 
