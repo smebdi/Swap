@@ -6,7 +6,7 @@ import { of, Observable } from 'rxjs';
 @Injectable()
 export class CustomBreweryService {
   constructor(private http: HttpClient) { }
-  baseUrl: string = 'http://127.0.0.1:8000/api/brewery/';
+  baseUrl: string = 'https://djangular-back-end.appspot.com/api/brewery/';
 
   getCustomBrewerys() {
     return this.http.get<CustomBrewery[]>(this.baseUrl);

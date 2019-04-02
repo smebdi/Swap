@@ -6,7 +6,7 @@ import { of, Observable } from 'rxjs';
 @Injectable()
 export class CommentService {
   constructor(private http: HttpClient) { }
-  baseUrl: string = 'http://127.0.0.1:8000/api/comments/';
+  baseUrl: string = 'https://djangular-back-end.appspot.com/api/comments/';
 
   getComments() {
     return this.http.get<Comment[]>(this.baseUrl);
