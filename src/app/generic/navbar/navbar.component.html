@@ -1,9 +1,17 @@
 <mat-toolbar color="primary">
-    <a routerLink="/"><span>Swap the Hop</span></a>
+  
+  <a routerLink="/"><span>Swap the Hop</span></a>
 
-  <span class="example-fill-remaining-space"></span>
+  <form [formGroup]="navSearchForm" (ngSubmit)="onSubmit()" class="navbar-search-wrapper">
+    <div class="form-group" style="margin-bottom: 0px">
+      <mat-form-field class="navbar-search">
+          <input matInput formControlName="searchterm" name="searchterm" id="searchterm"
+            placeholder="Find beer">
+      </mat-form-field>
+    </div>
+  </form>
 
-  <span>
+  <span style="text-align: right">
       <button mat-button [matMenuTriggerFor]="userMenu">Users</button>
       <mat-menu #userMenu="matMenu">
         <a routerLink="/list-user"><button mat-menu-item>List</button></a>
@@ -30,4 +38,5 @@
 
       <a routerLink="/login"><button mat-button>Login</button></a>
   </span>
+
 </mat-toolbar>

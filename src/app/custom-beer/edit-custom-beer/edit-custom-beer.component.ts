@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { first } from "rxjs/operators";
-import { CustomBeerService } from "../../service/custom-beer.service";
-import { CustomBeer } from "../../model/custom-beer.model";
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { CustomBeerService } from '../../service/custom-beer.service';
+import { CustomBeer } from '../../model/custom-beer.model';
 
 @Component({
   selector: 'app-edit-custom-beer',
@@ -14,21 +14,21 @@ export class EditCustomBeerComponent implements OnInit {
 
   customBeer: CustomBeer;
   editForm: FormGroup;
-  constructor(private formBuilder: FormBuilder,private router: Router, private customBeerService: CustomBeerService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private customBeerService: CustomBeerService) { }
 
   ngOnInit() {
     console.log(this)
-    let customBeerId = localStorage.getItem("editCustomBeerId");
-    let customBeerName = localStorage.getItem("editCustomBeerName");
-    let customBeerBrewery = localStorage.getItem("editCustomBeerBrewery");
-    let customBeerIBU = localStorage.getItem("editCustomBeerIBU");
-    let customBeerABV = localStorage.getItem("editCustomBeerABV");
-    let customBeerStyle = localStorage.getItem("editCustomBeerStyle");
-    let customBeerDescription = localStorage.getItem("editCustomBeerDescription");
-    let customBeerImageUrl = localStorage.getItem("editCustomBeerImageUrl");
+    const customBeerId = localStorage.getItem('editCustomBeerId');
+    const customBeerName = localStorage.getItem('editCustomBeerName');
+    const customBeerBrewery = localStorage.getItem('editCustomBeerBrewery');
+    const customBeerIBU = localStorage.getItem('editCustomBeerIBU');
+    const customBeerABV = localStorage.getItem('editCustomBeerABV');
+    const customBeerStyle = localStorage.getItem('editCustomBeerStyle');
+    const customBeerDescription = localStorage.getItem('editCustomBeerDescription');
+    const customBeerImageUrl = localStorage.getItem('editCustomBeerImageUrl');
 
     if(!customBeerId) {
-      alert("Invalid action.")
+      alert('Invalid action.')
       this.router.navigate(['beer']);
       return;
     }

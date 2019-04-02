@@ -1,56 +1,75 @@
+/*
+  This section is required to define each of the models for data types.
+  Angular requires that these are strongly typed. If you are getting a response back
+  from a server, it's an enforced best-practice to create a data type, rather than
+  manually call any properties on the response.
+*/
+
+// ratebeer response wrapper to extract array of beer items
+export interface RateBeerExtract {
+  data: {
+    beerSearch: {
+      items: [
+        RateBeer
+      ]
+    }
+  };
+}
 export interface RateBeer {
-    id: string;
-    name: string;
-    description: string;
-    brewer: Brewer;
-    contractBrewer?: null;
-    abv: number;
-    ibu: number;
-    calories: number;
-    labels?: (string)[] | null;
-    seasonal: string;
-    style: Style;
-    styleScore: number;
-    overallScore: number;
-    averageRating: number;
-    realAverage?: number;
-    ratingCount: number;
-    imageUrl: string;
-    availability: Availability;
-    purchase?: null;
-    confidence?: null;
-  }
-  export interface Brewer {
-    id: string;
-    name: string;
-    description: string;
-    type: string;
-    streetAddress: string;
-    city: string;
-    state: State;
-    zip: string;
-    phone: string;
-    imageUrl: string;
-    score: number;
-    isRetired: boolean;
-  }
-  export interface State {
-    name: string;
-  }
-  export interface Style {
-    name: string;
-    description: string;
-    glasses?: (GlassesEntity)[] | null;
-  }
-  export interface GlassesEntity {
-    name: string;
-    description: string;
-  }
-  export interface Availability {
-    bottle: string;
-    tap: string;
-    distribution: string;
-  }
+  id: string;
+  name: string;
+  description: string;
+  brewer: Brewer;
+  contractBrewer?: null;
+  abv: number;
+  ibu: number;
+  calories: number;
+  labels?: (string)[] | null;
+  seasonal: string;
+  style: Style;
+  styleScore: number;
+  overallScore: number;
+  averageRating: number;
+  realAverage?: number;
+  ratingCount: number;
+  imageUrl: string;
+  availability: Availability;
+  purchase?: null;
+  confidence?: null;
+}
+
+
+export interface Brewer {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  streetAddress: string;
+  city: string;
+  state: State;
+  zip: string;
+  phone: string;
+  imageUrl: string;
+  score: number;
+  isRetired: boolean;
+}
+export interface State {
+  name: string;
+}
+export interface Style {
+  name: string;
+  description: string;
+  glasses?: (GlassesEntity)[] | null;
+}
+export interface GlassesEntity {
+  name: string;
+  description: string;
+}
+export interface Availability {
+  bottle: string;
+  tap: string;
+  distribution: string;
+}
   
   /*
 

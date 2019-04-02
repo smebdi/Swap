@@ -1,3 +1,15 @@
-.example-fill-remaining-space {
-    flex: 1 1 auto;
-  }
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.navbar-search-wrapper {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.navbar-search {
+  font-size: 14px; 
+  color: rgba(255,255,255,.64); 
+  width: 250px;
+}
+

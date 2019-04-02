@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { CustomBeerService } from "../service/custom-beer.service";
-import { CustomBeer } from "../model/custom-beer.model";
+import { Router } from '@angular/router';
+import { CustomBeerService } from '../service/custom-beer.service';
+import { CustomBeer } from '../model/custom-beer.model';
 
 @Component({
   selector: 'app-custom-beer',
@@ -29,23 +29,23 @@ export class CustomBeerComponent implements OnInit {
   };
 
   editCustomBeer(customBeer: CustomBeer): void {
-    localStorage.removeItem("editCustomBeerId");
-    localStorage.removeItem("editCustomBeerName");
-    localStorage.removeItem("editCustomBeerBrewery");
-    localStorage.removeItem("editCustomBeerIBU");
-    localStorage.removeItem("editCustomBeerABV");
-    localStorage.removeItem("editCustomBeerStyle");
-    localStorage.removeItem("editCustomBeerDescription");
-    localStorage.removeItem("editCustomBeerImageUrl");
+    localStorage.removeItem('editCustomBeerId');
+    localStorage.removeItem('editCustomBeerName');
+    localStorage.removeItem('editCustomBeerBrewery');
+    localStorage.removeItem('editCustomBeerIBU');
+    localStorage.removeItem('editCustomBeerABV');
+    localStorage.removeItem('editCustomBeerStyle');
+    localStorage.removeItem('editCustomBeerDescription');
+    localStorage.removeItem('editCustomBeerImageUrl');
 
-    localStorage.setItem("editCustomBeerId", customBeer.id.toString());
-    localStorage.setItem("editCustomBeerName", customBeer.name.toString());
-    localStorage.setItem("editCustomBeerBrewery", customBeer.brewery.toString());
-    localStorage.setItem("editCustomBeerIBU", customBeer.ibu.toString());
-    localStorage.setItem("editCustomBeerABV", customBeer.abv.toString());
-    localStorage.setItem("editCustomBeerStyle", customBeer.style.toString());
-    localStorage.setItem("editCustomBeerDescription", customBeer.description.toString());
-    localStorage.setItem("editCustomBeerImageUrl", customBeer.imageUrl.toString());
+    localStorage.setItem('editCustomBeerId', customBeer.id.toString());
+    localStorage.setItem('editCustomBeerName', customBeer.name.toString());
+    localStorage.setItem('editCustomBeerBrewery', customBeer.brewery.toString());
+    localStorage.setItem('editCustomBeerIBU', customBeer.ibu.toString());
+    localStorage.setItem('editCustomBeerABV', customBeer.abv.toString());
+    localStorage.setItem('editCustomBeerStyle', customBeer.style.toString());
+    localStorage.setItem('editCustomBeerDescription', customBeer.description.toString());
+    localStorage.setItem('editCustomBeerImageUrl', customBeer.imageUrl.toString());
 
     this.router.navigate(['beer/edit']);
   };

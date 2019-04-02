@@ -1,0 +1,38 @@
+<div class="container" style="padding-top: 20px">
+
+  <div *ngFor="let item of items" class="row" style="padding-top: 2px">
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="panel panel-white post panel-shadow">
+        <div class="post-heading">
+          <div class="pull-left image">
+            <img src="{{item.imageUrl}}" class="img-circle avatar">
+          </div>
+          <div class="pull-left meta">
+            <div class="title h5">
+              <b>{{item.name}}</b>
+            </div>
+          </div>
+        </div>
+        <div class="post-description">
+          <p *ngIf="item.description; else noDescription">
+            {{item.description}}
+          </p>
+          <ng-template #noDescription>
+            {{item.style.description}}
+          </ng-template>
+          <div class="stats">
+            <b><a routerLink="comments" class="stat-item">
+                Read More</a></b>
+            <a href="#" class="btn btn-default stat-item">
+              <i class="fa fa-thumbs-up icon"></i>2
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
