@@ -176,7 +176,7 @@
 }
 
 .card-image {
-  max-width: 180px;
+  max-width: 200px;
   height: 210px;
 }
 
@@ -195,6 +195,10 @@
   background-color: #3399FF;
   background-size: 100%;
   transition: background 0.2s;
+}
+
+.home-card {
+  max-height: 210px;
 }
 
 /* Card hover */
@@ -229,6 +233,10 @@
   }
 }
 
+.darken-image {
+  filter: brightness(65%)
+}
+
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
@@ -245,11 +253,14 @@ body {
 
 /* Carousel base class */
 .carousel {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
-  bottom: 3rem;
+  max-width: 850px; 
+  margin: 0 auto; 
+  text-align: center;
+  bottom: 5rem;
   z-index: 10;
   text-shadow:
     0px 0px 1px #000,
@@ -274,6 +285,7 @@ body {
   min-width: 100%;
   height: 32rem;
 }
+
 
 /* Featurettes
 ------------------------- */
