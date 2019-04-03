@@ -46,6 +46,7 @@ import { NavbarComponent } from './generic/navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { SwapComponent } from './swap/swap.component';
 import { ChatComponent } from './swap/chat/chat.component';
+import { UntappdService } from './service/untappd.service';
 import { RateBeerService } from './service/ratebeer.service';
 import { NavbarService } from './service/navbar.service';
 
@@ -93,6 +94,7 @@ import { NavbarService } from './service/navbar.service';
     CommentService,
     CustomBeerService,
     CustomBreweryService,
+    UntappdService,
     RateBeerService,
     NavbarService
   ],

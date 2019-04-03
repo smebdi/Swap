@@ -71,7 +71,7 @@ export interface Availability {
   tap: string;
   distribution: string;
 }
-  
+
   /*
 
 // Statically check during runtime

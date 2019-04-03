@@ -48,6 +48,7 @@
 
   <form *ngIf="nav.visible" [formGroup]="navSearchForm" (ngSubmit)="onSubmit()" class="navbar-search-wrapper">
     <div class="form-group d-none d-md-block" style="margin-bottom: 0px">
+      <i class="fa fa-search" style="bottom:15px; margin-right: 8px; cursor: pointer;" (click)="onSubmit()"></i>
       <mat-form-field class="navbar-search">
           <input matInput formControlName="searchterm" name="searchterm" id="searchterm"
             placeholder="Find beer">

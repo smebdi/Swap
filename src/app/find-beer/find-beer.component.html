@@ -16,7 +16,7 @@
 </div>
 <div  class="container" style="padding-top: 10px">
 
-  <div *ngFor="let ratebeer of items" class="row" style="padding-top: 2px">
+  <div *ngFor="let untappd of items" class="row" style="padding-top: 2px">
 
     <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
       <div class="panel panel-white post panel-shadow">
@@ -24,33 +24,33 @@
 
           <div class="pull-left meta">
             <div class="title h4">
-              <b><a class="beer-pointer header" (click)="goToDetail()">{{ratebeer.name}}</a></b>
+              <b><a class="beer-pointer header" (click)="goToDetail()">{{untappd.beer.beer_name}}</a></b>
             </div>
             <div class="title h6">
-              <b><a class="beer-pointer header" (click)="goToBrewDetail()">{{ratebeer.brewer.name}}</a></b>
+              <b><a class="beer-pointer header" (click)="goToBrewDetail()">{{untappd.brewery.brewery_name}}</a></b>
             </div>
           </div>
 
           <div class="pull-right post-image-container d-none d-lg-block">
-            <img src="{{ratebeer.imageUrl}}" class="image">
+            <img src="{{untappd.beer.beer_label}}" class="image">
           </div>
 
         </div>
         <div class="post-description">
 
-          <p *ngIf="ratebeer.description; else noDescription" [innerHTML]="ratebeer.description"></p>
+          <p *ngIf="untappd.beer.beer_description; else noDescription" [innerHTML]="untappd.beer.beer_description"></p>
           <ng-template #noDescription>
-            <div [innerHTML]="ratebeer.style.description"></div>
+            <div [innerHTML]="untappd.beer.beer_name"></div>
           </ng-template>
           
           <div class="stats">
 
-            <a *ngIf="ratebeer.likes; else noLikes" (click)="addLike(ratebeer)" class="btn btn-default stat-item tan-ripple">
-              <i *ngIf="ratebeer.likes < 10; else moreLikes" class="fa fa-thumbs-up icon-with-like"></i>{{ratebeer.likes}}
+            <a *ngIf="untappd.likes; else noLikes" (click)="addLike(untappd)" class="btn btn-default stat-item tan-ripple">
+              <i *ngIf="untappd.likes < 10; else moreLikes" class="fa fa-thumbs-up icon-with-like"></i>{{untappd.likes}}
             </a>
             <ng-template #noLikes>
-              <a (click)="addLike(ratebeer)" class="btn btn-default stat-item tan-ripple">
-                <i class="fa fa-thumbs-up icon-with-no-likes"></i>{{ratebeer.likes}}
+              <a (click)="addLike(untappd)" class="btn btn-default stat-item tan-ripple">
+                <i class="fa fa-thumbs-up icon-with-no-likes"></i>{{untappd.likes}}
               </a>
             </ng-template>
             <ng-template #moreLikes>

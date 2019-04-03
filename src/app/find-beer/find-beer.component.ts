@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntappdService } from '../service/untappd.service';
 import { RateBeerService } from '../service/ratebeer.service';
 import { RateBeer } from '../model/ratebeer.model';
 import { NavbarService } from '../service/navbar.service';
+import { Untappd, UntappdBeer } from '../model/untappd.model';
 
 @Component({
   selector: 'app-find-beer',
@@ -14,16 +16,18 @@ export class FindBeerComponent implements OnInit {
   constructor(
     public nav: NavbarService,
     private formBuilder: FormBuilder,
+    private router: Router,
     private route: ActivatedRoute,
+    private untappdService: UntappdService,
     private rateBeerService: RateBeerService) {
       this.route.params.subscribe( params => {
-        this.getBeerData(params.query, params.page);
+        this.getBeerData(params.query);
         this.setPlaceholder(params.query);
       });
    }
 
   searchForm: FormGroup;
-  items: [RateBeer];
+  items: Array<Untappd>;
   query: string;
   page: number;
   placeholder: string;
@@ -40,12 +44,16 @@ export class FindBeerComponent implements OnInit {
     });
   }
 
-  getBeerData(query, page) {
-    this.rateBeerService.searchRateBeer('beer', query, page)
+  getBeerData(query) {
+    this.untappdService.searchUntappdBeer(query)
     .subscribe(
       data => {
-        this.items = data.data.beerSearch.items;
-        this.items[0].likes = 1;
+        const newArray = [];
+        data.response.beers.items.forEach((v, i) => {
+          newArray.push(v);
+        });
+        console.log(newArray);
+        this.items = newArray;
       }
     );
   }
@@ -70,6 +78,11 @@ export class FindBeerComponent implements OnInit {
     }
   }
 
-  onSubmit() {  }
+  search() {
+    if (this.searchForm.value.searchterm) {
+      this.router.navigate([`search/${this.searchForm.value.searchterm}/1`]);
+      this.searchForm.reset();
+    }
+  }
 
 }

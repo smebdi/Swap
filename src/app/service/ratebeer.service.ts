@@ -19,9 +19,8 @@ export class RateBeerService {
 
   searchRateBeer(searchType: string, searchTerm: string, page?: number) {
     console.log('searching ratebeer')
-    const res = (!page) ?
+    return (!page) ?
       this.http.get<RateBeerExtract>(this.baseUrl + searchType + '/' + searchTerm) :
       this.http.get<RateBeerExtract>(this.baseUrl + searchType + '/' + searchTerm + '/' + page);
-    return res;
   }
 }

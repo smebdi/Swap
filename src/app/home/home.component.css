@@ -257,7 +257,7 @@ body {
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
-  max-width: 850px; 
+  max-width: 635px; 
   margin: 0 auto; 
   text-align: center;
   bottom: 5rem;
