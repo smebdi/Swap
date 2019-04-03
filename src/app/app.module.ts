@@ -47,6 +47,7 @@ import { NgModule } from '@angular/core';
 import { SwapComponent } from './swap/swap.component';
 import { ChatComponent } from './swap/chat/chat.component';
 import { RateBeerService } from './service/ratebeer.service';
+import { NavbarService } from './service/navbar.service';
 
 
 @NgModule({
@@ -86,7 +87,15 @@ import { RateBeerService } from './service/ratebeer.service';
     MoreMaterialModules
   ],
   // Services
-  providers: [AuthenticationService, UserService, CommentService, CustomBeerService, CustomBreweryService, RateBeerService],
+  providers: [
+    AuthenticationService,
+    UserService,
+    CommentService,
+    CustomBeerService,
+    CustomBreweryService,
+    RateBeerService,
+    NavbarService
+  ],
 
   bootstrap: [AppComponent]
 })

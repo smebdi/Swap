@@ -1,9 +1,53 @@
-<mat-toolbar color="primary">
+<div class="collapse bg-light d-lg-none" id="navbarHeader">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg col-md-4">
+        <button mat-button [matMenuTriggerFor]="userMenu">Users</button>
+        <mat-menu #userMenu="matMenu">
+          <a routerLink="/list-user"><button mat-menu-item>List</button></a>
+          <a routerLink="/add-user"><button mat-menu-item>Add</button></a>
+        </mat-menu>
+      </div>
+      <div class="col-lg col-md-4">
+        <button mat-button [matMenuTriggerFor]="beerMenu">Beer</button>
+        <mat-menu #beerMenu="matMenu">
+          <a routerLink="/beer"><button mat-menu-item>List</button></a>
+          <a routerLink="/beer/add"><button mat-menu-item>Add</button></a>
+        </mat-menu>
+      </div>
+      <div class="col-lg col-md-4">
+      <button mat-button [matMenuTriggerFor]="breweryMenu">Brewery</button>
+      <mat-menu #breweryMenu="matMenu">
+        <a routerLink="/brewery"><button mat-menu-item>List</button></a>
+        <a routerLink="/brewery/add"><button mat-menu-item>Add</button></a>
+      </mat-menu>
+      </div>
+      <div class="col-lg col-md-4">
+        <button mat-button [matMenuTriggerFor]="commentMenu">Comments</button>
+        <mat-menu #commentMenu="matMenu">
+          <a routerLink="/comments"><button mat-menu-item>List</button></a>
+          <a routerLink="/comments/add"><button mat-menu-item>Add</button></a>
+        </mat-menu>
+      </div>
+      <div class="col-lg col-md-4">
+        <a routerLink="/search/toppling/1"><button mat-button>Search</button></a>
+      </div>
+      <div class="col-lg col-md-4">
+        <a routerLink="/login"><button mat-button>Login</button></a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<mat-toolbar color="dark">
   
   <a routerLink="/"><span>Swap the Hop</span></a>
 
-  <form [formGroup]="navSearchForm" (ngSubmit)="onSubmit()" class="navbar-search-wrapper">
-    <div class="form-group" style="margin-bottom: 0px">
+  <form *ngIf="nav.visible; else fillRemaining" [formGroup]="navSearchForm" (ngSubmit)="onSubmit()" class="navbar-search-wrapper">
+    <div class="form-group d-none d-md-block" style="margin-bottom: 0px">
       <mat-form-field class="navbar-search">
           <input matInput formControlName="searchterm" name="searchterm" id="searchterm"
             placeholder="Find beer">
@@ -11,7 +55,17 @@
     </div>
   </form>
 
+  <span class="fill-remaining-space"></span>
+
+  <button mat-icon-button class="navbar-toggler collapsed pull-right d-lg-none" 
+    type="button" data-toggle="collapse" data-target="#navbarHeader"
+    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+    <mat-icon>menu</mat-icon>
+  </button>
+
   <span style="text-align: right">
+
+    <div class="d-none d-lg-block">
       <button mat-button [matMenuTriggerFor]="userMenu">Users</button>
       <mat-menu #userMenu="matMenu">
         <a routerLink="/list-user"><button mat-menu-item>List</button></a>
@@ -37,6 +91,8 @@
       </mat-menu>
 
       <a routerLink="/login"><button mat-button>Login</button></a>
+    </div>
+
   </span>
 
 </mat-toolbar>

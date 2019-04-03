@@ -1,0 +1,36 @@
+body {
+  font-family: 'Moon', Fallback, sans-serif !important;
+}
+
+/* https://www.behance.net/gallery/23468357/Moon-Free-Font */
+@font-face {
+  font-family: 'Moon';
+  src: url('../assets/Moon2.0-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MoonLight';
+  src: url('../assets/Moon2.0-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MoonDark';
+  src: url('../assets/Moon2.0-Bold.otf') format('opentype');
+}
+
+/* https://www.fontsquirrel.com/fonts/Copystruct */
+@font-face {
+  font-family: 'CopystructBold';
+  src: url('../assets/COPYB.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Copystruct';
+  src: url('../assets/COPYN.ttf') format('truetype');
+}
+
+/* https://www.fontsquirrel.com/fonts/rock-salt */
+@font-face {
+  font-family: 'Rocksalt';
+  src: url('../assets/RockSalt.ttf') format('truetype');
+}

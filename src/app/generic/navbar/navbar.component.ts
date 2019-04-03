@@ -1,8 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RateBeerService } from '../../service/ratebeer.service';
-import { RateBeer } from '../../model/ratebeer.model';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { NavbarService } from '../../service/navbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,12 +10,13 @@ import { RateBeer } from '../../model/ratebeer.model';
 })
 
 export class NavbarComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder, private router: Router, private rateBeerService: RateBeerService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, public nav: NavbarService) { }
 
+  visibleSearch: boolean;
   navSearchForm: FormGroup;
-  @Output() messageEvent = new EventEmitter<[RateBeer]>();
 
   ngOnInit() {
+    this.nav.show();
     const searchterm = '';
     this.navSearchForm = this.formBuilder.group({
       searchterm

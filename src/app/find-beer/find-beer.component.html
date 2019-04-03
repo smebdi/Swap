@@ -1,33 +1,66 @@
-<div class="container" style="padding-top: 20px">
+<div *ngIf="!items; else showContent" style="height: 100%; width: 100%; cursor: wait">
+</div>
 
-  <div *ngFor="let item of items" class="row" style="padding-top: 2px">
+<ng-template #showContent>
+<div class="container" style="padding-top: 10px">
+  <div class="row">
+    <div class="col-xs-10 offset-xs-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+      <form [formGroup]="searchForm" (ngSubmit)="search()" class="main-search-wrapper">
+        <mat-form-field class="navbar-search">
+            <input matInput formControlName="searchterm" name="searchterm" id="searchterm"
+              placeholder="Search" value="{{placeholder}}">
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+</div>
+<div  class="container" style="padding-top: 10px">
 
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
+  <div *ngFor="let ratebeer of items" class="row" style="padding-top: 2px">
+
+    <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
       <div class="panel panel-white post panel-shadow">
         <div class="post-heading">
-          <div class="pull-left image">
-            <img src="{{item.imageUrl}}" class="img-circle avatar">
-          </div>
+
           <div class="pull-left meta">
-            <div class="title h5">
-              <b>{{item.name}}</b>
+            <div class="title h4">
+              <b><a class="beer-pointer header" (click)="goToDetail()">{{ratebeer.name}}</a></b>
+            </div>
+            <div class="title h6">
+              <b><a class="beer-pointer header" (click)="goToBrewDetail()">{{ratebeer.brewer.name}}</a></b>
             </div>
           </div>
+
+          <div class="pull-right post-image-container d-none d-lg-block">
+            <img src="{{ratebeer.imageUrl}}" class="image">
+          </div>
+
         </div>
         <div class="post-description">
-          <p *ngIf="item.description; else noDescription">
-            {{item.description}}
-          </p>
+
+          <p *ngIf="ratebeer.description; else noDescription" [innerHTML]="ratebeer.description"></p>
           <ng-template #noDescription>
-            {{item.style.description}}
+            <div [innerHTML]="ratebeer.style.description"></div>
           </ng-template>
+          
           <div class="stats">
-            <b><a routerLink="comments" class="stat-item">
-                Read More</a></b>
-            <a href="#" class="btn btn-default stat-item">
-              <i class="fa fa-thumbs-up icon"></i>2
+
+            <a *ngIf="ratebeer.likes; else noLikes" (click)="addLike(ratebeer)" class="btn btn-default stat-item tan-ripple">
+              <i *ngIf="ratebeer.likes < 10; else moreLikes" class="fa fa-thumbs-up icon-with-like"></i>{{ratebeer.likes}}
             </a>
+            <ng-template #noLikes>
+              <a (click)="addLike(ratebeer)" class="btn btn-default stat-item tan-ripple">
+                <i class="fa fa-thumbs-up icon-with-no-likes"></i>{{ratebeer.likes}}
+              </a>
+            </ng-template>
+            <ng-template #moreLikes>
+              <i class="fa fa-thumbs-up icon-with-more-likes"></i>
+            </ng-template>
+
+            <b><a (click)="goToDetail()" class="beer-pointer">
+                Read More
+            </a></b>
+
           </div>
         </div>
       </div>
@@ -36,3 +69,4 @@
   </div>
 
 </div>
+</ng-template>

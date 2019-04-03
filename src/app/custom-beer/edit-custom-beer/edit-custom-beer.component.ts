@@ -51,8 +51,7 @@ export class EditCustomBeerComponent implements OnInit {
   onSubmit() {
     this.customBeerService.updateCustomBeer(this.editForm.value)
       .pipe(first())
-      .subscribe(
-        data => {
+      .subscribe(() => {
           this.router.navigate(['beer']);
         },
         error => {

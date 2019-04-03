@@ -36,6 +36,7 @@ export interface RateBeer {
   availability: Availability;
   purchase?: null;
   confidence?: null;
+  likes?: number;
 }
 
 
