@@ -46,7 +46,7 @@
   
   <a routerLink="/"><span>Swap the Hop</span></a>
 
-  <form *ngIf="nav.visible; else fillRemaining" [formGroup]="navSearchForm" (ngSubmit)="onSubmit()" class="navbar-search-wrapper">
+  <form *ngIf="nav.visible" [formGroup]="navSearchForm" (ngSubmit)="onSubmit()" class="navbar-search-wrapper">
     <div class="form-group d-none d-md-block" style="margin-bottom: 0px">
       <mat-form-field class="navbar-search">
           <input matInput formControlName="searchterm" name="searchterm" id="searchterm"
