@@ -44,8 +44,8 @@
           </ng-template>
           
           <div class="stats">
-            <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(untappd)">I have it</button>
-            <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(untappd)">I want it</button>
+            <button type="button" class="pull-left mr-3 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(untappd)">I have it</button>
+            <button type="button" class="pull-left mr-3 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(untappd)">I want it</button>
 
             <div *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(untappd.beer.bid)"><em>You liked this.</em></div>
             <a *ngIf="untappd.likes; else noLikes" (click)="addLike(untappd)" class="btn btn-default stat-item tan-ripple">
