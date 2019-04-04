@@ -1,0 +1,25 @@
+<xsl:value-of 
+select="if(contains(wd:totalBasePay, '.')) 
+then concat(
+    substring(
+        concat('0000000000000', substring-before(wd:totalBasePay,'.')),
+        string-length(substring-before(wd:totalBasePay,'.'))
+        +1,13
+    ),
+    '.', 
+    substring(
+        concat('000000', substring-after(wd:totalBasePay,'.')),
+        string-length(substring-after(wd:totalBasePay,'.'))
+        +1,6
+    )
+) 
+else 
+    concat(
+        substring(
+            concat('0000000000000',wd:totalBasePay), 
+            string-length(substring-before(wd:totalBasePay,'.'))
+            +1,13
+        ),
+    '.',
+'000000') "
+/>

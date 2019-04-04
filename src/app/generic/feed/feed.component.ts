@@ -16,7 +16,8 @@ export class FeedComponent implements OnInit {
   user: any;
 
   ngOnInit() {
-    this.items = this.feedService.getMostRecentFeed(5);
+    this.items = this.feedService.getMostRecentFeed(10);
+
     this.user = {};
     this.user.liked = {}
     this.user.liked.feedids = [];

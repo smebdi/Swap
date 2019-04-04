@@ -14,6 +14,7 @@ import { UserService } from './service/user.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from './material/material.module';
 import { MoreMaterialModules } from './material/material-module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 // Views
 import { HomeComponent } from './home/home.component';
@@ -98,7 +99,8 @@ import { NavbarService } from './service/navbar.service';
     CustomBreweryService,
     UntappdService,
     RateBeerService,
-    NavbarService
+    NavbarService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
 
   bootstrap: [AppComponent]

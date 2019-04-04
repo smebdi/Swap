@@ -71,15 +71,16 @@ export interface UntappdExtract {
 
   export interface UntappdBeer {
     bid: number;
-    beer_name: string;
-    beer_label: string;
-    beer_abv: number;
-    beer_slug: string;
-    beer_ibu: number;
-    beer_description: string;
-    created_at: string;
-    beer_style: string;
-    in_production: number;
-    auth_rating: string;
-    wish_list: boolean;
+    beer_name?: string;
+    beer_label?: string;
+    beer_abv?: number;
+    beer_slug?: string;
+    beer_ibu?: number;
+    beer_description?: string;
+    created_at?: string;
+    beer_style?: string;
+    in_production?: number;
+    auth_rating?: string;
+    wish_list?: boolean;
+    style_name?: string;
   }

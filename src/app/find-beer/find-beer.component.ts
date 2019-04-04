@@ -3,9 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UntappdService } from '../service/untappd.service';
 import { RateBeerService } from '../service/ratebeer.service';
-import { RateBeer } from '../model/ratebeer.model';
 import { NavbarService } from '../service/navbar.service';
-import { Untappd, UntappdBeer } from '../model/untappd.model';
+import { Untappd } from '../model/untappd.model';
 
 @Component({
   selector: 'app-find-beer',
@@ -18,8 +17,7 @@ export class FindBeerComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private untappdService: UntappdService,
-    private rateBeerService: RateBeerService) {
+    private untappdService: UntappdService) {
       this.route.params.subscribe( params => {
         this.getBeerData(params.query);
         this.setPlaceholder(params.query);

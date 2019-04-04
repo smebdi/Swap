@@ -3,13 +3,6 @@
     <div class="row">
 
       <div class="col-lg col-md-4">
-        <button mat-button [matMenuTriggerFor]="userMenu">Users</button>
-        <mat-menu #userMenu="matMenu">
-          <a routerLink="/list-user"><button mat-menu-item>List</button></a>
-          <a routerLink="/add-user"><button mat-menu-item>Add</button></a>
-        </mat-menu>
-      </div>
-      <div class="col-lg col-md-4">
         <button mat-button [matMenuTriggerFor]="beerMenu">Beer</button>
         <mat-menu #beerMenu="matMenu">
           <a routerLink="/beer"><button mat-menu-item>List</button></a>
@@ -29,6 +22,9 @@
           <a routerLink="/comments"><button mat-menu-item>List</button></a>
           <a routerLink="/comments/add"><button mat-menu-item>Add</button></a>
         </mat-menu>
+      </div>
+      <div class="col-lg col-md-4">
+        <a routerLink="/swapzone"><button mat-button>Swap Zone</button></a>
       </div>
       <div class="col-lg col-md-4">
         <a routerLink="/search/toppling/1"><button mat-button>Search</button></a>
@@ -67,11 +63,6 @@
   <span style="text-align: right">
 
     <div class="d-none d-lg-block">
-      <button mat-button [matMenuTriggerFor]="userMenu">Users</button>
-      <mat-menu #userMenu="matMenu">
-        <a routerLink="/list-user"><button mat-menu-item>List</button></a>
-        <a routerLink="/add-user"><button mat-menu-item>Add</button></a>
-      </mat-menu>
 
       <button mat-button [matMenuTriggerFor]="beerMenu">Beer</button>
       <mat-menu #beerMenu="matMenu">
@@ -91,6 +82,8 @@
         <a routerLink="/comments/add"><button mat-menu-item>Add</button></a>
       </mat-menu>
 
+      <a routerLink="/swapzone"><button mat-button>Swap Zone</button></a>
+      <a routerLink="/search/toppling/1"><button mat-button>Search</button></a>
       <a routerLink="/login"><button mat-button>Login</button></a>
     </div>
 

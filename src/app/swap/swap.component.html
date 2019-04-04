@@ -1,3 +1,65 @@
-<p>
-  swap works!
-</p>
+<div class="container">
+
+  <h1 class="title">Swap Zone</h1>
+
+  <div class="row justify-content-between">
+
+    <div class="col-md-7">
+      <app-feed></app-feed>
+    </div>
+
+    <div class="col-md-5">
+
+      <aside class="align-right">
+
+        <div class="row">
+          <div class="p-4 mb-3 col-12 bg-light rounded">
+            <h4 class="font-italic" style="text-align: center"><b>Welcome</b></h4>
+            <p class="mb-0">
+              <li>Please review out suggestions and guidelines <a>here</a>.</li>
+              <li>We do not condone any illegal or illicit activity.</li>
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-12">
+            <h4 class="font-italic" style="text-align: center">Trending Macro Beer</h4>
+          </div>
+
+          <div *ngIf="macro" class="p-4 mb-4 col-12 bg-light">
+            <div *ngFor="let beer of macro" class="list-unstyled">
+              <li style="padding: 5px;">
+                <img src="{{beer.beer_label}}" class="pull-left"
+                  style="height: 40px; width: 40px; margin-top:5px; margin-right: 5px;">
+                <div><a href="#">{{beer.beer_name}}</a></div>
+                <div>{{beer.beer_style}}</div>
+              </li>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <h4 class="font-italic" style="text-align: center">Trending Micro Beer</h4>
+          </div>
+
+          <div *ngIf="micro" class="p-4 mb-4 col-12 bg-light">
+            <div *ngFor="let beer of micro" class="list-unstyled">
+              <li style="padding: 5px;">
+                <img src="{{beer.beer_label}}" class="pull-left"
+                  style="height: 40px; width: 40px; margin-top:5px; margin-right: 5px;">
+                <div><a href="#">{{beer.beer_name}}</a></div>
+                <div>{{beer.beer_style}}</div>
+              </li>
+            </div>
+          </div>
+
+        </div>
+
+      </aside>
+
+    <div>
+
+  </div>
+  
+</div>

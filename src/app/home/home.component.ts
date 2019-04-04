@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from '../service/navbar.service';
+import { FeedService } from '../service/feed.service';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +9,20 @@ import { NavbarService } from '../service/navbar.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public nav: NavbarService) { }
+  constructor(public nav: NavbarService, private feedService: FeedService) { }
 
   visibleSearch = true;
 
   ngOnInit() {
     this.nav.show();
+
+    let feed: number;
+    let count: number;
+    do {
+      feed = this.feedService.feedControl(false);
+      count += 1;
+    }
+    while (feed >= 4 && count < 3);
   }
 
 }
