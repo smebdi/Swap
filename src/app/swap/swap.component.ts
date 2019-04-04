@@ -35,10 +35,6 @@ export class SwapComponent implements OnInit {
     return this.swapService.getTopBeerArray(type);
   }
 
-  seeLessFeed() {
-    this.feedService.feedControl(false);
-  }
-
   seeMoreFeed() {
     this.feedService.feedControl(true);
   }

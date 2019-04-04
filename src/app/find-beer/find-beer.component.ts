@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UntappdService } from '../service/untappd.service';
 import { RateBeerService } from '../service/ratebeer.service';
 import { NavbarService } from '../service/navbar.service';
-import { Untappd } from '../model/untappd.model';
+import { Untappd, UntappdBeer } from '../model/untappd.model';
 
 @Component({
   selector: 'app-find-beer',
@@ -88,6 +88,14 @@ export class FindBeerComponent implements OnInit {
       this.router.navigate([`search/${this.searchForm.value.searchterm}/1`]);
       this.searchForm.reset();
     }
+  }
+
+  iHaveIt(beer: UntappdBeer) {
+    console.log(beer)
+  }
+
+  iWantIt(beer: UntappdBeer) {
+    console.log(beer)
   }
 
 }

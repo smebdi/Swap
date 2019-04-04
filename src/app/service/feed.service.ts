@@ -59,6 +59,10 @@ export class FeedService {
 
   }
 
+  getFeedLength() {
+    return this.feedArr.length;
+  }
+
   getMostRecentFeed(num: number) {
     return (num < (this.feedArr.length - 1)) ?
       this.feedArr.slice(0, num) :
@@ -67,6 +71,10 @@ export class FeedService {
 
   pushFeedIntoFeedArray(feed: Feed) {
     (this.feedArr) ? this.feedArr.push(feed) : this.feedArr = [feed];
+  }
+
+  getHomeFeed() {
+    return this.feedArr = (this.feedArr.length > 4) ? this.feedArr.slice(0, 4) : this.feedArr;
   }
 
   feedControl(flip: boolean) {
@@ -81,7 +89,6 @@ export class FeedService {
                       'East Coast-Style he promised. You would think this fool would have a palate capa...'
       };
       this.pushFeedIntoFeedArray(this.item);
-
       this.item = {
         id: 7,
         user: 'Zek G',
@@ -92,7 +99,6 @@ export class FeedService {
                       'Mark F\'s <b>Cahaba Brewing - American Blonde</b>'
       };
       this.pushFeedIntoFeedArray(this.item);
-
       this.item = {
         id: 8,
         user: 'Caleb D',
@@ -103,7 +109,6 @@ export class FeedService {
                       'Description: Some other nasty sour nonsense we came up with'
       };
       this.pushFeedIntoFeedArray(this.item);
-
       this.item = {
         id: 9,
         user: 'Caleb D',
@@ -115,7 +120,7 @@ export class FeedService {
       this.pushFeedIntoFeedArray(this.item);
       return this.feedArr.length;
     } else {
-      (this.feedArr.length > 8) ? this.feedArr.slice(0, this.feedArr.length - 4) : this.feedArr.slice(0, 4);
+      this.feedArr = (this.feedArr.length >= 8) ? this.feedArr.slice(0, this.feedArr.length - 4) : this.feedArr.slice(0, 4);
       return this.feedArr.length;
     }
   }

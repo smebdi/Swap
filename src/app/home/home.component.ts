@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from '../service/navbar.service';
 import { FeedService } from '../service/feed.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,20 +10,25 @@ import { FeedService } from '../service/feed.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public nav: NavbarService, private feedService: FeedService) { }
+  constructor(public nav: NavbarService, private feedService: FeedService, private route: Router) {
+    route.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (!val.urlAfterRedirects.includes('swap')) {
+          this.reduceFeed();
+        }
+      }
+    });
+  }
 
   visibleSearch = true;
 
   ngOnInit() {
     this.nav.show();
+    this.reduceFeed();
+  }
 
-    let feed: number;
-    let count: number;
-    do {
-      feed = this.feedService.feedControl(false);
-      count += 1;
-    }
-    while (feed >= 4 && count < 3);
+  async reduceFeed() {
+    this.feedService.getHomeFeed();
   }
 
 }
