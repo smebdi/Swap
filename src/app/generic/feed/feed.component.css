@@ -11,6 +11,10 @@
   font-size: 0.85rem;
 }
 
+.panel .post-paragraph {
+  padding: 0px 15px 15px 0px;
+}
+
 .panel-shadow {
   box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 4px;
 }
@@ -97,7 +101,6 @@
 .post .post-description .stats .stat-item {
   display: inline-block;
   margin-right: 15px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 15%;
 }
 

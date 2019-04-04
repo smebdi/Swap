@@ -29,8 +29,8 @@ export class FeedService {
       user2: 'Mark F',
       action: 'just swapped with',
       date: moment(Date.now()).format('lll'),
-      description: `Zek G traded his <b>Good People Snakehandler</b> for<br>` +
-                   'Mark F\'s <b>Cahaba Brewing American Blonde</b>'
+      description: `Zek G traded his <b>Good People - Snakehandler</b> for<br>` +
+                   'Mark F\'s <b>Cahaba Brewing - American Blonde</b>'
     };
     this.pushFeedIntoFeedArray(this.item);
 
@@ -39,9 +39,9 @@ export class FeedService {
       user: 'Caleb D',
       action: 'added a beer',
       date: moment(Date.now()).format('lll'),
-      description: '<b>Test Beer</b> - Test Brewery <br>' +
-                   'IBU: 150 | ABV: 9 | Style: Testy <br>' +
-                   'Desc: Testy AF, real testy'
+      description: '<b>Ghost Train - Blackberry Trash</b><br>' +
+                   'IBU: 150 | ABV: 9 | Style: IPA <br>' +
+                   'Description: Some other nasty sour nonsense we came up with'
     };
     this.pushFeedIntoFeedArray(this.item);
 
@@ -50,8 +50,8 @@ export class FeedService {
       user: 'Caleb D',
       action: 'updated a brewery',
       date: moment(Date.now()).format('lll'),
-      description: '<b>Test Brewery (updated)</b> <br>' +
-                   'with the location: <i>Uploading through website</i> <br>'
+      description: '<b>Back 40 Beer Company </b>(updated) <br>' +
+                   'with the location: <i>3201 1st Ave N</i>'
     };
     this.pushFeedIntoFeedArray(this.item);
 

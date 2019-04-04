@@ -31,6 +31,9 @@ export class FindBeerComponent implements OnInit {
   query: string;
   page: number;
   placeholder: string;
+  item: Untappd;
+
+  user: any;
 
   setPlaceholder(placeholder: any) {
     this.placeholder = placeholder;
@@ -42,24 +45,28 @@ export class FindBeerComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       searchterm
     });
+
+    this.user = {};
+    this.user.liked = {}
+    this.user.liked.feedids = [];
   }
 
   getBeerData(query) {
     this.untappdService.searchUntappdBeer(query)
     .subscribe(
       data => {
-        const newArray = [];
-        data.response.beers.items.forEach((v, i) => {
-          newArray.push(v);
+        this.items = data.response.beers.items.map((v) => {
+          return v;
         });
-        console.log(newArray);
-        this.items = newArray;
       }
     );
   }
 
-  addLike(item) {
-    item.likes ? item.likes += 1 : item.likes = 1;
+  addLike(item: Untappd) {
+    if (!this.user.liked.feedids.includes(item.beer.bid)) {
+      this.user.liked.feedids.push(item.beer.bid);
+      item.likes ? item.likes += 1 : item.likes = 1;
+    }
   }
 
   goToDetail() {

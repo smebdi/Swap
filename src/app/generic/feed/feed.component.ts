@@ -13,13 +13,20 @@ export class FeedComponent implements OnInit {
   constructor(private router: Router, private feedService: FeedService) { }
 
   items: Feed[];
+  user: any;
 
   ngOnInit() {
     this.items = this.feedService.getMostRecentFeed(5);
+    this.user = {};
+    this.user.liked = {}
+    this.user.liked.feedids = [];
   }
 
   addLike(item) {
-    item.likes ? item.likes += 1 : item.likes = 1;
+    if (!this.user.liked.feedids.includes(item.id)) {
+      this.user.liked.feedids.push(item.id);
+      item.likes ? item.likes += 1 : item.likes = 1;
+    }
   }
 
   goToFeedDetail() {

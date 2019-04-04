@@ -9,7 +9,7 @@
           <div *ngIf="feed.user2; else soloFeed" class="title h5">
             <a href="list-user"><b>{{feed.user}}</b></a> 
             {{feed.action}} 
-            <a href="list-user"><b>{{feed.user2}}</b></a>.
+            <a href="list-user"><b>{{feed.user2}}</b>.</a>
           </div>
           <ng-template #soloFeed>
             <div class="title h5">
@@ -21,8 +21,9 @@
         </div>
       </div>
       <div class="post-description">
-        <p *ngIf="feed.description" [innerHTML]="feed.description" style="text-align: center">.</p>
+        <p class="post-paragraph" *ngIf="feed.description" [innerHTML]="feed.description"></p>
         <div class="stats">
+          <div *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(feed.id)"><em>You liked this.</em></div>
           <a *ngIf="feed.likes; else noLikes" (click)="addLike(feed)" class="btn btn-default stat-item blue-ripple">
             <i class="fa fa-thumbs-up icon-with-like"></i>{{feed.likes}}
           </a>
