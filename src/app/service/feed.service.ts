@@ -71,7 +71,6 @@ export class FeedService {
 
   feedControl(flip: boolean) {
     if (flip) {
-      console.log('more feed');
       this.item = {
         id: 6,
         user: 'Caleb D',
@@ -116,7 +115,6 @@ export class FeedService {
       this.pushFeedIntoFeedArray(this.item);
       return this.feedArr.length;
     } else {
-      console.log('less feed');
       (this.feedArr.length > 8) ? this.feedArr.slice(0, this.feedArr.length - 4) : this.feedArr.slice(0, 4);
       return this.feedArr.length;
     }

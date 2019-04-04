@@ -47,27 +47,27 @@ export interface UntappdExtract {
   }
 
   export interface UntappdBrewery {
-    brewery_id: string,
-    brewery_name: string,
-    brewery_slug: string,
-    brewery_page_url: string,
-    brewery_type: string,
-    brewery_label: string,
-    country_name: string,
+    brewery_id: string;
+    brewery_name: string;
+    brewery_slug: string;
+    brewery_page_url: string;
+    brewery_type: string;
+    brewery_label: string;
+    country_name: string;
     contact: {
         twitter: string,
         facebook: string,
         instagram: string,
         url: string
-    },
+    };
     location: {
         brewery_city: string,
         brewery_state: string,
         lat: number,
         lng: number
-    },
+    };
     brewery_active: number;
-};
+}
 
   export interface UntappdBeer {
     bid: number;

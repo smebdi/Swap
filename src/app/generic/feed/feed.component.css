@@ -2,6 +2,11 @@
   margin-bottom: 15px;
 }
 
+.post-description .already-liked {
+  margin-top: 5px;
+  float: left;
+}
+
 .panel .h4 {
   font-size: 1.25rem;
 }

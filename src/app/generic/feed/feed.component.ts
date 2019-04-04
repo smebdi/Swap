@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Feed } from '../../model/feed.model';
 import { FeedService } from '../../service/feed.service';
 
@@ -10,7 +9,7 @@ import { FeedService } from '../../service/feed.service';
 })
 export class FeedComponent implements OnInit {
 
-  constructor(private router: Router, private feedService: FeedService) { }
+  constructor(private feedService: FeedService) { }
 
   items: Feed[];
   user: any;
@@ -23,7 +22,7 @@ export class FeedComponent implements OnInit {
     this.user.liked.feedids = [];
   }
 
-  addLike(item) {
+  addLike(item: Feed) {
     if (!this.user.liked.feedids.includes(item.id)) {
       this.user.liked.feedids.push(item.id);
       item.likes ? item.likes += 1 : item.likes = 1;

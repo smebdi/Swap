@@ -23,7 +23,9 @@
       <div class="post-description">
         <p class="post-paragraph" *ngIf="feed.description" [innerHTML]="feed.description"></p>
         <div class="stats">
-          <div *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(feed.id)"><em>You liked this.</em></div>
+          <div class="already-liked" *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(feed.id)">
+            <em>You liked this.</em>
+          </div>
           <a *ngIf="feed.likes; else noLikes" (click)="addLike(feed)" class="btn btn-default stat-item blue-ripple">
             <i class="fa fa-thumbs-up icon-with-like"></i>{{feed.likes}}
           </a>
