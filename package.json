@@ -8,7 +8,11 @@
     "buildprod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "gen": "ng generate component generic/feed",
+    "serv": "ng generate service feed",
+    "mod": "ng generate model feed",
+    "deploy": "gcloud app deploy"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +31,7 @@
     "core-js": "^2.5.0",
     "cryptiles": "*",
     "hammerjs": "*",
+    "moment": "^2.24.0",
     "rxjs": "^6.4.0",
     "zone.js": "^0.9.0"
   },

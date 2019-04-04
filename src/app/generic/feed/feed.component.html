@@ -1,0 +1,39 @@
+<div *ngFor="let feed of items" class="row" style="padding-top: 2px">
+  <div class="col-12">
+    <div class="panel panel-white post panel-shadow">
+      <div class="post-heading">
+        <div class="pull-left image d-none d-xl-block">
+          <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+        </div>
+        <div class="pull-left meta">
+          <div *ngIf="feed.user2; else soloFeed" class="title h5">
+            <a href="list-user"><b>{{feed.user}}</b></a> 
+            {{feed.action}} 
+            <a href="list-user"><b>{{feed.user2}}</b></a>.
+          </div>
+          <ng-template #soloFeed>
+            <div class="title h5">
+              <a href="list-user"><b>{{feed.user}}</b></a> 
+              {{feed.action}}.
+            </div>
+          </ng-template>
+          <h6 class="text-muted time">{{feed.date}}</h6>
+        </div>
+      </div>
+      <div class="post-description">
+        <p *ngIf="feed.description" [innerHTML]="feed.description" style="text-align: center">.</p>
+        <div class="stats">
+          <a *ngIf="feed.likes; else noLikes" (click)="addLike(feed)" class="btn btn-default stat-item blue-ripple">
+            <i class="fa fa-thumbs-up icon-with-like"></i>{{feed.likes}}
+          </a>
+          <ng-template #noLikes>
+            <a (click)="addLike(feed)" class="btn btn-default stat-item blue-ripple">
+              <i class="fa fa-thumbs-up icon-with-no-likes"></i>{{feed.likes}}
+            </a>
+          </ng-template>
+          <b><a routerLink="comments">Check it out</a></b>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

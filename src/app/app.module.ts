@@ -41,6 +41,7 @@ import { EditCustomBreweryComponent } from './custom-brewery/edit-custom-brewery
 
 // Generic components
 import { NavbarComponent } from './generic/navbar/navbar.component';
+import { FeedComponent } from './generic/feed/feed.component';
 
 // Angular Core imports
 import { NgModule } from '@angular/core';
@@ -75,7 +76,8 @@ import { NavbarService } from './service/navbar.service';
     EditCustomBreweryComponent,
     AddCustomBreweryComponent,
     SwapComponent,
-    ChatComponent
+    ChatComponent,
+    FeedComponent
   ],
   imports: [
     // Supporting modules
