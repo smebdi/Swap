@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntappdBeer } from '../model/untappd.model';
 import { SwapService } from '../service/swap.service';
 import { FeedService } from '../service/feed.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-swap',
@@ -13,7 +14,7 @@ export class SwapComponent implements OnInit {
   micro: UntappdBeer[];
   macro: UntappdBeer[];
 
-  constructor(private swapService: SwapService, private feedService: FeedService) {
+  constructor(private swapService: SwapService, private feedService: FeedService, private router: Router) {
     this.micro = this.getArray('micro');
     this.macro = this.getArray('macro');
   }
@@ -37,6 +38,14 @@ export class SwapComponent implements OnInit {
 
   seeMoreFeed() {
     this.feedService.feedControl(true);
+  }
+
+  goToDetail(id: number) {
+    try {
+      this.router.navigate([`/detail/${id}`]);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
 }

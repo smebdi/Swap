@@ -44,8 +44,9 @@
           </ng-template>
           
           <div class="stats">
-            <button type="button" class="pull-left ml-3 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(untappd)">I have it</button>
-            <button type="button" class="pull-left ml-3 mr-3 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(untappd)">I want it</button>
+              <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(beer)">I want it</button>
+              <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(beer)">I have it</button>
+              <button type="button" class="pull-left ml-2 mr-2 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(beer)">I can get it</button>
 
             <div class="liked-this" *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(untappd.beer.bid)"><em>You liked this.</em></div>
             <a *ngIf="untappd.likes; else noLikes" (click)="addLike(untappd)" class="btn btn-default stat-item tan-ripple">
@@ -61,7 +62,7 @@
             </ng-template>
 
             <b><a (click)="goToDetail(untappd.beer.bid)" class="beer-pointer">
-                Read More
+                Details
             </a></b>
           </div>
 

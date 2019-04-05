@@ -48,8 +48,9 @@
             <div class="row ml-1 mr-1 mb-3 p-1" [innerHTML]="beer.beer_description"></div>
 
             <div class="stats">
+              <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(beer)">I want it</button>
               <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(beer)">I have it</button>
-              <button type="button" class="pull-left ml-2 mr-2 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(beer)">I want it</button>
+              <button type="button" class="pull-left ml-2 mr-2 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(beer)">I can get it</button>
 
               <div class="liked-this" *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(beer.bid)"><em>You liked this.</em></div>
               <a *ngIf="beer.likes; else noLikes" (click)="addLike(beer)" class="btn btn-default stat-item tan-ripple">
@@ -125,6 +126,7 @@
           </div>
           <!-- end users with beer -->
 
+          <!-- start suggested -->
           <div class="row" style="text-align: left">
             <div class="p-4 mb-3 col-12 bg-light rounded">
               <h5 class="font-italic mb-3" style="text-align: center">If you like this beer, check these out</h5>
@@ -144,6 +146,7 @@
               </div>
             </div>
           </div>
+          <!-- end suggested -->
 
         </aside>
         

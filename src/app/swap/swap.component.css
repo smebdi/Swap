@@ -5,3 +5,33 @@
   margin-bottom: 15px;
   font-family: 'RockSalt', Fallback, sans-serif !important;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.avatar {
+  width: 60px !important;
+  height: 60px !important;
+  box-shadow: 0;
+  transition: box-shadow 1s;
+  border: 1px solid #eee;
+}
+
+.avatar:hover {
+  box-shadow: 0 0 3px #515151;
+}
+
+.trending-list-item {
+  padding: 3px;
+  height: 80px;
+}
+
+.fake-a {
+  color: #007BFF !important;
+  font-weight: 600;
+}
+
+.fake-a:hover {
+  color: #0056b3 !important;
+}

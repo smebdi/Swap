@@ -31,13 +31,14 @@
             <h4 class="font-italic" style="text-align: center">Trending Macro Beer</h4>
           </div>
 
-          <div *ngIf="macro" class="p-4 mb-4 col-12 bg-light">
+          <div *ngIf="macro" class="p-4 mb-4 col-12 bg-light pointer">
             <div *ngFor="let beer of macro" class="list-unstyled">
-              <li style="padding: 5px;">
-                <img src="{{beer.beer_label}}" class="pull-left"
-                  style="height: 40px; width: 40px; margin-top:5px; margin-right: 5px;">
-                <div><a href="#">{{beer.beer_name}}</a></div>
-                <div>{{beer.beer_style}}</div>
+              <li (click)="goToDetail(beer.bid)" class="trending-list-item">
+                <img src="{{beer.beer_label}}" class="pull-left avatar">
+                <div class="ml-3 pull-left fake-a pointer">
+                  <div>{{beer.beer_name | slice:0:32}}</div>
+                  <div>{{beer.beer_style}}</div>
+                </div>
               </li>
             </div>
           </div>
@@ -46,13 +47,14 @@
             <h4 class="font-italic" style="text-align: center">Trending Micro Beer</h4>
           </div>
 
-          <div *ngIf="micro" class="p-4 mb-4 col-12 bg-light">
+          <div *ngIf="micro" class="p-4 mb-4 col-12 bg-light pointer">
             <div *ngFor="let beer of micro" class="list-unstyled">
-              <li style="padding: 5px;">
-                <img src="{{beer.beer_label}}" class="pull-left"
-                  style="height: 40px; width: 40px; margin-top:5px; margin-right: 5px;">
-                <div><a href="#">{{beer.beer_name}}</a></div>
-                <div>{{beer.beer_style}}</div>
+              <li (click)="goToDetail(beer.bid)" class="trending-list-item">
+                <img src="{{beer.beer_label}}" class="pull-left avatar">
+                <div class="ml-3 pull-left fake-a pointer">
+                  <div>{{beer.beer_name | slice:0:32}}</div>
+                  <div>{{beer.beer_style}}</div>
+                </div>
               </li>
             </div>
           </div>

@@ -1,9 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { first } from "rxjs/operators";
-import { AuthenticationService } from "../service/auth.service";
-import { NavbarComponent } from "../generic/navbar/navbar.component"
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  Router,
+  ActivatedRoute
+} from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import { first } from 'rxjs/operators';
+
+import { AlertService, AuthenticationService } from '../_services';
 
 @Component({
   selector: 'app-login',
@@ -13,29 +23,53 @@ import { NavbarComponent } from "../generic/navbar/navbar.component"
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  submitted: boolean = false;
-  invalidLogin: boolean = false;
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthenticationService) { }
+  loading = false;
+  submitted = false;
+  returnUrl: string;
 
-  onSubmit() {
-    this.submitted = true;
-    if (this.loginForm.invalid) {
-      return false;
-    }
-    if(this.loginForm.controls.email.value == 'calebmackdaven@gmail.com' && this.loginForm.controls.password.value == 'password') {
-        this.router.navigate(['list-user']);
-    }else {
-      this.invalidLogin = true;
-    }
-  }
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    // reset login status
+    this.authenticationService.logout();
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.loginForm.controls;
+  }
 
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.authenticationService.login(this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        });
+  }
 
 }
