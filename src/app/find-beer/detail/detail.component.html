@@ -1,0 +1,155 @@
+<div *ngIf="!beer; else showContent" style="height: 100%; width: 100%; cursor: wait">
+</div>
+
+<ng-template #showContent>
+  <div class="container" style="padding-top: 10px">
+    <div class="row">
+
+      <!-- start left column -->
+      <div class="col-sm-12 col-md-8 col-lg-8">
+
+        <!-- start panel -->
+        <div class="panel panel-white post panel-shadow">
+
+          <!-- start header -->
+          <div class="post-heading">
+
+            <div class="pull-right post-image-container d-none d-lg-block">
+              <img src="{{beer.beer_label_hd}}" class="image">
+            </div>
+
+            <div class="pull-left meta">
+
+              <div class="title h4">
+                <b><div class="header">{{beer.beer_name}}</div></b>
+              </div>
+              <div class="title h6">
+                <b><a class="beer-pointer header" (click)="goToBrewDetail()">{{beer.brewery.brewery_name}}</a></b>
+              </div>
+
+            </div>
+
+          </div>
+          <!-- end header -->
+
+          <!-- start detail -->
+          <div class="post-description">
+
+            <div class="row justify-content-start mt-2 mb-2">
+              <div class="col-2 col-xs-6" style="text-align: right;"><b><em>Rating:</em></b></div>
+              <div class="col-2 col-xs-6"> {{beer.rating_score | number:'1.0-1'}}</div>
+              <div class="col-2 col-xs-6" style="text-align: right;"><b><em>ABV:</em></b></div>
+              <div class="col-2 col-xs-6"> {{beer.beer_abv}}%</div>
+              <div class="col-2 col-xs-6" style="text-align: right;"><b><em>IBU:</em></b></div>
+              <div class="col-2 col-xs-6"> {{beer.beer_ibu}}</div>
+            </div>
+
+            <div class="row ml-1 mr-1 mt-3 p-1 bold" [innerHTML]="beer.beer_style"></div>
+            <div class="row ml-1 mr-1 mb-3 p-1" [innerHTML]="beer.beer_description"></div>
+
+            <div class="stats">
+              <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(beer)">I have it</button>
+              <button type="button" class="pull-left ml-2 mr-2 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(beer)">I want it</button>
+
+              <div class="liked-this" *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(beer.bid)"><em>You liked this.</em></div>
+              <a *ngIf="beer.likes; else noLikes" (click)="addLike(beer)" class="btn btn-default stat-item tan-ripple">
+                <i *ngIf="beer.likes < 10; else moreLikes" class="fa fa-thumbs-up icon-with-like"></i>{{beer.likes}}
+              </a>
+              <ng-template #noLikes>
+                <a (click)="addLike(beer)" class="btn btn-default stat-item tan-ripple">
+                  <i class="fa fa-thumbs-up icon-with-no-likes"></i>{{beer.likes}}
+                </a>
+              </ng-template>
+              <ng-template #moreLikes>
+                <i class="fa fa-thumbs-up icon-with-more-likes"></i>
+              </ng-template>
+
+            </div>
+
+          </div>
+          <!-- end detail -->
+
+        </div>
+        <!-- end panel -->
+
+        <!-- start panel -->
+        <div *ngIf="relatedActivity" class="mt-3 mb-3" style="padding-top: 15px;">
+          <h3 class="p-2" style="text-align: center">
+            <em>Trending Activity</em>
+          </h3>
+          <p style="text-align: center"><em>(but imagine this is related activity to this beer)</em></p>
+          <app-feed></app-feed>
+        </div>
+        <!-- end panel -->
+
+      </div>
+      <!-- end left column -->
+
+      <!-- start right column -->
+      <div class="col-sm-12 col-md-2 col-lg-4">
+        <aside class="align-right">
+
+          <!-- start users with beer -->
+          <div class="row" style="text-align: center">
+            <div class="p-4 mb-3 col-12 bg-light rounded">
+              <h4 class="font-italic mb-3" style="text-align: center">These folks are the pros</h4>
+              <hr>
+              <div class="row justify-content-center">
+                <div class="col profile-images">
+                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
+                </div>
+                <div class="col profile-images">
+                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
+                </div>
+                <div class="col profile-images">
+                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
+                </div>
+                <div class="col profile-images">
+                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
+                </div>
+                <div class="col profile-images">
+                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
+                </div>
+                <div class="col profile-images">
+                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
+                </div>
+                <div class="col profile-images">
+                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
+                </div>
+                <div class="col profile-images">
+                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
+                </div>
+              </div>
+              <p style="text-align: center; font-size: 11px;"><em>(but imagine these are the people who said I have it)</em></p>
+            </div>
+          </div>
+          <!-- end users with beer -->
+
+          <div class="row" style="text-align: left">
+            <div class="p-4 mb-3 col-12 bg-light rounded">
+              <h5 class="font-italic mb-3" style="text-align: center">If you like this beer, check these out</h5>
+              <hr>
+              <div class="row justify-content-center">
+                <div *ngFor="let simbeer of beer.similar.items" class="col-12">
+                  <div class="mt-2 mb-2">
+                    <img src="{{simbeer.beer.beer_label}}" class="pull-left avatar">
+                    <div class="ml-3 align-middle" style="font-size: 12px">
+                      <a class="ml-3 mt-3 beer-pointer fake-a" (click)="goToBeerDetail(simbeer.beer.bid)">{{simbeer.beer.beer_name}}</a>
+                    </div>
+                    <div class="ml-3 align-middle" style="font-size: 12px">
+                      <a class="ml-3 beer-pointer fake-a" (click)="goToBeerDetail(simbeer.beer.bid)">{{simbeer.brewery.brewery_name}}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+        
+      </div>
+      <!-- end right column -->
+
+    </div>
+  </div>
+</ng-template>

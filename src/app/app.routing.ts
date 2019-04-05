@@ -18,6 +18,7 @@ import { CustomBreweryComponent } from './custom-brewery/custom-brewery.componen
 import { EditCustomBreweryComponent } from './custom-brewery/edit-custom-brewery/edit-custom-brewery.component';
 import { AddCustomBreweryComponent } from './custom-brewery/add-custom-brewery/add-custom-brewery.component';
 import { SwapComponent } from './swap/swap.component';
+import { BeerDetailComponent } from './find-beer/detail/detail.component';
 
 const routes: Routes = [
   { path: '', component : HomeComponent },
@@ -27,6 +28,8 @@ const routes: Routes = [
   // Search
   { path: `search`, component: FindBeerComponent },
   { path: `search/:query/:page`, component: FindBeerComponent },
+  { path: `detail`, component: HomeComponent },
+  { path: `detail/:bid`, component: BeerDetailComponent },
 
   // Users
   { path: 'add-user', component: AddUserComponent },

@@ -1,9 +1,18 @@
-.row {
-  margin-bottom: 15px;
-}
-
 .beer-pointer {
   cursor: pointer;
+}
+
+.fake-a {
+  color: #007BFF !important;
+  font-weight: 600;
+}
+
+.fake-a:hover {
+  color: #0056b3 !important;
+}
+
+.bold {
+  font-weight: 600
 }
 
 input.mat-input-element {
@@ -65,17 +74,28 @@ input.mat-input-element {
   padding: 20px 15px;
 }
 
-.post .post-heading .avatar {
-  width: 60px;
-  height: 60px;
+.avatar {
+  width: 60px !important;
+  height: 60px !important;
+  box-shadow: 0;
+  transition: box-shadow 1s;
+  border: 1px solid #eee;
+}
+
+.avatar:hover {
+  box-shadow: 0 0 3px #515151;
+}
+
+.profile-images .avatar {
+  margin-bottom: 15px;
   display: block;
-  margin-right: 15px;
 }
 
 .post .meta {
   margin-left: 8px;
   margin-top: 8px;
-  width: 80%;
+  width: 70%;
+  position: absolute;
 }
 
 .post .post-heading .meta .title {
@@ -96,16 +116,16 @@ input.mat-input-element {
 }
 
 .post .post-image-container {
-  width: 60px;
-  height: 60px;
+  width: 135px;
+  height: 135px;
   margin-right: 5px;
 }
 
 .post .image {
-  display: block;
+  display: inline-block;
   width: auto;
-  max-width: 60px;
-  max-height: 60px;
+  max-width: 135px;
+  max-height: 135px;
   height: 100%;
   margin: 0 auto;
 }

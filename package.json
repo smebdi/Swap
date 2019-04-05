@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "gen": "ng generate component generic/feed",
+    "gen": "ng generate component find-beer/detail",
     "serv": "ng generate service service/swap",
     "mod": "ng generate model feed",
     "ginit": "gcloud init",

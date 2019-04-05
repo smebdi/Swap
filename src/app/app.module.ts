@@ -51,6 +51,7 @@ import { ChatComponent } from './swap/chat/chat.component';
 import { UntappdService } from './service/untappd.service';
 import { RateBeerService } from './service/ratebeer.service';
 import { NavbarService } from './service/navbar.service';
+import { BeerDetailComponent } from './find-beer/detail/detail.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { NavbarService } from './service/navbar.service';
     NavbarComponent,
 
     FindBeerComponent,
+    BeerDetailComponent,
 
     CommentsComponent,
     AddCommentComponent,
@@ -78,7 +80,7 @@ import { NavbarService } from './service/navbar.service';
     AddCustomBreweryComponent,
     SwapComponent,
     ChatComponent,
-    FeedComponent
+    FeedComponent,
   ],
   imports: [
     // Supporting modules

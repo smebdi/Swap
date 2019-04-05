@@ -44,10 +44,10 @@
           </ng-template>
           
           <div class="stats">
-            <button type="button" class="pull-left mr-3 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(untappd)">I have it</button>
-            <button type="button" class="pull-left mr-3 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(untappd)">I want it</button>
+            <button type="button" class="pull-left ml-3 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(untappd)">I have it</button>
+            <button type="button" class="pull-left ml-3 mr-3 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(untappd)">I want it</button>
 
-            <div *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(untappd.beer.bid)"><em>You liked this.</em></div>
+            <div class="liked-this" *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(untappd.beer.bid)"><em>You liked this.</em></div>
             <a *ngIf="untappd.likes; else noLikes" (click)="addLike(untappd)" class="btn btn-default stat-item tan-ripple">
               <i *ngIf="untappd.likes < 10; else moreLikes" class="fa fa-thumbs-up icon-with-like"></i>{{untappd.likes}}
             </a>
@@ -60,7 +60,7 @@
               <i class="fa fa-thumbs-up icon-with-more-likes"></i>
             </ng-template>
 
-            <b><a (click)="goToDetail()" class="beer-pointer">
+            <b><a (click)="goToDetail(untappd.beer.bid)" class="beer-pointer">
                 Read More
             </a></b>
           </div>
