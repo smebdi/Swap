@@ -11,6 +11,10 @@
   max-height: 210px;
 }
 
+.btn-secondary {
+  width: 150px;
+}
+
 /* Card hover */
 .home-card:hover {
   cursor: pointer;

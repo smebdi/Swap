@@ -60,6 +60,13 @@ export class FindBeerComponent implements OnInit {
     );
   }
 
+  addLike(item: Untappd) {
+    if (!this.user.liked.feedids.includes(item.beer.bid)) {
+      this.user.liked.feedids.push(item.beer.bid);
+      item.likes ? item.likes += 1 : item.likes = 1;
+    }
+  }
+
   goToDetail(id: number) {
     try {
       this.router.navigate([`/detail/${id}`]);
