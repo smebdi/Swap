@@ -7,9 +7,6 @@ import { routing } from './app.routing';
 import { AuthenticationService } from './service/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AddUserComponent } from './add-user/add-user.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
-import { ListUserComponent } from './list-user/list-user.component';
 import { UserService } from './service/user.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from './material/material.module';
@@ -52,15 +49,13 @@ import { UntappdService } from './service/untappd.service';
 import { RateBeerService } from './service/ratebeer.service';
 import { NavbarService } from './service/navbar.service';
 import { BeerDetailComponent } from './find-beer/detail/detail.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ListUserComponent,
-    AddUserComponent,
-    EditUserComponent,
     HomeComponent,
     NavbarComponent,
 
@@ -81,6 +76,7 @@ import { BeerDetailComponent } from './find-beer/detail/detail.component';
     SwapComponent,
     ChatComponent,
     FeedComponent,
+    RegisterComponent,
   ],
   imports: [
     // Supporting modules

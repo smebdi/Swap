@@ -6,6 +6,7 @@ import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { User } from '../model/user.model';
 import { map ,  distinctUntilChanged } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 
 @Injectable()
@@ -80,6 +81,10 @@ export class UserService {
       this.currentUserSubject.next(data.user);
       return data.user;
     }));
+  }
+
+  register(user: User) {
+    return this.http.post(`${environment.apiUrl}/users/register`, user);
   }
 
 }
