@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UntappdBeer } from '../model/untappd.model';
+import { UntappdBeer, Untappd } from '../model/untappd.model';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -18,16 +18,39 @@ export class HaveItWantIt {
   }
 
   iWantIt(beer: UntappdBeer) {
+    console.log(`posting to: ${environment.apiUrl}/api/iwantit`)
     return this.http.post<any>(`${environment.apiUrl}/api/iwantit`, { beer })
-    .pipe(map(data => { return data; }));
+    .pipe(data => { 
+        console.log(data)
+        return data; 
+    });
   }
 
-  pushFeedIntoMicroArray(beer: UntappdBeer) {
-    return (this.microArr) ? this.microArr.push(beer) : this.microArr = [beer];
+  iCanGetIt(beer: UntappdBeer) {
+    console.log(`posting to: ${environment.apiUrl}/api/icangetit`)
+    return this.http.post<any>(`${environment.apiUrl}/api/icangetit`, { beer })
+    .pipe(data => { 
+        console.log(data)
+        return data; 
+    });
   }
 
-  pushFeedIntoMacroArray(beer: UntappdBeer) {
-    return (this.macroArr) ? this.macroArr.push(beer) : this.macroArr = [beer];
+  iHaveIt(beer: UntappdBeer) {
+    console.log(`posting to: ${environment.apiUrl}/api/ihaveit`)
+    return this.http.post<any>(`${environment.apiUrl}/api/ihaveit`, { beer })
+    .pipe(data => {
+        console.log(data)
+        return data; 
+    });
+  }
+
+  iLikeIt(beer: Untappd) {
+    console.log(`posting to: ${environment.apiUrl}/api/:userid/likebeer`)
+    return this.http.post<any>(`${environment.apiUrl}/api/user1/likebeer`, { beer })
+    .pipe(data => {
+        console.log(data)
+        return data; 
+    });
   }
 
 }

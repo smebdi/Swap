@@ -5,6 +5,7 @@ import { UntappdService } from '../service/untappd.service';
 import { RateBeerService } from '../service/ratebeer.service';
 import { NavbarService } from '../service/navbar.service';
 import { Untappd, UntappdBeer } from '../model/untappd.model';
+import { HaveItWantIt } from '../service/haveitwantit.service';
 
 @Component({
   selector: 'app-find-beer',
@@ -13,11 +14,13 @@ import { Untappd, UntappdBeer } from '../model/untappd.model';
 })
 export class FindBeerComponent implements OnInit {
   constructor(
-    public nav: NavbarService,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
-    private untappdService: UntappdService) {
+      public nav: NavbarService,
+      private formBuilder: FormBuilder,
+      private router: Router,
+      private route: ActivatedRoute,
+      private untappdService: UntappdService,
+      private haveItWantIt: HaveItWantIt
+    ) {
       this.route.params.subscribe( params => {
         this.getBeerData(params.query);
         this.setPlaceholder(params.query);
@@ -64,6 +67,12 @@ export class FindBeerComponent implements OnInit {
     if (!this.user.liked.feedids.includes(item.beer.bid)) {
       this.user.liked.feedids.push(item.beer.bid);
       item.likes ? item.likes += 1 : item.likes = 1;
+
+      this.haveItWantIt.iLikeIt(item).subscribe(
+        data => {
+          console.log(data)
+        }
+      )
     }
   }
 
@@ -90,12 +99,31 @@ export class FindBeerComponent implements OnInit {
     }
   }
 
-  iHaveIt(beer: UntappdBeer) {
-    console.log(beer);
+  iWantIt(beer: UntappdBeer) {
+    console.log(beer)
+    this.haveItWantIt.iWantIt(beer).subscribe(
+      data => {
+        console.log(data)
+      }
+    )
   }
 
-  iWantIt(beer: UntappdBeer) {
+  iHaveIt(beer: UntappdBeer) {
     console.log(beer);
+    this.haveItWantIt.iHaveIt(beer).subscribe(
+      data => {
+        console.log(data)
+      }
+    )
+  }
+
+  iCanGetIt(beer: UntappdBeer) {
+    console.log(beer);
+    this.haveItWantIt.iCanGetIt(beer).subscribe(
+      data => {
+        console.log(data)
+      }
+    )
   }
 
 }

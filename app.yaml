@@ -3,9 +3,9 @@
 # threadsafe: true
 # handlers:
 # - url: /
-#   static_files: dist/angular6-example/index.html
-#   upload: dist/angular6-example/index.html
+#   static_files: dist/djangular-front/index.html
+#   upload: dist/djangular-front/index.html
 # - url: /
-#   static_dir: dist/angular6-example
+#   static_dir: dist/djangular-front
 
 runtime: nodejs8

@@ -2,75 +2,88 @@
 </div>
 
 <ng-template #showContent>
-<div class="container" style="padding-top: 10px">
-  <div class="row">
-    <div class="col-xs-10 offset-xs-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-      <form [formGroup]="searchForm" (ngSubmit)="search()" class="main-search-wrapper">
-        <mat-form-field class="navbar-search">
-            <input matInput formControlName="searchterm" name="searchterm" id="searchterm"
-              placeholder="Search" value="{{placeholder}}">
-        </mat-form-field>
-      </form>
-    </div>
-  </div>
-</div>
-<div  class="container" style="padding-top: 10px">
 
-  <div *ngFor="let untappd of items" class="row" style="padding-top: 2px">
-
-    <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-      <div class="panel panel-white post panel-shadow">
-        <div class="post-heading">
-
-          <div class="pull-left post-image-container d-none d-lg-block">
-            <img src="{{untappd.beer.beer_label}}" class="image">
-          </div>
-
-          <div class="pull-left meta">
-            <div class="title h4">
-              <b><a class="beer-pointer header" (click)="goToDetail(untappd.beer.bid)">{{untappd.beer.beer_name}}</a></b>
-            </div>
-            <div class="title h6">
-              <b><a class="beer-pointer header" (click)="goToDetail(untappd.beer.bid)">{{untappd.brewery.brewery_name}}</a></b>
-            </div>
-          </div>
-
-        </div>
-        <div class="post-description">
-
-          <p *ngIf="untappd.beer.beer_description; else noDescription" [innerHTML]="untappd.beer.beer_description"></p>
-          <ng-template #noDescription>
-            <div [innerHTML]="untappd.beer.beer_name"></div>
-          </ng-template>
-          
-          <div class="stats">
-              <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(beer)">I want it</button>
-              <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(beer)">I have it</button>
-              <button type="button" class="pull-left ml-2 mr-2 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(beer)">I can get it</button>
-
-            <div class="liked-this" *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(untappd.beer.bid)"><em>You liked this.</em></div>
-            <a *ngIf="untappd.likes; else noLikes" (click)="addLike(untappd)" class="btn btn-default stat-item tan-ripple">
-              <i *ngIf="untappd.likes < 10; else moreLikes" class="fa fa-thumbs-up icon-with-like"></i>{{untappd.likes}}
-            </a>
-            <ng-template #noLikes>
-              <a (click)="addLike(untappd)" class="btn btn-default stat-item tan-ripple">
-                <i class="fa fa-thumbs-up icon-with-no-likes"></i>{{untappd.likes}}
-              </a>
-            </ng-template>
-            <ng-template #moreLikes>
-              <i class="fa fa-thumbs-up icon-with-more-likes"></i>
-            </ng-template>
-
-            <b><a (click)="goToDetail(untappd.beer.bid)" class="beer-pointer">
-                Details
-            </a></b>
-          </div>
-
-        </div>
+  <div class="container" style="padding-top: 10px">
+    <div class="row">
+      <div class="col-xs-10 offset-xs-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+        <form [formGroup]="searchForm" (ngSubmit)="search()" class="main-search-wrapper">
+          <mat-form-field class="navbar-search">
+            <input matInput formControlName="searchterm" name="searchterm" id="searchterm" placeholder="Search"
+              value="{{placeholder}}">
+          </mat-form-field>
+        </form>
       </div>
     </div>
-
   </div>
 
-</div>
+  <div class="container" style="padding-top: 10px">
+    <div *ngFor="let untappd of items" class="row" style="padding-top: 2px">
+      <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+        <div class="panel panel-white post panel-shadow">
+          <div class="post-heading">
+
+            <div class="pull-left post-image-container d-none d-lg-block">
+              <img src="{{untappd.beer.beer_label}}" class="image">
+            </div>
+
+            <div class="pull-left meta">
+              <div class="title h4">
+                <b><a class="beer-pointer header"
+                    (click)="goToDetail(untappd.beer.bid)">{{untappd.beer.beer_name}}</a></b>
+              </div>
+              <div class="title h6">
+                <b><a class="beer-pointer header"
+                    (click)="goToDetail(untappd.beer.bid)">{{untappd.brewery.brewery_name}}</a></b>
+              </div>
+            </div>
+
+          </div>
+          <div class="post-description">
+
+            <p *ngIf="untappd.beer.beer_description; else noDescription" [innerHTML]="untappd.beer.beer_description">
+            </p>
+            <ng-template #noDescription>
+              <div [innerHTML]="untappd.beer.beer_name"></div>
+            </ng-template>
+
+            <div class="stats">
+              <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple"
+                (click)="iWantIt(untappd.beer)">I want it</button>
+              <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple"
+                (click)="iHaveIt(untappd.beer)">I have it</button>
+              <button type="button" class="pull-left ml-2 mr-2 btn btn-sm btn-dark blue-ripple"
+                (click)="iCanGetIt(untappd.beer)">I can get it</button>
+
+              <div class="liked-this"
+                *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(untappd.beer.bid)">
+                <em>You liked this.</em></div>
+              <a *ngIf="untappd.likes; else noLikes" (click)="addLike(untappd)"
+                class="btn btn-default stat-item tan-ripple">
+                <i *ngIf="untappd.likes < 10; else moreLikes"
+                  class="fa fa-thumbs-up icon-with-like"></i>{{untappd.likes}}
+              </a>
+              <ng-template #noLikes>
+                <a (click)="addLike(untappd)" class="btn btn-default stat-item tan-ripple">
+                  <i class="fa fa-thumbs-up icon-with-no-likes"></i>{{untappd.likes}}
+                </a>
+              </ng-template>
+              <ng-template #moreLikes>
+                <i class="fa fa-thumbs-up icon-with-more-likes"></i>
+              </ng-template>
+
+              <b><a (click)="goToDetail(untappd.beer.bid)" class="beer-pointer">
+                  Details
+                </a></b>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div> <!-- end forloop -->
+    
+    <div class="row justify-content-center">
+      <button type="button" class="col-4 btn btn-lg btn-block blue-ripple" (click)="seeMoreFeed()">See More</button>
+    </div>
+
+  </div>
 </ng-template>

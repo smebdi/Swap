@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular6-example": {
+    "djangular-front": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular6-example",
+            "outputPath": "dist/djangular-front",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -51,18 +51,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular6-example:build"
+            "browserTarget": "djangular-front:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular6-example:build:production"
+              "browserTarget": "djangular-front:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular6-example:build"
+            "browserTarget": "djangular-front:build"
           }
         },
         "test": {
@@ -97,7 +97,7 @@
         }
       }
     },
-    "angular6-example-e2e": {
+    "djangular-front-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -105,7 +105,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular6-example:serve"
+            "devServerTarget": "djangular-front:serve"
           }
         },
         "lint": {
@@ -120,5 +120,5 @@
       }
     }
   },
-  "defaultProject": "angular6-example"
+  "defaultProject": "djangular-front"
 }

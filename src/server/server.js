@@ -15,43 +15,34 @@ app.use(
 );
 app.use(cors());
 
-app.use(express.static(path.resolve(__dirname, "../../dist/angular6-example")));
-app.get("*", (req, res) => {
+app.use(express.static(path.resolve(__dirname, "../../dist/djangular-front")));
+app.get("/", (req, res) => {
   res.sendFile(path.resolve("index.html"));
 });
 
 app.post("/api/iwantit", (req, res) => {
-    console.log(res)
-    res.status(200).send('iknowudo')
+    console.log(req.body.beer)
+    res.status(200).json(`iknowyoudo`)
 })
 
 app.post("/api/icangetit", (req, res) => {
-    console.log(res)
-    res.status(200).send('yeahbutwillu')
+    console.log(req.body.beer)
+    res.status(200).json(`yeahbutwillu`)
 })
 
 app.post("/api/ihaveit", (req, res) => {
-    console.log(res)
-    res.status(200).send('noudont')
+    console.log(req.body.beer)
+    res.status(200).json(`noudont`)
 })
 
-app.post("/#/api/iwantit", (req, res) => {
-    console.log('brokenhashbullshit')
-    res.status(200).send('brokenhashbullshit')
+app.post("/api/:userid/likebeer", (req, res) => {
+    console.log(req.params.userid)
+    console.log(req.body.beer.beer)
+    console.log(req.body.beer.brewery.brewery_name)
+    console.log(req.body.beer.likes)
+
+    res.status(200).json('kthx')
 })
-
-app.post("/#/api/icangetit", (req, res) => {
-    console.log('brokenhashbullshit')
-    res.status(200).send('brokenhashbullshit')
-})
-
-app.post("/#/api/ihaveit", (req, res) => {
-    console.log('brokenhashbullshit')
-    res.status(200).send('brokenhashbullshit')
-})
-
-app.get('')
-
 
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
