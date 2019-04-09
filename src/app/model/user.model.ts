@@ -1,12 +1,14 @@
 export class User {
 
-  id: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  token: string;
-  bio: string;
-  image: string;
+  uid?: string;
+  email?: string;
+  displayName?: string;
+  photoURL?: string;
+  emailVerified?: boolean;
 
+  // future state
+  firstName?: string;
+  lastName?: string;
+  bio?: string;
+  token?: string;
 }

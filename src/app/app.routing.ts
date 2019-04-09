@@ -16,19 +16,29 @@ import { EditCustomBreweryComponent } from './custom-brewery/edit-custom-brewery
 import { AddCustomBreweryComponent } from './custom-brewery/add-custom-brewery/add-custom-brewery.component';
 import { SwapComponent } from './swap/swap.component';
 import { BeerDetailComponent } from './find-beer/detail/detail.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './login/register/register.component';
+import { VerifyComponent } from './login/verify/verify.component';
+import { ForgotComponent } from './login/forgot/forgot.component';
+import { DashboardComponent } from './login/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component : HomeComponent },
 
+  // Login
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'verify', component: VerifyComponent },
+  { path: 'forgot', component: ForgotComponent },
+  { path: 'dashboard', component: DashboardComponent },
 
   // Search
   { path: `search`, component: FindBeerComponent },
   { path: `search/:query/:page`, component: FindBeerComponent },
   { path: `detail`, component: HomeComponent },
   { path: `detail/:bid`, component: BeerDetailComponent },
+
+  // Swap Zone
+  { path: 'swapzone', component: SwapComponent },
 
   // Comment
   { path: 'comments', component: CommentsComponent },
@@ -45,9 +55,6 @@ const routes: Routes = [
   { path: 'brewery', component: CustomBreweryComponent },
   { path: 'brewery/edit', component: EditCustomBreweryComponent },
   { path: 'brewery/add', component: AddCustomBreweryComponent },
-
-  // Swap Zone
-  { path: 'swapzone', component: SwapComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes, { useHash: true });

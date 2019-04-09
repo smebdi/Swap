@@ -52,3 +52,15 @@ app.listen(PORT, () => {
 
 // anything above this line is exported
 module.exports = app;
+
+
+/* Minimum beer object
+{   bid: 65644,
+    beer_name: 'Pseudo Sue',
+    beer_label: 'https://untappd.akamaized.net/site/beer_logos/beer-65644_7d104_sm.jpeg',
+    beer_abv: 6.8,
+    beer_ibu: 50,
+    beer_description: 'This single hop pale ale showcases the Citra hop for a well balanced beer that is delicate in body with a mild bitterness in the finish. Ferocious hop aromas of citrus and mango give a refreshing taste that is bright with just enough bite!',
+    style_name: 'Pale Ale - American' 
+} 
+*/

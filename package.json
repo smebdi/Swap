@@ -13,11 +13,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "gen": "ng generate component register",
+    "gen": "ng g c login/dashboard",
     "serv": "ng generate service service/",
     "mod": "ng generate model feed",
     "ginit": "gcloud init",
-    "deploy": "gcloud app deploy"
+    "deploy": "gcloud app deploy",
+    "firebaseinit": "firebase init"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,7 @@
     "@angular/common": "^7.2.11",
     "@angular/compiler": "^7.2.11",
     "@angular/core": "^7.2.11",
+    "@angular/fire": "^5.1.2",
     "@angular/flex-layout": "^7.0.0-beta.24",
     "@angular/forms": "^7.2.11",
     "@angular/http": "^7.2.11",
@@ -37,6 +39,7 @@
     "cors": "^2.8.5",
     "cryptiles": "*",
     "express": "^4.16.4",
+    "firebase": "^5.9.3",
     "hammerjs": "*",
     "moment": "^2.24.0",
     "path": "^0.12.7",

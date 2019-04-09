@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 // Angular Components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { routing } from './app.routing';
 import { AuthenticationService } from './service/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +17,17 @@ import { HomeComponent } from './home/home.component';
 
 // API beer
 import { FindBeerComponent } from './find-beer/find-beer.component';
+
+// Login
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './login/register/register.component';
+import { VerifyComponent } from './login/verify/verify.component';
+import { ForgotComponent } from './login/forgot/forgot.component';
+import { DashboardComponent } from './login/dashboard/dashboard.component';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { config } from './login/firebase.config.js'
 
 // Comments
 import { CommentsComponent } from './comments/comments.component';
@@ -49,18 +59,29 @@ import { UntappdService } from './service/untappd.service';
 import { RateBeerService } from './service/ratebeer.service';
 import { NavbarService } from './service/navbar.service';
 import { BeerDetailComponent } from './find-beer/detail/detail.component';
-import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     HomeComponent,
+
+    // Firebase auth
+    LoginComponent,
+    RegisterComponent,
+    VerifyComponent,
+    ForgotComponent,
+    DashboardComponent,
+
+    // Navigation
     NavbarComponent,
 
+    // Search and detail
     FindBeerComponent,
     BeerDetailComponent,
+
+    // Notification feed
+    FeedComponent,
 
     CommentsComponent,
     AddCommentComponent,
@@ -73,10 +94,10 @@ import { RegisterComponent } from './register/register.component';
     CustomBreweryComponent,
     EditCustomBreweryComponent,
     AddCustomBreweryComponent,
+
+    // Future components
     SwapComponent,
     ChatComponent,
-    FeedComponent,
-    RegisterComponent,
   ],
   imports: [
     // Supporting modules
@@ -86,7 +107,10 @@ import { RegisterComponent } from './register/register.component';
     HttpClientModule,
     BrowserAnimationsModule,
     CustomMaterialModule,
-    MoreMaterialModules
+    MoreMaterialModules,
+    AngularFireModule.initializeApp(config),
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   // Services
   providers: [

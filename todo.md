@@ -11,3 +11,10 @@
 - Trade menu -> 
 -               <- to automatically port beer info in from API beer
 - Bind iHaveIt & iWantIt to user service object
+
+### With Zek
+- Map www.swapthehop.com to project
+- Map firebase sender domain to swapthehop.com
+
+### Firebase
+- Setup response templates
