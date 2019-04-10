@@ -100,30 +100,18 @@ export class FindBeerComponent implements OnInit {
   }
 
   iWantIt(beer: UntappdBeer) {
-    console.log(beer)
-    this.haveItWantIt.iWantIt(beer).subscribe(
-      data => {
-        console.log(data)
-      }
-    )
+    const response = this.haveItWantIt.iWantIt(beer);
+    (response) ? response.subscribe(data => console.log(data)) : this.router.navigate(['login'])
   }
 
   iHaveIt(beer: UntappdBeer) {
-    console.log(beer);
-    this.haveItWantIt.iHaveIt(beer).subscribe(
-      data => {
-        console.log(data)
-      }
-    )
+    const response = this.haveItWantIt.iHaveIt(beer);
+    (response) ? response.subscribe(data => console.log(data)) : this.router.navigate(['login'])
   }
 
   iCanGetIt(beer: UntappdBeer) {
-    console.log(beer);
-    this.haveItWantIt.iCanGetIt(beer).subscribe(
-      data => {
-        console.log(data)
-      }
-    )
+    const response = this.haveItWantIt.iCanGetIt(beer);
+    (response) ? response.subscribe(data => console.log(data)) : this.router.navigate(['login'])
   }
 
 }

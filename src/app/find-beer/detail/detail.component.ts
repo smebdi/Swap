@@ -88,27 +88,21 @@ export class BeerDetailComponent implements OnInit {
     this.mapBeerById(beer)
     console.log(this.mappedBeer)
     this.haveItWantIt.iWantIt(this.mappedBeer).subscribe(
-      data => {
-        console.log(data)
-      }
+      data => (!data) ? this.router.navigate(['login']) : console.log(data)
     )
   }
 
   iHaveIt(beer: UntappdBeerById) {
     this.mapBeerById(beer)
     this.haveItWantIt.iHaveIt(this.mappedBeer).subscribe(
-      data => {
-        console.log(data)
-      }
+      data => (!data) ? this.router.navigate(['login']) : console.log(data)
     )
   }
 
   iCanGetIt(beer: UntappdBeerById) {
     this.mapBeerById(beer)
     this.haveItWantIt.iCanGetIt(this.mappedBeer).subscribe(
-      data => {
-        console.log(data)
-      }
+      data => (!data) ? this.router.navigate(['login']) : console.log(data)
     )
   }
 

@@ -40,6 +40,7 @@
     "cryptiles": "*",
     "express": "^4.16.4",
     "firebase": "^5.9.3",
+    "firebase-admin": "^7.2.0",
     "hammerjs": "*",
     "moment": "^2.24.0",
     "path": "^0.12.7",

@@ -39,3 +39,4 @@ testem.log
 Thumbs.db
 
 firebase.config.js
+firebase-admin-key.json

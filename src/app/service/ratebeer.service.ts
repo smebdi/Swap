@@ -13,8 +13,7 @@ export class RateBeerService {
   }
 
   getCustomBeerResponse(): Observable<HttpResponse<RateBeer>> {
-    return this.http.get<RateBeer>(
-      this.baseUrl, { observe: 'response' });
+    return this.http.get<RateBeer>(this.baseUrl, { observe: 'response' });
   }
 
   searchRateBeer(searchType: string, searchTerm: string, page?: number) {
