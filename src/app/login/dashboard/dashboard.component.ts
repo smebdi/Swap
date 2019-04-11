@@ -15,6 +15,11 @@ export class DashboardComponent implements OnInit {
   canget: any[];
   likes: any[];
 
+  showWantRow: boolean;
+  showHasRow: boolean;
+  showCanGetRow: boolean;
+  showLikeRow: boolean;
+
   constructor(
     public authService: AuthenticationService,
     public router: Router,
@@ -31,6 +36,22 @@ export class DashboardComponent implements OnInit {
         else this.getData()
       } else this.getData()
     })
+  }
+
+  toggleWantRow() {
+    (!this.showWantRow) ? this.showWantRow = true : this.showWantRow = false
+  }
+
+  toggleHasRow() {
+    (!this.showHasRow) ? this.showHasRow = true : this.showHasRow = false
+  }
+
+  toggleCanGetRow() {
+    (!this.showCanGetRow) ? this.showCanGetRow = true : this.showCanGetRow = false
+  }
+
+  toggleLikeRow() {
+    (!this.showLikeRow) ? this.showLikeRow = true : this.showLikeRow = false
   }
 
   getData(uid?: string) {
@@ -53,7 +74,8 @@ export class DashboardComponent implements OnInit {
       if (data) {
         this.want = Object.keys(data).map(function(wantitem) {
           if (data[wantitem]) return data[wantitem]
-        })
+        });
+        (this.want.length > 4) ? this.showWantRow = false : this.showWantRow = true
       }
     })
   }
@@ -64,7 +86,8 @@ export class DashboardComponent implements OnInit {
       if (data) {
         this.has = Object.keys(data).map(function(item) {
           if (data[item]) return data[item]
-        })
+        });
+        (this.has.length > 4) ? this.showHasRow = false : this.showHasRow = true
       }
     })
   }
@@ -75,7 +98,8 @@ export class DashboardComponent implements OnInit {
       if (data) {
         this.canget = Object.keys(data).map(function(item) {
           if (data[item]) return data[item]
-        })
+        });
+        (this.canget.length > 4) ? this.showCanGetRow = false : this.showCanGetRow = true
       }
     })
   }
@@ -86,8 +110,8 @@ export class DashboardComponent implements OnInit {
       if (data) {
         this.likes = Object.keys(data).map(function(item) {
           if (data[item]) return data[item]
-        })
-        console.log(this.likes)
+        });
+        (this.likes.length > 4) ? this.showLikeRow = false : this.showLikeRow = true
       }
     })
   }

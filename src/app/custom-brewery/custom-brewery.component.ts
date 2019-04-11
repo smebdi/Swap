@@ -29,18 +29,18 @@ export class CustomBreweryComponent implements OnInit {
   };
 
   editCustomBrewery(customBrewery: CustomBrewery): void {
-    localStorage.removeItem("editCustomBreweryId");
-    localStorage.removeItem("editCustomBreweryName");
-    localStorage.removeItem("editCustomBreweryLocation");
-    localStorage.removeItem("editCustomBreweryWebsite");
-    localStorage.removeItem("editCustomBreweryImageUrl");
+    // localStorage.removeItem("editCustomBreweryId");
+    // localStorage.removeItem("editCustomBreweryName");
+    // localStorage.removeItem("editCustomBreweryLocation");
+    // localStorage.removeItem("editCustomBreweryWebsite");
+    // localStorage.removeItem("editCustomBreweryImageUrl");
 
 
-    localStorage.setItem("editCustomBreweryId", customBrewery.id.toString());
-    localStorage.setItem("editCustomBreweryName", customBrewery.name.toString());
-    localStorage.setItem("editCustomBreweryLocation", customBrewery.location.toString());
-    localStorage.setItem("editCustomBreweryWebsite", customBrewery.website.toString());
-    localStorage.setItem("editCustomBreweryImageUrl", customBrewery.imageUrl.toString());
+    // localStorage.setItem("editCustomBreweryId", customBrewery.id.toString());
+    // localStorage.setItem("editCustomBreweryName", customBrewery.name.toString());
+    // localStorage.setItem("editCustomBreweryLocation", customBrewery.location.toString());
+    // localStorage.setItem("editCustomBreweryWebsite", customBrewery.website.toString());
+    // localStorage.setItem("editCustomBreweryImageUrl", customBrewery.imageUrl.toString());
 
     this.router.navigate(['brewery/edit']);
   };

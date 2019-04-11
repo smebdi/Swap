@@ -29,9 +29,35 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve("index.html"));
 });
 
+app.get("/api/username/:username", (req, res) => {
+  if (req.params.username) {
+    db.ref(`usernames/${req.params.username}`).once('value').then(function(snapshot) {
+      res.status(200).json(snapshot.val())
+    }, (err) => res.status(400).json(err.message))
+  }
+})
+
+app.post("/api/username/:username/create", (req, res) => {
+  var err1; var err2; var msg1; var msg2;
+  
+  console.log(req.params.username)
+  console.log(req.body.uid)
+  db.ref(`usernames/${req.params.username}`).set({
+    username: req.params.username
+  }, (err) => (err) ? err1 = err : msg1 = `created: ${req.params.username}`);
+  db.ref(`users/${req.body.uid}/username`).set({
+    username: req.params.username
+  }, (err) => (err) ? err2 = err : msg2 = `assigned username: ${req.params.username}`);
+  res.status(200).json(msg1, msg2)
+
+  if (err1 || err2) {
+    console.log(err1); console.log(err2);
+    res.status(400)
+  }
+})
+
 app.get("/api/:userid/wants", (req, res) => {
-  db.ref(`users/${req.params.userid}/wants`).once('value')
-    .then(function(snapshot) {
+  db.ref(`users/${req.params.userid}/wants`).once('value').then(function(snapshot) {
       res.status(200).json(snapshot.val())
     }, (err) => res.status(400).json(err.message))
 })
@@ -50,8 +76,7 @@ app.post("/api/:userid/iwantit", (req, res) => {
 })
 
 app.get("/api/:userid/cangets", (req, res) => {
-  db.ref(`users/${req.params.userid}/canget`).once('value')
-    .then(function(snapshot) {
+  db.ref(`users/${req.params.userid}/canget`).once('value').then(function(snapshot) {
       res.status(200).json(snapshot.val())
     }, (err) => res.status(400).json(err.message))
 })
@@ -70,8 +95,7 @@ app.post("/api/:userid/icangetit", (req, res) => {
 })
 
 app.get("/api/:userid/has", (req, res) => {
-  db.ref(`users/${req.params.userid}/has`).once('value')
-    .then(function(snapshot) {
+  db.ref(`users/${req.params.userid}/has`).once('value').then(function(snapshot) {
       res.status(200).json(snapshot.val())
     }, (err) => res.status(400).json(err.message))
 })
@@ -90,8 +114,7 @@ app.post("/api/:userid/ihaveit", (req, res) => {
 })
 
 app.get("/api/:userid/likes", (req, res) => {
-  db.ref(`users/${req.params.userid}/likes`).once('value')
-    .then(function(snapshot) {
+  db.ref(`users/${req.params.userid}/likes`).once('value').then(function(snapshot) {
       res.status(200).json(snapshot.val())
     }, (err) => res.status(400).json(err.message))
 })

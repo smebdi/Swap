@@ -19,6 +19,7 @@ export class AuthenticationService {
     userData: any;
 
     constructor(
+        private http: HttpClient,
         public afs: AngularFirestore,   // Inject Firestore service
         public afAuth: AngularFireAuth, // Inject Firebase auth service
         public router: Router,  
@@ -53,12 +54,15 @@ export class AuthenticationService {
   }
 
   // Sign up with email/password
-  async SignUp(email: string, password: string) {
+  async SignUp(username: string, email: string, password: string) {
     try {
           const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
           /* Call the SendVerificaitonMail() function when new user sign up and returns promise */
           this.SendVerificationMail();
           this.SetUserData(result.user);
+
+          console.log('posting create user')
+          this.http.post<any>(`${environment.apiUrl}/api/username/${username}/create`, {uid: result.user.uid})
       }
       catch (error) {
           window.alert(error.message);
@@ -120,5 +124,13 @@ export class AuthenticationService {
     this.nav.logOut();
     localStorage.removeItem('user');
     this.router.navigate(['login']);
+  }
+
+  isValidUsername(username: string) {
+    // run some regex here to validate
+    if (username) {
+      const res = this.http.get<any>(`${environment.apiUrl}/api/username/${username}`)
+      return res
+    }
   }
 }

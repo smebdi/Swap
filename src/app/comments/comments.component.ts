@@ -29,11 +29,11 @@ export class CommentsComponent implements OnInit {
   };
 
   editComment(comment: Comment): void {
-    localStorage.removeItem("editCommentId");
-    localStorage.setItem("editCommentId", comment.id.toString());
-    localStorage.setItem("editCommentTitle", comment.title.toString());
-    localStorage.setItem("editCommentBody", comment.body.toString());
-    this.router.navigate(['comments/edit']);
+    // localStorage.removeItem("editCommentId");
+    // localStorage.setItem("editCommentId", comment.id.toString());
+    // localStorage.setItem("editCommentTitle", comment.title.toString());
+    // localStorage.setItem("editCommentBody", comment.body.toString());
+    // this.router.navigate(['comments/edit']);
   };
 
   addComment(): void {

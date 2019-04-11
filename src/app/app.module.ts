@@ -6,7 +6,6 @@ import { routing } from './app.routing';
 import { AuthenticationService } from './service/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { UserService } from './service/user.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from './material/material.module';
 import { MoreMaterialModules } from './material/material-module';
@@ -115,7 +114,6 @@ import { BeerDetailComponent } from './find-beer/detail/detail.component';
   // Services
   providers: [
     AuthenticationService,
-    UserService,
     CommentService,
     CustomBeerService,
     CustomBreweryService,

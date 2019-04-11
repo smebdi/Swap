@@ -31,7 +31,7 @@
         <div class="row" *ngIf="authService.userData as user">
           <div class="col-md-12">
             <div class="media">
-              <img class="align-self-start mr-5 img-thumbnail avatar"
+              <img class="align-self-start mr-5 img-thumbnail avatar" style="height: 100px; width: 100px"
                 src="{{(user.photoURL) ? user.photoURL : 'http://bootdey.com/img/Content/user_1.jpg'}}"
                 alt="{{user.displayName}}">
               <div class="media-body">
@@ -53,7 +53,7 @@
                 <div class="media" style="margin: 10px !important">
                   <img class="align-self-start mr-3 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
                   <div class="media-body">
-                    <p>Beer: <strong>{{item.beer_name}}</strong></p>
+                    <p>Beer: <a (click)="goToDetail(item.bid)"><strong>{{item.beer_name}}</strong></a></p>
                     <p>Style: <strong>{{item.beer_style}}</strong></p>
                   </div>
                 </div>
@@ -72,7 +72,7 @@
                 <div class="media"  style="margin: 10px !important">
                   <img class="align-self-start mr-3 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
                   <div class="media-body">
-                    <p>Beer: <strong>{{item.beer_name}}</strong></p>
+                    <p>Beer: <a (click)="goToDetail(item.bid)"><strong>{{item.beer_name}}</strong></a></p>
                     <p>Style: <strong>{{item.beer_style}}</strong></p>
                   </div>
                 </div>
@@ -91,7 +91,7 @@
                 <div class="media"  style="margin: 10px !important">
                   <img class="align-self-start mr-3 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
                   <div class="media-body">
-                    <p>Beer: <strong>{{item.beer_name}}</strong></p>
+                    <p>Beer: <a (click)="goToDetail(item.bid)"><strong>{{item.beer_name}}</strong></a></p>
                     <p>Style: <strong>{{item.beer_style}}</strong></p>
                   </div>
                 </div>
@@ -102,15 +102,15 @@
 
         <div *ngIf="likes">
           <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h2">Likes</h1>
+            <h1 class="h2" (click)="toggleLikeRow()">Likes</h1>
           </div>
-          <div class="row">
+          <div *ngIf="showLikeRow" class="row">
             <div *ngFor="let item of likes" class="media-width">
               <div class="col-md-12">
                 <div class="media"  style="margin: 10px !important">
                   <img class="align-self-start mr-3 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
                   <div class="media-body">
-                    <p>Beer: <strong>{{item.beer_name}}</strong></p>
+                    <p>Beer: <a (click)="goToDetail(item.bid)"><strong>{{item.beer_name}}</strong></a></p>
                     <p>Brewery: <strong>{{item.brewery_name}}</strong></p>
                   </div>
                 </div>
