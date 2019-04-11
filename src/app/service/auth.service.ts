@@ -10,6 +10,7 @@ import { AngularFireAuth } from  "@angular/fire/auth";
 
 import { environment } from '../../environments/environment';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { NavbarService } from './navbar.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -21,7 +22,8 @@ export class AuthenticationService {
         public afs: AngularFirestore,   // Inject Firestore service
         public afAuth: AngularFireAuth, // Inject Firebase auth service
         public router: Router,  
-        public ngZone: NgZone // NgZone service to remove outside scope warning
+        public ngZone: NgZone, // NgZone service to remove outside scope warning
+        private nav: NavbarService
     ) {
         this.afAuth.authState.subscribe(user => {
             if (user) {
@@ -39,6 +41,7 @@ export class AuthenticationService {
   async SignIn(email: string, password: string) {
     try {
           const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+          this.nav.logIn();
           this.ngZone.run(() => {
             this.router.navigate(['/dashboard']);
           });
@@ -114,7 +117,8 @@ export class AuthenticationService {
   // Sign out 
   async SignOut() {
     await this.afAuth.auth.signOut();
-      localStorage.removeItem('user');
-      this.router.navigate(['login']);
+    this.nav.logOut();
+    localStorage.removeItem('user');
+    this.router.navigate(['login']);
   }
 }
