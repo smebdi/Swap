@@ -1,0 +1,14 @@
+.media .beer-label {
+    height: 100px !important;
+    width: 100px !important;
+}
+
+.media-width {
+    width: 50%
+}
+
+@media(max-width:767px) {
+    .media-width {
+        width: 100%
+    }
+}

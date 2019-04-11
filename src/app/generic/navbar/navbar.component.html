@@ -1,37 +1,45 @@
 <div class="collapse bg-light d-lg-none" id="navbarHeader">
   <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
 
-      <div class="col-lg col-md-4">
+      <!--
+      <div class="col-lg col-md-4 col-sm-6 center-text">
         <button mat-button [matMenuTriggerFor]="beerMenu">Beer</button>
         <mat-menu #beerMenu="matMenu">
           <a routerLink="/beer"><button mat-menu-item>List</button></a>
           <a routerLink="/beer/add"><button mat-menu-item>Add</button></a>
         </mat-menu>
       </div>
-      <div class="col-lg col-md-4">
+      <div class="col-lg col-md-4 col-sm-6  center-text">
       <button mat-button [matMenuTriggerFor]="breweryMenu">Brewery</button>
       <mat-menu #breweryMenu="matMenu">
         <a routerLink="/brewery"><button mat-menu-item>List</button></a>
         <a routerLink="/brewery/add"><button mat-menu-item>Add</button></a>
       </mat-menu>
       </div>
-      <div class="col-lg col-md-4">
+      <div class="col-lg col-md-4 col-sm-6  center-text">
         <button mat-button [matMenuTriggerFor]="commentMenu">Comments</button>
         <mat-menu #commentMenu="matMenu">
           <a routerLink="/comments"><button mat-menu-item>List</button></a>
           <a routerLink="/comments/add"><button mat-menu-item>Add</button></a>
         </mat-menu>
       </div>
-      <div class="col-lg col-md-4">
+      -->
+      
+      <div class="col-lg col-md-4 col-sm-6  center-text">
         <a routerLink="/swapzone"><button mat-button>Swap Zone</button></a>
       </div>
-      <div class="col-lg col-md-4">
+      <div class="col-lg col-md-4 col-sm-6  center-text">
         <a routerLink="/search/toppling/1"><button mat-button>Search</button></a>
       </div>
-      <div class="col-lg col-md-4">
+      <div *ngIf="!loggedIn; else isLoggedIn" class="col-lg col-md-4 col-sm-6  center-text">
         <a routerLink="/login"><button mat-button>Login</button></a>
       </div>
+      <ng-template #isLoggedIn>
+        <div class="col-lg col-md-4 col-sm-6  center-text">
+          <a routerLink="/dashboard"><button mat-button>Profile</button></a>
+        </div>
+      </ng-template>
 
     </div>
   </div>
@@ -54,7 +62,7 @@
 
   <span class="fill-remaining-space"></span>
 
-  <button mat-icon-button class="navbar-toggler collapsed pull-right d-lg-none shadow" 
+  <button mat-icon-button class="navbar-toggler collapsed pull-right d-lg-none" 
     type="button" data-toggle="collapse" data-target="#navbarHeader"
     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
     <mat-icon>menu</mat-icon>
@@ -64,6 +72,7 @@
 
     <div class="d-none d-lg-block">
 
+      <!--
       <button mat-button [matMenuTriggerFor]="beerMenu">Beer</button>
       <mat-menu #beerMenu="matMenu">
         <a routerLink="/beer"><button mat-menu-item>List</button></a>
@@ -80,11 +89,16 @@
       <mat-menu #commentMenu="matMenu">
         <a routerLink="/comments"><button mat-menu-item>List</button></a>
         <a routerLink="/comments/add"><button mat-menu-item>Add</button></a>
-      </mat-menu>
+      </mat-menu> -->
 
       <a routerLink="/swapzone"><button mat-button>Swap Zone</button></a>
       <a routerLink="/search/toppling/1"><button mat-button>Search</button></a>
-      <a routerLink="/login"><button mat-button>Login</button></a>
+      <div *ngIf="!loggedIn; else isLoggedIn">
+        <a routerLink="/login"><button mat-button>Login</button></a>
+      </div>
+      <ng-template #isLoggedIn>
+        <a routerLink="/dashboard"><button mat-button>Profile</button></a>
+      </ng-template>
     </div>
 
   </span>

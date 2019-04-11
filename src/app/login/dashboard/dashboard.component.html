@@ -35,7 +35,7 @@
                 src="{{(user.photoURL) ? user.photoURL : 'http://bootdey.com/img/Content/user_1.jpg'}}"
                 alt="{{user.displayName}}">
               <div class="media-body">
-                <h1>Cheers{{(user.displayName) ? ' ' + user.displayName : '!'}}</h1>
+                <h2>Cheers{{(user.displayName) ? ' ' + user.displayName : '!'}}</h2>
                 <p>Email: <strong>{{user.email}}</strong></p>
                 <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
               </div>
@@ -43,58 +43,84 @@
           </div>
         </div>
 
-        <div class="row" *ngIf="want">
-          <div class="pt-1 pb-1 mb-1 border-bottom">
+        <div *ngIf="want">
+          <div class="pt-2 mb-1 border-bottom">
             <h1 class="h2">Wants</h1>
           </div>
-          <div *ngFor="let item of want">
-            <div class="col-sm-12 col-md-6">
-              <div class="media">
-                <img class="align-self-start mr-5 img-thumbnail avatar" src="{{item.beer_label}}">
-                <div class="media-body">
-                  <p>Beer: <strong>{{item.beer_name}}</strong></p>
-                  <p>Style: <strong>{{item.beer_style}}</strong></p>
+          <div class="row">
+            <div *ngFor="let item of want" class="media-width">
+              <div class="col-md-12">
+                <div class="media" style="margin: 10px !important">
+                  <img class="align-self-start mr-3 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
+                  <div class="media-body">
+                    <p>Beer: <strong>{{item.beer_name}}</strong></p>
+                    <p>Style: <strong>{{item.beer_style}}</strong></p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="row" *ngIf="has">
-          <div class="pt-1 pb-1 mb-1 border-bottom">
+        <div *ngIf="has">
+          <div class="pt-2 mb-1 border-bottom">
             <h1 class="h2">Has</h1>
           </div>
-          <div *ngFor="let item of has">
-            <div class="col-sm-12 col-md-6">
-              <div class="media">
-                <img class="align-self-start mr-5 img-thumbnail avatar" src="{{item.beer_label}}">
-                <div class="media-body">
-                  <p>Beer: <strong>{{item.beer_name}}</strong></p>
-                  <p>Style: <strong>{{item.beer_style}}</strong></p>
+          <div class="row">
+            <div *ngFor="let item of has" class="media-width">
+              <div class="col-md-12">
+                <div class="media"  style="margin: 10px !important">
+                  <img class="align-self-start mr-3 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
+                  <div class="media-body">
+                    <p>Beer: <strong>{{item.beer_name}}</strong></p>
+                    <p>Style: <strong>{{item.beer_style}}</strong></p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="row" *ngIf="canget">
-          <div class="pt-1 pb-1 mb-1 border-bottom">
+        <div *ngIf="canget">
+          <div class="pt-2 mb-1 border-bottom">
             <h1 class="h2">Can Get</h1>
           </div>
-          <div *ngFor="let item of canget">
-            <div class="col-sm-12 col-md-6">
-              <div class="media">
-                <img class="align-self-start mr-5 img-thumbnail avatar" src="{{item.beer_label}}">
-                <div class="media-body">
-                  <p>Beer: <strong>{{item.beer_name}}</strong></p>
-                  <p>Style: <strong>{{item.beer_style}}</strong></p>
+          <div class="row">
+            <div *ngFor="let item of canget" class="media-width">
+              <div class="col-md-12">
+                <div class="media"  style="margin: 10px !important">
+                  <img class="align-self-start mr-3 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
+                  <div class="media-body">
+                    <p>Beer: <strong>{{item.beer_name}}</strong></p>
+                    <p>Style: <strong>{{item.beer_style}}</strong></p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-      </div>
+        <div *ngIf="likes">
+          <div class="pt-2 mb-1 border-bottom">
+            <h1 class="h2">Likes</h1>
+          </div>
+          <div class="row">
+            <div *ngFor="let item of likes" class="media-width">
+              <div class="col-md-12">
+                <div class="media"  style="margin: 10px !important">
+                  <img class="align-self-start mr-3 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
+                  <div class="media-body">
+                    <p>Beer: <strong>{{item.beer_name}}</strong></p>
+                    <p>Brewery: <strong>{{item.brewery_name}}</strong></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </div>
+    
     </main>
 
   </div>

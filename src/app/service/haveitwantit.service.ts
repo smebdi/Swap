@@ -68,7 +68,7 @@ export class HaveItWantIt {
   }
 
   getWants(uid?: string) {
-    console.log(`getting ${environment.apiUrl}/api/${this.authenticationService.userData.uid}/wants`)
+    console.log(`getting wants`)
     return (uid) ?
     this.http.get<any>(`${environment.apiUrl}/api/${uid}/wants`).pipe(data => data) : 
     this.http.get<any>(`${environment.apiUrl}/api/${this.authenticationService.userData.uid}/wants`).pipe(data => {

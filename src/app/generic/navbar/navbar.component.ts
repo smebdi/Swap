@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
 
   visibleSearch: boolean;
   navSearchForm: FormGroup;
+  loggedIn: boolean;
 
   ngOnInit() {
     this.nav.show();
@@ -21,6 +22,12 @@ export class NavbarComponent implements OnInit {
     this.navSearchForm = this.formBuilder.group({
       searchterm
     });
+
+    var user = JSON.parse(localStorage.getItem("user"))
+      if (user) { 
+        if (user.uid) this.loggedIn = true
+        else this.loggedIn = false
+      } else this.loggedIn = false
   }
 
   onSubmit() {

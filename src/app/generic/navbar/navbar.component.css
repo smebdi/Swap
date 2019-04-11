@@ -18,3 +18,14 @@
   -moz-box-shadow: 0.75px 0.75px 1px rgba(0, 0, 0,0.1);
   -webkit-box-shadow: 0.75px 0.75px 1px rgba(0, 0, 0, .1);
 }
+
+.center-text {
+  text-align: center
+}
+
+.navbar-toggler {
+  padding: 0 !important;
+  box-shadow: 0 !important;
+  -moz-box-shadow: 0 !important;
+  -webkit-box-shadow: 0 !important;
+}

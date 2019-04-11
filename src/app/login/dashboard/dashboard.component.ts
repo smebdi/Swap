@@ -24,47 +24,71 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(params => {
+      var user = JSON.parse(localStorage.getItem("user"))
+      if (user) { 
+        if (user.uid) this.getData(user.uid) 
+        else this.getData()
+      } else this.getData()
+    })
+  }
+
+  getData(uid?: string) {
+    if (uid) {
+      this.getUserWants(uid);
+      this.getUserHas(uid);
+      this.getUserCanGets(uid);
+      this.getUserLikes(uid);
+    } else {
       this.getUserWants();
       this.getUserHas();
       this.getUserCanGets();
-      // this.getUserLikes();
-    })
+      this.getUserLikes();
+    }
   }
 
-  getUserWants() {
-    const wantData = this.haveitwantit.getWants()
+  getUserWants(uid?: string) {
+    const wantData = (uid) ? this.haveitwantit.getWants(uid) : this.haveitwantit.getWants()
     if (wantData) wantData.subscribe(data => {
-      this.want = Object.keys(data).map(function(item) {
-        return data[item]
-      })
+      if (data) {
+        this.want = Object.keys(data).map(function(wantitem) {
+          if (data[wantitem]) return data[wantitem]
+        })
+      }
     })
   }
 
-  getUserHas() {
-    const hasData = this.haveitwantit.getHas()
+  getUserHas(uid?: string) {
+    const hasData = (uid) ? this.haveitwantit.getHas(uid) : this.haveitwantit.getHas()
     if (hasData) hasData.subscribe(data => {
-      this.has = Object.keys(data).map(function(item) {
-        return data[item]
-      })
+      if (data) {
+        this.has = Object.keys(data).map(function(item) {
+          if (data[item]) return data[item]
+        })
+      }
     })
   }
 
-  getUserCanGets() {
-    const canGetData = this.haveitwantit.getCanGets()
+  getUserCanGets(uid?: string) {
+    const canGetData = (uid) ? this.haveitwantit.getCanGets(uid) : this.haveitwantit.getCanGets()
     if (canGetData) canGetData.subscribe(data => {
-      this.canget = Object.keys(data).map(function(item) {
-        return data[item]
-      })
+      if (data) {
+        this.canget = Object.keys(data).map(function(item) {
+          if (data[item]) return data[item]
+        })
+      }
     })
   }
 
-  getUserLikes() {
-    const likesData = this.haveitwantit.getLikes()
+  getUserLikes(uid?: string) {
+    const likesData = (uid) ? this.haveitwantit.getLikes(uid) : this.haveitwantit.getLikes()
     if (likesData) likesData.subscribe(data => {
-      this.likes = Object.keys(data).map(function(item) {
-        return data[item]
-      })
+      if (data) {
+        this.likes = Object.keys(data).map(function(item) {
+          if (data[item]) return data[item]
+        })
+        console.log(this.likes)
+      }
     })
   }
 
