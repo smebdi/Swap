@@ -57,12 +57,8 @@ export class AuthenticationService {
   async SignUp(username: string, email: string, password: string) {
     try {
           const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-          /* Call the SendVerificaitonMail() function when new user sign up and returns promise */
           this.SendVerificationMail();
-          this.SetUserData(result.user);
-
-          console.log('posting create user')
-          this.http.post<any>(`${environment.apiUrl}/api/username/${username}/create`, {uid: result.user.uid})
+          this.SetUserData(result.user, username);
       }
       catch (error) {
           window.alert(error.message);
@@ -114,8 +110,12 @@ export class AuthenticationService {
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user: User) {
-    console.log(user);
+  SetUserData(user: User, username?: string) {
+    if (username) {
+      console.log(`posting create ${username} to ${environment.apiUrl}`)
+      let res = this.http.post<any>(`${environment.apiUrl}/api/createuser/${username}/${user.uid}`, '')
+      console.log(res.subscribe(data => { console.log(data) }))
+    }
   }
 
   // Sign out 
@@ -133,4 +133,21 @@ export class AuthenticationService {
       return res
     }
   }
+
+  getUserData(uid?: string) {
+    if (uid) {
+      return this.http.get<any>(`${environment.apiUrl}/api/getuserdata/uid/${uid}`)
+    } else {
+      if (this.userData) {
+        return this.http.get<any>(`${environment.apiUrl}/api/getuserdata/uid/${this.userData.uid}`)
+      } else console.log('no uid')
+    }
+  }
+
+  getUserDataFromUsername(username?: string) {
+    if (username) {
+      return this.http.get<any>(`${environment.apiUrl}/api/getuserdata/username/${username}`)
+    } else console.log('no username')
+  }
+
 }

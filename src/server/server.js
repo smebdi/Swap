@@ -29,6 +29,22 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve("index.html"));
 });
 
+app.get("/api/getuserdata/uid/:uid", (req, res) => {
+  if (req.params.uid) {
+    db.ref(`users/${req.params.uid}/username`).once('value').then(function(snapshot) {
+      res.status(200).json(snapshot.val())
+    }, (err) => res.status(400).json(err.message))
+  }
+})
+
+app.get("/api/getuserdata/username/:username", (req, res) => {
+  if (req.params.username) {
+    db.ref(`usernames/${req.params.username}/username`).once('value').then(function(snapshot) {
+      res.status(200).json(snapshot.val())
+    }, (err) => res.status(400).json(err.message))
+  }
+})
+
 app.get("/api/username/:username", (req, res) => {
   if (req.params.username) {
     db.ref(`usernames/${req.params.username}`).once('value').then(function(snapshot) {
@@ -37,22 +53,25 @@ app.get("/api/username/:username", (req, res) => {
   }
 })
 
-app.post("/api/username/:username/create", (req, res) => {
-  var err1; var err2; var msg1; var msg2;
+app.post("/api/createuser/:username/:uid", (req, res) => {
+  var err1; var err2;
   
-  console.log(req.params.username)
-  console.log(req.body.uid)
+  console.log(req.params.username);
+  console.log(req.params.uid);
+
   db.ref(`usernames/${req.params.username}`).set({
+    username: req.params.username,
+    uid: req.params.uid
+  }, (err) => { if (err) err1 = err });
+  db.ref(`users/${req.params.uid}/username`).set({
     username: req.params.username
-  }, (err) => (err) ? err1 = err : msg1 = `created: ${req.params.username}`);
-  db.ref(`users/${req.body.uid}/username`).set({
-    username: req.params.username
-  }, (err) => (err) ? err2 = err : msg2 = `assigned username: ${req.params.username}`);
-  res.status(200).json(msg1, msg2)
+  }, (err) => { if (err) err2 = err });
 
   if (err1 || err2) {
     console.log(err1); console.log(err2);
-    res.status(400)
+    res.status(400).json(err1, err2)
+  } else {
+    res.status(200).json('success')
   }
 })
 

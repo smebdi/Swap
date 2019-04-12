@@ -46,11 +46,9 @@ export class BeerDetailComponent implements OnInit {
 
   getBeerDataById(bid: number) {
     this.untappdService.getUntappdBeerById(bid)
-    .subscribe(
-      data => {
-        this.beer = data.response.beer;
-      }
-    );
+    .subscribe(data => {
+      this.beer = data.response.beer;
+    });
   }
 
   goToBeerDetail(id: number) {
@@ -75,18 +73,14 @@ export class BeerDetailComponent implements OnInit {
       item.likes ? item.likes += 1 : item.likes = 1;
       
       this.mapUntappdById(item)
-      console.log(this.mappedObject)
       this.haveItWantIt.iLikeIt(this.mappedObject).subscribe(
-        data => {
-          console.log(data)
-        }
+        data => { console.log(data) }
       )
     }
   }
 
   iWantIt(beer: UntappdBeerById) {
     this.mapBeerById(beer)
-    console.log(this.mappedBeer)
     this.haveItWantIt.iWantIt(this.mappedBeer).subscribe(
       data => (!data) ? this.router.navigate(['login']) : console.log(data)
     )
@@ -108,7 +102,6 @@ export class BeerDetailComponent implements OnInit {
 
   mapUntappdById(beer: UntappdBeerById) {
     // mapping detail object to like object
-    console.log(beer)
     this.mapBeerById(beer)
     this.mappedObject.beer = this.mappedBeer
     this.mappedObject.brewery = beer.brewery
@@ -117,7 +110,6 @@ export class BeerDetailComponent implements OnInit {
 
   mapBeerById(beer: UntappdBeerById) {
     // mapping because beer detail pulls a different object from API
-    console.log(beer)
     this.mappedBeer.bid = beer.bid
     this.mappedBeer.beer_name = beer.beer_name
     this.mappedBeer.beer_label = beer.beer_label

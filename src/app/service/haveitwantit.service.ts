@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { UntappdBeer, Untappd } from '../model/untappd.model';
 import { environment } from '../../environments/environment';
 import { AuthenticationService } from './auth.service';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +21,7 @@ export class HaveItWantIt {
     console.log(`posting to: ${environment.apiUrl}/api/:userid/iwantit`)
     
     if (this.authenticationService.userData && this.authenticationService.userData.uid) {
+      console.log(this.authenticationService.userData.uid)
       return this.http.post<any>(`${environment.apiUrl}/api/${this.authenticationService.userData.uid}/iwantit`, { beer }).pipe(data => {
           console.log(data)
           return data; 

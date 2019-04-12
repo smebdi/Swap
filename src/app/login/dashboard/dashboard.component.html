@@ -2,40 +2,42 @@
 <div class="container-fluid">
   <div class="row">
 
-    <nav class="col-md-2 d-md-block sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active">
-              <i class="fas fa-user"></i>User Profile
-            </a>
-          </li>
-          <!-- Calling SignOut() Api from AuthService -->
-          <li class="nav-item">
-            <a class="nav-link" (click)="authService.SignOut()">
-              <i class="fas fa-sign-out-alt"></i>Log out
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <ng-container *ngIf="!isPublic">
+      <nav class="col-md-2 d-md-block sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active">
+                <i class="fas fa-user"></i>User Profile
+              </a>
+            </li>
+            <!-- Calling SignOut() Api from AuthService -->
+            <li class="nav-item">
+              <a class="nav-link" (click)="authService.SignOut()">
+                <i class="fas fa-sign-out-alt"></i>Log out
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </ng-container>
 
     <!-- Main content -->
+    <ng-container *ngIf="!isPublic; else isPublicView">
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="inner-adjust">
 
         <div class="pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">User Profile</h1>
+          <h1 class="h2" (click)="toggleWantRow()">User Profile</h1>
         </div>
         <!-- Show user data when logged in -->
         <div class="row" *ngIf="authService.userData as user">
           <div class="col-md-12">
             <div class="media">
               <img class="align-self-start mr-5 img-thumbnail avatar" style="height: 100px; width: 100px"
-                src="{{(user.photoURL) ? user.photoURL : 'http://bootdey.com/img/Content/user_1.jpg'}}"
-                alt="{{user.displayName}}">
+                src="{{(user.photoURL) ? user.photoURL : 'http://bootdey.com/img/Content/user_1.jpg'}}">
               <div class="media-body">
-                <h2>Cheers{{(user.displayName) ? ' ' + user.displayName : '!'}}</h2>
+                <h3 style="text-align: left">{{(username) ? 'Welcome, ' + username + '!' : 'Cheers!'}}</h3>
                 <p>Email: <strong>{{user.email}}</strong></p>
                 <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
               </div>
@@ -45,9 +47,9 @@
 
         <div *ngIf="want">
           <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h2">Wants</h1>
+            <h1 class="h2" (click)="toggleWantRow()">Wants</h1>
           </div>
-          <div class="row">
+          <div *ngIf="showWantRow" class="row">
             <div *ngFor="let item of want" class="media-width">
               <div class="col-md-12">
                 <div class="media" style="margin: 10px !important">
@@ -64,9 +66,9 @@
 
         <div *ngIf="has">
           <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h2">Has</h1>
+            <h1 class="h2" (click)="toggleHasRow()">Has</h1>
           </div>
-          <div class="row">
+          <div *ngIf="showHasRow" class="row">
             <div *ngFor="let item of has" class="media-width">
               <div class="col-md-12">
                 <div class="media"  style="margin: 10px !important">
@@ -83,9 +85,9 @@
 
         <div *ngIf="canget">
           <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h2">Can Get</h1>
+            <h1 class="h2" (click)="toggleCanGetRow()">Can Get</h1>
           </div>
-          <div class="row">
+          <div *ngIf="showCanGetRow" class="row">
             <div *ngFor="let item of canget" class="media-width">
               <div class="col-md-12">
                 <div class="media"  style="margin: 10px !important">
@@ -122,6 +124,31 @@
         </div>
     
     </main>
+    </ng-container>
+
+    <ng-template #isPublicView>
+
+      <main role="main" class="col-md-12 ml-sm-auto">
+
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">User Profile</h1>
+        </div>
+        <!-- Show user data when logged in -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="media">
+              <img class="align-self-start mr-5 img-thumbnail avatar" style="height: 100px; width: 100px"
+                src="http://bootdey.com/img/Content/user_1.jpg">
+              <div class="media-body">
+                <h2 style="margin-top: 30px; text-align: left">{{username}}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+    </ng-template>
 
   </div>
 </div>

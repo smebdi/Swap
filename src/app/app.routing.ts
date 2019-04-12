@@ -30,6 +30,7 @@ const routes: Routes = [
   { path: 'verify', component: VerifyComponent },
   { path: 'forgot', component: ForgotComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard/:username', component: DashboardComponent },
 
   // Search
   { path: `search`, component: FindBeerComponent },

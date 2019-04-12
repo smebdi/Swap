@@ -19,6 +19,8 @@ export class DashboardComponent implements OnInit {
   showHasRow: boolean;
   showCanGetRow: boolean;
   showLikeRow: boolean;
+  username: string;
+  isPublic: boolean;
 
   constructor(
     public authService: AuthenticationService,
@@ -30,41 +32,48 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      var user = JSON.parse(localStorage.getItem("user"))
-      if (user) { 
-        if (user.uid) this.getData(user.uid) 
+      if (params.username) {
+        console.log(params.username)
+        this.isPublic = true;
+        this.getUserDataFromUsername(params.username)
+      } else {
+        console.log('no params detected')
+        var user = JSON.parse(localStorage.getItem("user"))
+        if (user && user.uid) this.getData(user.uid) 
         else this.getData()
-      } else this.getData()
+      }
     })
   }
 
-  toggleWantRow() {
-    (!this.showWantRow) ? this.showWantRow = true : this.showWantRow = false
-  }
-
-  toggleHasRow() {
-    (!this.showHasRow) ? this.showHasRow = true : this.showHasRow = false
-  }
-
-  toggleCanGetRow() {
-    (!this.showCanGetRow) ? this.showCanGetRow = true : this.showCanGetRow = false
-  }
-
-  toggleLikeRow() {
-    (!this.showLikeRow) ? this.showLikeRow = true : this.showLikeRow = false
-  }
+  toggleWantRow() { (!this.showWantRow) ? this.showWantRow = true : this.showWantRow = false }
+  toggleHasRow() { (!this.showHasRow) ? this.showHasRow = true : this.showHasRow = false }
+  toggleCanGetRow() { (!this.showCanGetRow) ? this.showCanGetRow = true : this.showCanGetRow = false }
+  toggleLikeRow() { (!this.showLikeRow) ? this.showLikeRow = true : this.showLikeRow = false }
 
   getData(uid?: string) {
     if (uid) {
-      this.getUserWants(uid);
-      this.getUserHas(uid);
-      this.getUserCanGets(uid);
-      this.getUserLikes(uid);
+      this.getUserWants(uid); this.getUserHas(uid); this.getUserCanGets(uid); this.getUserLikes(uid);
+      this.getUserData(uid)
     } else {
-      this.getUserWants();
-      this.getUserHas();
-      this.getUserCanGets();
-      this.getUserLikes();
+      this.getUserWants(); this.getUserHas(); this.getUserCanGets(); this.getUserLikes();
+      this.getUserData()
+    }
+  }
+
+  getUserData(uid?: string) {
+    if (uid) {
+      this.authService.getUserData(uid).subscribe(data => {
+        this.username = data.username
+      })
+    }
+  }
+
+  getUserDataFromUsername(username?: string) {
+    if (username) {
+      console.log(`getting user data with username`)
+      this.authService.getUserDataFromUsername(username).subscribe(data => {
+        this.username = data
+      })
     }
   }
 
