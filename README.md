@@ -6,6 +6,12 @@ _In the app_
 - `npm install`
 - `npm start`  
 
+## To Write to Firebase
+_You'll need two files_
+- {root}/src/app/login/firebase.config.js (user authentication)
+- {root}/firebase.config.js (admin / writing to db)
+Request these from Caleb or a firebase admin
+
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 Specify ng serve --port #### to use the non default port number.
