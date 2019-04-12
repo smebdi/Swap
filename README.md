@@ -4,12 +4,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 # Getting started
 _In the app_
 - `npm install`
-- `npm start`  
+- `npm run fullstart` to build and deploy the server
+- `npm start` to just deploy the server if files are already build
 
 ## To Write to Firebase
 _You'll need two files_
 - {root}/src/app/login/firebase.config.js (user authentication)
-- {root}/firebase.config.js (admin / writing to db)
+- {root}/src/server/firebase-admin-key.json (admin / writing to db)
 Request these from Caleb or a firebase admin
 
 ## Development server
@@ -56,5 +57,8 @@ These endpoints are accessed through services associated with each component.
 The _not-necessarily-comprehensive_ list of endpoints is available [here](https://djangular-back-end.appspot.com/api/list).  
 
 ## The Other Back End
-User profiles, preferences, comments, interactions, _etc_ will be managed through a node back end.  
-This back end has not yet been designed. 
+User profiles, preferences, comments, interactions, _etc_ are managed through the node backend.
+This is located at `{root}/src/server`.
+It writes user data to [firebase](https://console.firebase.google.com/u/0/project/djangular-front-end/overview)
+And also handles authentication.
+
