@@ -112,9 +112,13 @@ export class AuthenticationService {
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user: User, username?: string) {
     if (username) {
+      this.userData.username = username
       console.log(`posting create ${username} to ${environment.apiUrl}`)
       let res = this.http.post<any>(`${environment.apiUrl}/api/createuser/${username}/${user.uid}`, '')
       console.log(res.subscribe(data => { console.log(data) }))
+    }
+    if (user) {
+      this.userData = user
     }
   }
 

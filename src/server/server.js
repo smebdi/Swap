@@ -53,6 +53,8 @@ app.get("/api/username/:username", (req, res) => {
   }
 })
 
+
+// bind username to authenticated user
 app.post("/api/createuser/:username/:uid", (req, res) => {
   var err1; var err2;
   
@@ -75,15 +77,25 @@ app.post("/api/createuser/:username/:uid", (req, res) => {
   }
 })
 
-app.get("/api/:userid/wants", (req, res) => {
+
+/* WANTS */
+app.get("/api/user/:userid/wants", (req, res) => {
   db.ref(`users/${req.params.userid}/wants`).once('value').then(function(snapshot) {
       res.status(200).json(snapshot.val())
     }, (err) => res.status(400).json(err.message))
 })
-
-app.post("/api/:userid/iwantit", (req, res) => {
+app.get("/api/beer/:bid/wants", (req, res) => {
+  db.ref(`beer/${req.params.bid}/wants`).once('value').then(function(snapshot) {
+      res.status(200).json(snapshot.val())
+    }, (err) => res.status(400).json(err.message))
+})
+app.post("/api/user/:userid/iwantit", (req, res) => {
   // transform into notification feed
-  console.log(`${req.params.userid} wants ${req.body.beer.bid}`)
+  console.log(req.body)
+
+  db.ref(`beer/${req.body.beer.bid}/wants/${req.body.username}`).set({
+      uid: req.params.userid
+  }, (err) => { if (err) console.log(err) })
 
   db.ref(`users/${req.params.userid}/wants/${req.body.beer.bid}`).set({
       bid: req.body.beer.bid,
@@ -94,15 +106,24 @@ app.post("/api/:userid/iwantit", (req, res) => {
     
 })
 
-app.get("/api/:userid/cangets", (req, res) => {
+/* CAN GETS */
+app.get("/api/user/:userid/cangets", (req, res) => {
   db.ref(`users/${req.params.userid}/canget`).once('value').then(function(snapshot) {
       res.status(200).json(snapshot.val())
     }, (err) => res.status(400).json(err.message))
 })
-
-app.post("/api/:userid/icangetit", (req, res) => {
+app.get("/api/beer/:bid/cangets", (req, res) => {
+  db.ref(`beer/${req.params.bid}/cangets`).once('value').then(function(snapshot) {
+      res.status(200).json(snapshot.val())
+    }, (err) => res.status(400).json(err.message))
+})
+app.post("/api/user/:userid/icangetit", (req, res) => {
   // transform into notification feed
   console.log(`${req.params.userid} can get ${req.body.beer.bid}`)
+
+  db.ref(`beer/${req.body.beer.bid}/canget/${req.body.username}`).set({
+      uid: req.params.userid
+  }, (err) => { if (err) console.log(err) })
 
   db.ref(`users/${req.params.userid}/canget/${req.body.beer.bid}`).set({
       bid: req.body.beer.bid,
@@ -113,15 +134,25 @@ app.post("/api/:userid/icangetit", (req, res) => {
     
 })
 
-app.get("/api/:userid/has", (req, res) => {
+
+/* HAS */
+app.get("/api/user/:userid/has", (req, res) => {
   db.ref(`users/${req.params.userid}/has`).once('value').then(function(snapshot) {
       res.status(200).json(snapshot.val())
     }, (err) => res.status(400).json(err.message))
 })
-
-app.post("/api/:userid/ihaveit", (req, res) => {
+app.get("/api/beer/:bid/has", (req, res) => {
+  db.ref(`beer/${req.params.bid}/has`).once('value').then(function(snapshot) {
+      res.status(200).json(snapshot.val())
+    }, (err) => res.status(400).json(err.message))
+})
+app.post("/api/user/:userid/ihaveit", (req, res) => {
   // transform into notification feed
   console.log(`${req.params.userid} has ${req.body.beer.bid}`)
+
+  db.ref(`beer/${req.body.beer.bid}/has/${req.body.username}`).set({
+      uid: req.params.userid
+  }, (err) => { if (err) console.log(err) })
 
   db.ref(`users/${req.params.userid}/has/${req.body.beer.bid}`).set({
     bid: req.body.beer.bid,
@@ -132,15 +163,25 @@ app.post("/api/:userid/ihaveit", (req, res) => {
 
 })
 
-app.get("/api/:userid/likes", (req, res) => {
+
+/* LIKES */
+app.get("/api/user/:userid/likes", (req, res) => {
   db.ref(`users/${req.params.userid}/likes`).once('value').then(function(snapshot) {
       res.status(200).json(snapshot.val())
     }, (err) => res.status(400).json(err.message))
 })
-
-app.post("/api/:userid/likebeer", (req, res) => {
+app.get("/api/beer/:bid/likes", (req, res) => {
+  db.ref(`beer/${req.params.bid}/likes`).once('value').then(function(snapshot) {
+      res.status(200).json(snapshot.val())
+    }, (err) => res.status(400).json(err.message))
+})
+app.post("/api/user/:userid/likebeer", (req, res) => {
   // transform into notification feed
   console.log(`${req.params.userid} liked ${req.body.beer.beer.bid}`)
+
+  db.ref(`beer/${req.body.beer.beer.bid}/likes/${req.body.username}`).set({
+      uid: req.params.userid
+  }, (err) => { if (err) console.log(err) })
 
   db.ref(`users/${req.params.userid}/likes/${req.body.beer.beer.bid}`).set({
       bid: req.body.beer.beer.bid,
@@ -150,6 +191,8 @@ app.post("/api/:userid/likebeer", (req, res) => {
   }, (err) => (err) ? res.status(200).json(err.message) : res.status(200).json('kthx'))
 
 })
+
+
 
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {

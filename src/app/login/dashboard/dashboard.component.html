@@ -37,7 +37,12 @@
               <img class="align-self-start mr-5 img-thumbnail avatar" style="height: 100px; width: 100px"
                 src="{{(user.photoURL) ? user.photoURL : 'http://bootdey.com/img/Content/user_1.jpg'}}">
               <div class="media-body">
-                <h3 style="text-align: left">{{(username) ? 'Welcome, ' + username + '!' : 'Cheers!'}}</h3>
+                <div *ngIf="username; else noUsername">
+                    <h3 style="text-align: left">{{username}}</h3>
+                </div>
+                <ng-template #nousername>
+                    <h3 style="text-align: left">{{(user.displayName) ? user.displayName : 'Cheers!'}}</h3>
+                </ng-template>
                 <p>Email: <strong>{{user.email}}</strong></p>
                 <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
               </div>
@@ -47,8 +52,11 @@
 
         <div *ngIf="want">
           <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h2" (click)="toggleWantRow()">Wants</h1>
+            <h1 class="h4" *ngIf="showWantRow; else carrotDownWants" (click)="toggleWantRow()">Wants <i class="fa fa-caret-up"></i></h1>
           </div>
+          <ng-template #carrotDownWants>
+              <h1 class="h4" (click)="toggleWantRow()">Wants <i class="fa fa-caret-down"></i></h1>
+          </ng-template>
           <div *ngIf="showWantRow" class="row">
             <div *ngFor="let item of want" class="media-width">
               <div class="col-md-12">
@@ -66,8 +74,11 @@
 
         <div *ngIf="has">
           <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h2" (click)="toggleHasRow()">Has</h1>
+            <h1 class="h4" *ngIf="showHasRow; else carrotDownHas" (click)="toggleHasRow()">Has <i class="fa fa-caret-up"></i></h1>
           </div>
+          <ng-template #carrotDownHas>
+              <h1 class="h4" (click)="toggleHasRow()">Has <i class="fa fa-caret-down"></i></h1>
+          </ng-template>
           <div *ngIf="showHasRow" class="row">
             <div *ngFor="let item of has" class="media-width">
               <div class="col-md-12">
@@ -85,8 +96,11 @@
 
         <div *ngIf="canget">
           <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h2" (click)="toggleCanGetRow()">Can Get</h1>
+            <h1 class="h4" *ngIf="showCanGetRow; else carrotDownCanGet" (click)="toggleCanGetRow()">Can Get <i class="fa fa-caret-up"></i></h1>
           </div>
+          <ng-template #carrotDownCanGet>
+              <h1 class="h4" (click)="toggleCanGetRow()">Can Get <i class="fa fa-caret-down"></i></h1>
+          </ng-template>
           <div *ngIf="showCanGetRow" class="row">
             <div *ngFor="let item of canget" class="media-width">
               <div class="col-md-12">
@@ -104,8 +118,11 @@
 
         <div *ngIf="likes">
           <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h2" (click)="toggleLikeRow()">Likes</h1>
+            <h1 class="h4" *ngIf="showLikeRow; else carrotDownLikes" (click)="toggleLikeRow()">Likes <i class="fa fa-caret-up"></i></h1>
           </div>
+          <ng-template #carrotDownLikes>
+              <h1 class="h4" (click)="toggleLikeRow()">Likes <i class="fa fa-caret-down"></i></h1>
+          </ng-template>
           <div *ngIf="showLikeRow" class="row">
             <div *ngFor="let item of likes" class="media-width">
               <div class="col-md-12">

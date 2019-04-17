@@ -52,18 +52,32 @@ export class DashboardComponent implements OnInit {
 
   getData(uid?: string) {
     if (uid) {
-      this.getUserWants(uid); this.getUserHas(uid); this.getUserCanGets(uid); this.getUserLikes(uid);
+      this.getUserWants(uid); 
+      this.getUserHas(uid); 
+      this.getUserCanGets(uid); 
+      this.getUserLikes(uid);
       this.getUserData(uid)
     } else {
-      this.getUserWants(); this.getUserHas(); this.getUserCanGets(); this.getUserLikes();
+      this.getUserWants(); 
+      this.getUserHas(); 
+      this.getUserCanGets(); 
+      this.getUserLikes();
       this.getUserData()
     }
   }
 
   getUserData(uid?: string) {
+    console.log('getting user data')
     if (uid) {
       this.authService.getUserData(uid).subscribe(data => {
-        this.username = data.username
+        if (data) {
+          console.log('data exists')
+          this.username = data.username
+        }
+        if (this.authService.userData && this.authService.userData.displayName) {
+          console.log('userData exists')
+          this.username = this.authService.userData.displayName
+        }
       })
     }
   }
