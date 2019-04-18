@@ -50,7 +50,7 @@
             <div class="stats">
               <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iWantIt(beer)">I want it</button>
               <button type="button" class="pull-left ml-2 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(beer)">I have it</button>
-              <button type="button" class="pull-left ml-2 mr-2 btn btn-sm btn-dark blue-ripple" (click)="iHaveIt(beer)">I can get it</button>
+              <button type="button" class="pull-left ml-2 mr-2 btn btn-sm btn-dark blue-ripple" (click)="iCanGetIt(beer)">I can get it</button>
 
               <div class="liked-this" *ngIf="user && user.liked && user.liked.feedids && user.liked.feedids.includes(beer.bid)"><em>You liked this.</em></div>
               <a *ngIf="beer.likes; else noLikes" (click)="addLike(beer)" class="btn btn-default stat-item tan-ripple">

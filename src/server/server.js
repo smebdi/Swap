@@ -101,7 +101,7 @@ app.post("/api/user/:userid/iwantit", (req, res) => {
       bid: req.body.beer.bid,
       beer_label: req.body.beer.beer_label,
       beer_name: req.body.beer.beer_name,
-      beer_style: req.body.beer.beer_style
+      beer_style: (req.body.beer.beer_style) ? req.body.beer.beer_style : req.body.beer.style_name
   }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`iknowyoudo`)) 
     
 })
@@ -129,7 +129,7 @@ app.post("/api/user/:userid/icangetit", (req, res) => {
       bid: req.body.beer.bid,
       beer_label: req.body.beer.beer_label,
       beer_name: req.body.beer.beer_name,
-      beer_style: req.body.beer.beer_style
+      beer_style: (req.body.beer.beer_style) ? req.body.beer.beer_style : req.body.beer.style_name
   }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`yeahbutwillu`))  
     
 })
@@ -158,7 +158,7 @@ app.post("/api/user/:userid/ihaveit", (req, res) => {
     bid: req.body.beer.bid,
     beer_label: req.body.beer.beer_label,
     beer_name: req.body.beer.beer_name,
-    beer_style: req.body.beer.beer_style
+    beer_style: (req.body.beer.beer_style) ? req.body.beer.beer_style : req.body.beer.style_name
   }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`noudont`))  
 
 })

@@ -3,6 +3,7 @@ import { UntappdService } from '../../service/untappd.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntappdBeerById, UntappdBeer, Untappd, UntappdBrewery } from '../../model/untappd.model';
 import { HaveItWantIt } from '../../service/haveitwantit.service';
+import { AuthenticationService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-detail',
@@ -18,12 +19,14 @@ export class BeerDetailComponent implements OnInit {
   likeObject: Untappd;
   user: any;
   relatedActivity: boolean;
+  username: string;
 
   constructor(
       private route: ActivatedRoute, 
       private untappdService: UntappdService, 
       private router: Router,
-      private haveItWantIt: HaveItWantIt
+      private haveItWantIt: HaveItWantIt,
+      private authService: AuthenticationService
     ) {
     this.route.params.subscribe(params => {
 
@@ -34,7 +37,26 @@ export class BeerDetailComponent implements OnInit {
       this.mappedBrewery = { brewery_id: '0' }
       this.mappedObject = { beer: this.mappedBeer, brewery: this.mappedBrewery }
 
+      var user = JSON.parse(localStorage.getItem("user"))
+      if (user && user.uid) this.getUserData(user.uid) 
+      else this.getUserData()
     });
+  }
+
+  getUserData(uid?: string) {
+    console.log('getting user data')
+    if (uid) {
+      this.authService.getUserData(uid).subscribe(data => {
+        if (data) {
+          console.log('data exists')
+          this.username = data.username
+        }
+        if (this.authService.userData && this.authService.userData.displayName) {
+          console.log('userData exists')
+          this.username = this.authService.userData.displayName
+        }
+      })
+    }
   }
 
   ngOnInit() {
@@ -73,7 +95,7 @@ export class BeerDetailComponent implements OnInit {
       item.likes ? item.likes += 1 : item.likes = 1;
       
       this.mapUntappdById(item)
-      this.haveItWantIt.iLikeIt(this.mappedObject).subscribe(
+      this.haveItWantIt.iLikeIt(this.mappedObject, this.username).subscribe(
         data => { console.log(data) }
       )
     }
@@ -81,21 +103,21 @@ export class BeerDetailComponent implements OnInit {
 
   iWantIt(beer: UntappdBeerById) {
     this.mapBeerById(beer)
-    this.haveItWantIt.iWantIt(this.mappedBeer).subscribe(
+    this.haveItWantIt.iWantIt(this.mappedBeer, this.username).subscribe(
       data => (!data) ? this.router.navigate(['login']) : console.log(data)
     )
   }
 
   iHaveIt(beer: UntappdBeerById) {
     this.mapBeerById(beer)
-    this.haveItWantIt.iHaveIt(this.mappedBeer).subscribe(
+    this.haveItWantIt.iHaveIt(this.mappedBeer, this.username).subscribe(
       data => (!data) ? this.router.navigate(['login']) : console.log(data)
     )
   }
 
   iCanGetIt(beer: UntappdBeerById) {
     this.mapBeerById(beer)
-    this.haveItWantIt.iCanGetIt(this.mappedBeer).subscribe(
+    this.haveItWantIt.iCanGetIt(this.mappedBeer, this.username).subscribe(
       data => (!data) ? this.router.navigate(['login']) : console.log(data)
     )
   }
