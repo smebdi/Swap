@@ -83,6 +83,7 @@ input.mat-input-element {
 }
 
 .avatar:hover {
+  cursor: pointer;
   box-shadow: 0 0 3px #515151;
 }
 

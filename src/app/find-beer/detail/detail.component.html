@@ -13,9 +13,12 @@
 
           <!-- start header -->
           <div class="post-heading">
-
+            
             <div class="pull-right post-image-container d-none d-lg-block">
-              <img src="{{beer.beer_label_hd}}" class="image">
+              <img *ngIf="beer.beer_label_hd; else noHD" src="{{beer.beer_label_hd}}" class="image">
+              <ng-template #noHD>
+                  <img src="{{beer.beer_label}}" class="image">
+              </ng-template>
             </div>
 
             <div class="pull-left meta">
@@ -91,37 +94,49 @@
         <aside class="align-right">
 
           <!-- start users with beer -->
-          <div class="row" style="text-align: center">
+          <div *ngIf="havers || cangetters || wanters" class="row" style="text-align: center">
             <div class="p-4 mb-3 col-12 bg-light rounded">
-              <h4 class="font-italic mb-3" style="text-align: center">These folks are the pros</h4>
-              <hr>
-              <div class="row justify-content-center">
-                <div class="col profile-images">
-                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
-                </div>
-                <div class="col profile-images">
-                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
-                </div>
-                <div class="col profile-images">
-                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
-                </div>
-                <div class="col profile-images">
-                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
-                </div>
-                <div class="col profile-images">
-                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
-                </div>
-                <div class="col profile-images">
-                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
-                </div>
-                <div class="col profile-images">
-                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
-                </div>
-                <div class="col profile-images">
-                  <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="user profile image">
+
+              <div *ngIf="havers && havers[0]">
+                <h4 class="font-italic mb-3" style="text-align: center">These dudes have it</h4>
+                <hr>
+                <div class="row justify-content-center">
+                  <div *ngFor="let user of havers" class="col profile-images">
+                    <img 
+                      matTooltip="{{user.username}}" 
+                      src="{{user.imageUrl}}" 
+                      class="avatar"
+                      (click)="goToUserDetail(user.username)">
+                  </div>
                 </div>
               </div>
-              <p style="text-align: center; font-size: 12px;"><em>(but imagine these are the people who said I have it, I can get it, or have liked it)</em></p>
+
+              <div *ngIf="cangetters && cangetters[0]">
+                <h4 class="font-italic mt-3 mb-3" style="text-align: center">These dudes can get it</h4>
+                <hr>
+                <div class="row justify-content-center">
+                  <div *ngFor="let user of cangetters" class="col profile-images">
+                    <img 
+                      matTooltip="{{user.username}}" 
+                      src="{{user.imageUrl}}" 
+                      class="avatar">
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="wanters && wanters[0]">
+                <h4 class="font-italic mt-3 mb-3" style="text-align: center">These dudes want it</h4>
+                <hr>
+                <div class="row justify-content-center">
+                  <div *ngFor="let user of wanters" class="col profile-images">
+                    <img 
+                      matTooltip="{{user.username}}" 
+                      src="{{user.imageUrl}}" 
+                      class="avatar">
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
           <!-- end users with beer -->

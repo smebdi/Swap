@@ -60,10 +60,6 @@ export class FindBeerComponent implements OnInit {
 
     var localUser = JSON.parse(localStorage.getItem("user"))
     if (localUser && localUser.uid) this.populateLikes(localUser.uid);
-
-    this.haveItWantIt.getWantsByBeer(1562806).subscribe(data => {
-      console.log(data)
-    })
   }
 
   getUserData(uid?: string) {

@@ -1,0 +1,43 @@
+.header {
+    margin-top: 4%;
+    text-align: center;
+}
+
+.image-container {
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    max-width: 111px;
+}
+
+.image {
+    width: 70px; 
+    height: 70px;
+}
+
+.image-container:hover {
+    cursor: pointer;
+    box-shadow: 0 0 2px #515151;
+}
+
+.image-container:active {
+    box-shadow: 0 0 2px #515151;
+}
+
+.active {
+    box-shadow: 0 0 2px #515151;
+}
+
+.btn {
+    width: 150px
+}
+
+.disclaimer {
+    text-align: center;
+    font-size: 9px;
+    color: gray;
+}
+
+.disclaimer-text {
+    text-align: center;
+}

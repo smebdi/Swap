@@ -39,7 +39,9 @@ app.get("/api/getuserdata/uid/:uid", (req, res) => {
 
 app.get("/api/getuserdata/username/:username", (req, res) => {
   if (req.params.username) {
-    db.ref(`usernames/${req.params.username}/username`).once('value').then(function(snapshot) {
+    db.ref(`usernames/${req.params.username}`).once('value').then(function(snapshot) {
+      console.log('passed username, returning user data')
+      console.log(snapshot.val())
       res.status(200).json(snapshot.val())
     }, (err) => res.status(400).json(err.message))
   }
@@ -53,6 +55,13 @@ app.get("/api/username/:username", (req, res) => {
   }
 })
 
+app.post("/api/username/:username/editimg", (req, res) => {
+  if (req.params.username) {
+    console.log(req.body)
+    console.log(req.body.url)
+  }
+})
+
 
 // bind username to authenticated user
 app.post("/api/createuser/:username/:uid", (req, res) => {
@@ -63,7 +72,8 @@ app.post("/api/createuser/:username/:uid", (req, res) => {
 
   db.ref(`usernames/${req.params.username}`).set({
     username: req.params.username,
-    uid: req.params.uid
+    uid: req.params.uid,
+    imageUr
   }, (err) => { if (err) err1 = err });
   db.ref(`users/${req.params.uid}/username`).set({
     username: req.params.username
@@ -113,7 +123,8 @@ app.get("/api/user/:userid/cangets", (req, res) => {
     }, (err) => res.status(400).json(err.message))
 })
 app.get("/api/beer/:bid/cangets", (req, res) => {
-  db.ref(`beer/${req.params.bid}/cangets`).once('value').then(function(snapshot) {
+  db.ref(`beer/${req.params.bid}/canget`).once('value').then(function(snapshot) {
+      console.log(snapshot.val())
       res.status(200).json(snapshot.val())
     }, (err) => res.status(400).json(err.message))
 })

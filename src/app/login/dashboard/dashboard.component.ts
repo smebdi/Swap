@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   showCanGetRow: boolean;
   showLikeRow: boolean;
   username: string;
+  userid: string;
+
   isPublic: boolean;
 
   constructor(
@@ -33,9 +35,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params.username) {
-        console.log(params.username)
         this.isPublic = true;
-        this.getUserDataFromUsername(params.username)
+        this.getPublicUser(params)        
       } else {
         console.log('no params detected')
         var user = JSON.parse(localStorage.getItem("user"))
@@ -45,12 +46,20 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  cleanData() {
+    this.has = [];
+    this.want = [];
+    this.canget = [];
+    this.likes = [];
+  }
+
   toggleWantRow() { (!this.showWantRow) ? this.showWantRow = true : this.showWantRow = false }
   toggleHasRow() { (!this.showHasRow) ? this.showHasRow = true : this.showHasRow = false }
   toggleCanGetRow() { (!this.showCanGetRow) ? this.showCanGetRow = true : this.showCanGetRow = false }
   toggleLikeRow() { (!this.showLikeRow) ? this.showLikeRow = true : this.showLikeRow = false }
 
   getData(uid?: string) {
+    this.cleanData();
     if (uid) {
       this.getUserWants(uid); 
       this.getUserHas(uid); 
@@ -63,6 +72,17 @@ export class DashboardComponent implements OnInit {
       this.getUserCanGets(); 
       this.getUserLikes();
       this.getUserData()
+    }
+  }
+
+  async getDataAsync(uid?: string) {
+    this.cleanData();
+    if (uid) {
+      this.getUserWants(uid); 
+      this.getUserHas(uid); 
+      this.getUserCanGets(uid); 
+      this.getUserLikes(uid);
+      this.getUserData(uid)
     }
   }
 
@@ -81,12 +101,20 @@ export class DashboardComponent implements OnInit {
       })
     }
   }
+  
+  async getPublicUser(params: any) {
+    // async wrapper
+    console.log(params.username)
+    await this.getUserDataFromUsername(params.username)
+  }
 
-  getUserDataFromUsername(username?: string) {
+  async getUserDataFromUsername(username?: string) {
     if (username) {
       console.log(`getting user data with username`)
       this.authService.getUserDataFromUsername(username).subscribe(data => {
-        this.username = data
+        this.username = data.username
+        this.getDataAsync(data.uid)
+        this.authService.setUsername(data.username);
       })
     }
   }
@@ -137,6 +165,30 @@ export class DashboardComponent implements OnInit {
         (this.likes.length > 4) ? this.showLikeRow = false : this.showLikeRow = true
       }
     })
+  }
+
+  goToDetail(id: number) {
+    try {
+      this.router.navigate([`/detail/${id}`]);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  goToBrewDetail() {
+    try {
+      console.log('test2');
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  goToEdit() {
+    try {
+      this.router.navigate([`/edit`]);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
 }

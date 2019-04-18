@@ -9,7 +9,7 @@ import { User } from  '../model/user.model';
 import { AngularFireAuth } from  "@angular/fire/auth";
 
 import { environment } from '../../environments/environment';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { NavbarService } from './navbar.service';
 
 @Injectable()
@@ -17,6 +17,7 @@ export class AuthenticationService {
 
     // user: User;
     userData: any;
+    username: string;
 
     constructor(
         private http: HttpClient,
@@ -114,8 +115,8 @@ export class AuthenticationService {
     if (username) {
       this.userData.username = username
       console.log(`posting create ${username} to ${environment.apiUrl}`)
-      let res = this.http.post<any>(`${environment.apiUrl}/api/createuser/${username}/${user.uid}`, '')
-      console.log(res.subscribe(data => { console.log(data) }))
+      this.http.post<any>(`${environment.apiUrl}/api/createuser/${username}/${user.uid}`, '')
+      this.setUserImage(username)
     }
     if (user) {
       this.userData = user
@@ -152,6 +153,26 @@ export class AuthenticationService {
     if (username) {
       return this.http.get<any>(`${environment.apiUrl}/api/getuserdata/username/${username}`)
     } else console.log('no username')
+  }
+
+  setUsername(username: string) {
+    this.username = username;
+  }
+
+  setUserImage(username: string, url?: string) {
+    if (url) {
+      console.log('url found', username)
+      this.http.post<any>(
+        `${environment.apiUrl}/api/username/${username}/editimg`, 
+        JSON.stringify(`url: ${url}`)
+      )  
+    } else {
+      console.log('no url found', username)
+      this.http.post<any>(
+        `${environment.apiUrl}/api/username/${username}/editimg`, 
+        JSON.stringify(`url: ${environment.localUrl}/assets/icons/1.png`)
+      )
+    }
   }
 
 }

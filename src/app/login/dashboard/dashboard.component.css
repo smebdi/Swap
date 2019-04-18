@@ -16,3 +16,54 @@
 .fa-caret-up {
     font-size: 22
 }
+
+.beer-item:hover { 
+    background-color: whitesmoke;
+    cursor: pointer; 
+}
+
+.avatar {
+    height: 100px;
+    width: 100px
+}
+
+.contain {
+    max-width: 150px;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    width: 100px;
+    opacity: 0;
+    transition: .3s ease;
+    background-color: #efefef;
+  }
+
+/* When you mouse over the container, fade in the overlay icon*/
+.contain:hover .overlay {
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* The icon inside the overlay is positioned in the middle vertically and horizontally */
+.icon {
+    color: white;
+    font-size: 33px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* When you move the mouse over the icon, change color */
+.fa-user:hover {
+    color: #eee;
+}

@@ -13,7 +13,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "gen": "ng g c login/dashboard",
+    "gen": "ng g c login/edit",
     "serv": "ng generate service service/",
     "mod": "ng generate model feed",
     "ginit": "gcloud init",

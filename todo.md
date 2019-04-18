@@ -6,6 +6,7 @@
 ### Database
 - Usernames should contain uid, username, profile image
 - Beer section that contains a list of usernames (usernames used to get profile image)
+- Swap Zone event logging
 
 
 ### Future

@@ -20,6 +20,7 @@ import { RegisterComponent } from './login/register/register.component';
 import { VerifyComponent } from './login/verify/verify.component';
 import { ForgotComponent } from './login/forgot/forgot.component';
 import { DashboardComponent } from './login/dashboard/dashboard.component';
+import { EditComponent } from './login/edit/edit.component';
 
 const routes: Routes = [
   { path: '', component : HomeComponent },
@@ -29,8 +30,10 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'forgot', component: ForgotComponent },
+  { path: 'edit', component: EditComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'dashboard/:username', component: DashboardComponent },
+  { path: 'profile/:username', component: DashboardComponent },
 
   // Search
   { path: `search`, component: FindBeerComponent },

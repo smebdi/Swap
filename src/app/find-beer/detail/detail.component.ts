@@ -21,6 +21,11 @@ export class BeerDetailComponent implements OnInit {
   relatedActivity: boolean;
   username: string;
 
+  havers: any[];
+  cangetters: any[];
+  wanters: any[];
+  likes: any[];
+
   constructor(
       private route: ActivatedRoute, 
       private untappdService: UntappdService, 
@@ -31,6 +36,8 @@ export class BeerDetailComponent implements OnInit {
     this.route.params.subscribe(params => {
 
       this.getBeerDataById(params.bid);
+      this.getPros(params.bid);
+      this.getPosers(params.bid);
 
       /* angular requirement to initialize objects before use */
       this.mappedBeer = { bid: 0 }
@@ -41,6 +48,13 @@ export class BeerDetailComponent implements OnInit {
       if (user && user.uid) this.getUserData(user.uid) 
       else this.getUserData()
     });
+  }
+
+  clearData() {
+    this.havers = [];
+    this.cangetters = [];
+    this.wanters = [];
+    this.likes = [];
   }
 
   getUserData(uid?: string) {
@@ -60,13 +74,58 @@ export class BeerDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.clearData();
+
     this.user = {};
     this.user.liked = {};
     this.user.liked.feedids = [];
     this.relatedActivity = true;
+
+    var localUser = JSON.parse(localStorage.getItem("user"))
+    if (localUser && localUser.uid) this.populateLikes(localUser.uid);
+  }
+
+  getPros(bid: number) {
+    this.havers = [];
+    this.cangetters = [];
+
+    this.haveItWantIt.getHasByBeer(bid).subscribe(data => {
+      if (data) for (const [key, value] of Object.entries(data)) {
+        if (data) this.havers.push({
+          username: key,
+          uid: value['uid'],
+          imageUrl: 'http://bootdey.com/img/Content/user_1.jpg'
+        })
+      }
+    })
+
+    this.haveItWantIt.getCanGetsByBeer(bid).subscribe(data => {
+      if (data) for (const [key, value] of Object.entries(data)) {
+        if (data) this.cangetters.push({
+          username: key,
+          uid: value['uid'],
+          imageUrl: 'http://bootdey.com/img/Content/user_1.jpg'
+        })
+      }
+    })
+  }
+
+  getPosers(bid: number) {
+    this.wanters = [];
+
+    this.haveItWantIt.getWantsByBeer(bid).subscribe(data => {
+      if (data) for (const [key, value] of Object.entries(data)) {
+        if (data) this.wanters.push({
+          username: key,
+          uid: value['uid'],
+          imageUrl: 'http://bootdey.com/img/Content/user_1.jpg'
+        })
+      }
+    })
   }
 
   getBeerDataById(bid: number) {
+    // pulls data from python api
     this.untappdService.getUntappdBeerById(bid)
     .subscribe(data => {
       this.beer = data.response.beer;
@@ -87,6 +146,24 @@ export class BeerDetailComponent implements OnInit {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  goToUserDetail(username: string) {
+    this.router.navigate([`profile/${username}`])
+  }
+
+  populateLikes(uid?: string) {
+    const likesData = this.haveItWantIt.getLikes(uid);
+    if (likesData) likesData.subscribe(data => {
+      if (data) {
+        this.likes = Object.keys(data).map(function(item) {
+          if (data[item]) return data[item]
+        })
+        this.likes.map((v) => {
+          this.user.liked.feedids.push(v.bid)
+        })
+      }
+    })
   }
 
   addLike(item: UntappdBeerById) {

@@ -1,0 +1,32 @@
+<div class="header">
+  <h2 matTooltip="">Choose your profile icon</h2>
+  <hr>
+</div>
+<div class="container">
+  
+  <div class="row justify-content-center">
+    <div *ngFor="let image of images; let i = index" (click)="onclick(i+1)"
+      class="col m-2 image-container">
+        <img id="{{image[0]}}" src="{{image[1]}}" class="image">
+    </div>
+  </div>
+  <div class="row justify-content-center disclaimer">
+      <div class="disclaimer-text">
+        Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 		    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+      </div>
+  </div>
+
+  <div class="row mt-5 mb-5 justify-content-center" style="text-align: center">
+    <div class="col-lg-3">
+      <button type="button" class="btn m-2 ml-4 mr-4 btn-primary" (click)="onSave()">
+        Save
+      </button>
+    </div>
+    <div class="col-lg-3">
+      <button type="button" class="btn m-2 ml-4 mr-4 btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+</div>
