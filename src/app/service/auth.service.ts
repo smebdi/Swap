@@ -168,10 +168,9 @@ export class AuthenticationService {
         })
       } else {
         console.log('no url found', data.username)
-        this.http.post<any>(
-          `${environment.apiUrl}/api/username/${data.username}/editimg`, 
-          JSON.stringify(`url: ${environment.localUrl}/assets/icons/1.png`)
-        )
+        this.http.post<any>(`${environment.apiUrl}/api/editprofile/username/${data.username}`, {imageUrl: `${environment.localUrl}/assets/icons/1.png`}).subscribe(data => {
+          console.log(data)
+        })
       }
     })
   }
