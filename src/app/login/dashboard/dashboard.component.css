@@ -1,6 +1,16 @@
-.media .beer-label {
-    height: 100px !important;
-    width: 100px !important;
+button {
+  width: 100px;
+}
+
+textarea {
+    padding: 10px;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+    height: 150px;
+    width: 750px;
+    max-width: 95%
 }
 
 .media-width {
@@ -16,15 +26,22 @@
 .fa-caret-up {
     font-size: 22
 }
-
-.beer-item:hover { 
+.beer-label {
+    height: 75px !important;
+    width: 75px !important;
+}
+.beer-item {
+    width: 140px;
+    min-height: 140px;
+}
+.beer-wrapper:hover { 
     background-color: whitesmoke;
     cursor: pointer; 
 }
 
 .avatar {
-    height: 100px;
-    width: 100px
+    height: 140px;
+    width: 140px;
 }
 
 .contain {
@@ -38,8 +55,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 100px;
-    width: 100px;
+    height: 140px;
+    width: 140px;
     opacity: 0;
     transition: .3s ease;
     background-color: #efefef;

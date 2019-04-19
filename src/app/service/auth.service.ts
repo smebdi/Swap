@@ -113,10 +113,15 @@ export class AuthenticationService {
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user: User, username?: string) {
     if (username) {
+      console.log(user)
+
       this.userData.username = username
-      console.log(`posting create ${username} to ${environment.apiUrl}`)
-      this.http.post<any>(`${environment.apiUrl}/api/createuser/${username}/${user.uid}`, '')
-      this.setUserImage(username)
+
+      // simple output
+      console.log(`posting create ${username} to ${environment.apiUrl}, id is ${user.uid}`)
+      this.http.post<any>(`${environment.apiUrl}/api/createuser/username/${username}/uid/${user.uid}`, '').subscribe(data => {
+        console.log(data)
+      })
     }
     if (user) {
       this.userData = user
@@ -159,18 +164,33 @@ export class AuthenticationService {
     this.username = username;
   }
 
-  async setUserImage(uid: string, url?: string) {
+  async setUserDescription(uid: string, desc: string) {
+    await this.getUserData(uid).subscribe(data => {
+      return this.http.post<any>(
+        `${environment.apiUrl}/api/editprofile/username/${data.username}`, {description: desc}
+      ).subscribe(data => {
+        console.log(data)
+        return data
+      })
+    })
+  }
+
+  async setUserImage(uid: string, url?: string, username?: string) {
     await this.getUserData(uid).subscribe(data => {
       if (url) {
-        console.log('url found', data.username, url)
-        this.http.post<any>(`${environment.apiUrl}/api/editprofile/username/${data.username}`, {imageUrl: url}).subscribe(data => {
-          console.log(data)
-        })
+        return this.http.post<any>(
+            `${environment.apiUrl}/api/editprofile/username/${data.username}`, {imageUrl: url}
+          ).subscribe(data => {
+            console.log(data)
+            return data
+          })
       } else {
-        console.log('no url found', data.username)
-        this.http.post<any>(`${environment.apiUrl}/api/editprofile/username/${data.username}`, {imageUrl: `${environment.localUrl}/assets/icons/1.png`}).subscribe(data => {
-          console.log(data)
-        })
+        return this.http.post<any>(
+            `${environment.apiUrl}/api/editprofile/username/${username}`, ''
+          ).subscribe(data => {
+            console.log(data)
+            return data
+          })
       }
     })
   }

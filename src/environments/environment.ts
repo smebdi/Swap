@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:8081',
-  localUrl: 'http://localhost:4200'
+  localUrl: 'https://djangular-front-end.appspot.com/'
 };
 
 /*

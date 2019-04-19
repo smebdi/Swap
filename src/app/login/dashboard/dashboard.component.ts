@@ -15,12 +15,19 @@ export class DashboardComponent implements OnInit {
   canget: any[];
   likes: any[];
 
+  user: any;
+
   showWantRow: boolean;
   showHasRow: boolean;
   showCanGetRow: boolean;
   showLikeRow: boolean;
   username: string;
+  imageUrl: string;
   userid: string;
+  description: string;
+
+  showDesc: boolean;
+  editDesc: boolean;
 
   isPublic: boolean;
 
@@ -30,7 +37,9 @@ export class DashboardComponent implements OnInit {
     private route: ActivatedRoute,
     public ngZone: NgZone,
     public haveitwantit: HaveItWantIt
-  ) { }
+  ) {
+    this.user = JSON.parse(localStorage.getItem("user"))
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -57,6 +66,7 @@ export class DashboardComponent implements OnInit {
   toggleHasRow() { (!this.showHasRow) ? this.showHasRow = true : this.showHasRow = false }
   toggleCanGetRow() { (!this.showCanGetRow) ? this.showCanGetRow = true : this.showCanGetRow = false }
   toggleLikeRow() { (!this.showLikeRow) ? this.showLikeRow = true : this.showLikeRow = false }
+  toggleEditDescription() { this.editDesc = !this.editDesc; }
 
   getData(uid?: string) {
     this.cleanData();
@@ -82,7 +92,6 @@ export class DashboardComponent implements OnInit {
       this.getUserHas(uid); 
       this.getUserCanGets(uid); 
       this.getUserLikes(uid);
-      this.getUserData(uid)
     }
   }
 
@@ -92,7 +101,7 @@ export class DashboardComponent implements OnInit {
       this.authService.getUserData(uid).subscribe(data => {
         if (data) {
           console.log('data exists')
-          this.username = data.username
+          this.getUserDataFromUsername(data.username)
         }
         if (this.authService.userData && this.authService.userData.displayName) {
           console.log('userData exists')
@@ -112,8 +121,17 @@ export class DashboardComponent implements OnInit {
     if (username) {
       console.log(`getting user data with username`)
       this.authService.getUserDataFromUsername(username).subscribe(data => {
-        this.username = data.username
-        this.getDataAsync(data.uid)
+        if (data) {
+          this.username = data.username
+          this.imageUrl = data.imageUrl
+          if (data.description) {
+            this.description = data.description; 
+            this.showDesc = true;
+          }
+          this.getDataAsync(data.uid)
+        }
+
+        // just sets service username variable
         this.authService.setUsername(data.username);
       })
     }
@@ -126,7 +144,7 @@ export class DashboardComponent implements OnInit {
         this.want = Object.keys(data).map(function(wantitem) {
           if (data[wantitem]) return data[wantitem]
         });
-        (this.want.length > 4) ? this.showWantRow = false : this.showWantRow = true
+        (this.want.length > 8) ? this.showWantRow = false : this.showWantRow = true
       }
     })
   }
@@ -138,7 +156,7 @@ export class DashboardComponent implements OnInit {
         this.has = Object.keys(data).map(function(item) {
           if (data[item]) return data[item]
         });
-        (this.has.length > 4) ? this.showHasRow = false : this.showHasRow = true
+        (this.has.length > 8) ? this.showHasRow = false : this.showHasRow = true
       }
     })
   }
@@ -150,7 +168,7 @@ export class DashboardComponent implements OnInit {
         this.canget = Object.keys(data).map(function(item) {
           if (data[item]) return data[item]
         });
-        (this.canget.length > 4) ? this.showCanGetRow = false : this.showCanGetRow = true
+        (this.canget.length > 8) ? this.showCanGetRow = false : this.showCanGetRow = true
       }
     })
   }
@@ -162,33 +180,32 @@ export class DashboardComponent implements OnInit {
         this.likes = Object.keys(data).map(function(item) {
           if (data[item]) return data[item]
         });
-        (this.likes.length > 4) ? this.showLikeRow = false : this.showLikeRow = true
+        (this.likes.length > 8) ? this.showLikeRow = false : this.showLikeRow = true
       }
     })
   }
 
-  goToDetail(id: number) {
-    try {
-      this.router.navigate([`/detail/${id}`]);
-    } catch (e) {
-      console.log(e);
+  async saveDesc(desc?: string) {
+    if (desc) { 
+      this.description = desc
+      await this.authService.setUserDescription(this.user.uid, desc)
     }
+    this.toggleEditDescription()
+  }
+
+  goToDetail(id: number) {
+    try { this.router.navigate([`/detail/${id}`]) } 
+    catch (e) { console.log(e) }
   }
 
   goToBrewDetail() {
-    try {
-      console.log('test2');
-    } catch (e) {
-      console.log(e);
-    }
+    try { console.log('test2') } 
+    catch (e) { console.log(e) }
   }
 
   goToEdit() {
-    try {
-      this.router.navigate([`/edit`]);
-    } catch (e) {
-      console.log(e);
-    }
+    try { this.router.navigate([`/edit`]) } 
+    catch (e) { console.log(e) }
   }
 
 }

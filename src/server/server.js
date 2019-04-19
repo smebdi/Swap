@@ -56,17 +56,26 @@ app.get("/api/username/:username", (req, res) => {
 })
 
 app.post("/api/editprofile/username/:username", (req, res) => {
-    console.log(req.params)
-    console.log(req.body.imageUrl)
+  console.log('editing profile')
+  console.log(req.body)
 
+  if (req.body.description) {
+    db.ref(`usernames/${req.params.username}`).update({
+      description: req.body.description
+    }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`descset`))
+  }
+
+  if (req.body.imageUrl) {
     db.ref(`usernames/${req.params.username}`).update({
       imageUrl: req.body.imageUrl
     }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`picset`))
+  }
 })
 
 
 // bind username to authenticated user
-app.post("/api/createuser/:username/:uid", (req, res) => {
+app.post("/api/createuser/username/:username/uid/:uid", (req, res) => {
+  console.log('creating user')
   var err1; var err2;
   
   console.log(req.params.username);
@@ -75,7 +84,8 @@ app.post("/api/createuser/:username/:uid", (req, res) => {
   db.ref(`usernames/${req.params.username}`).set({
     username: req.params.username,
     uid: req.params.uid,
-    imageUr
+    imageUrl: 'https://djangular-front-end.appspot.com/assets/icons/1.png',
+    description: 'This user has not told us anything about themselves yet. But we can assume they like beer!'
   }, (err) => { if (err) err1 = err });
   db.ref(`users/${req.params.uid}/username`).set({
     username: req.params.username

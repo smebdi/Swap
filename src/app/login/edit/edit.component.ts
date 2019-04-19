@@ -85,12 +85,17 @@ export class EditComponent implements OnInit {
     document.getElementById(id).parentElement.className += " active"
   }
 
-  onSave() {
+  async onSave() {
     let id = document.getElementsByClassName('active')[0].firstElementChild.id
-    this.authService.setUserImage(this.user.uid, `${environment.localUrl}/assets/icons/${id}.jpg`)
+    await this.authService.setUserImage(this.user.uid, `${environment.localUrl}/assets/icons/${id}.jpg`);
+    await this.navigateToDashboard();
   }
 
   onCancel() {
+    this.navigateToDashboard()
+  }
+
+  async navigateToDashboard() {
     this.router.navigate(['dashboard'])
   }
 

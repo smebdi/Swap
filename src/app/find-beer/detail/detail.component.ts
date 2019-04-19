@@ -90,22 +90,34 @@ export class BeerDetailComponent implements OnInit {
     this.cangetters = [];
 
     this.haveItWantIt.getHasByBeer(bid).subscribe(data => {
-      if (data) for (const [key, value] of Object.entries(data)) {
-        if (data) this.havers.push({
-          username: key,
-          uid: value['uid'],
-          imageUrl: 'http://bootdey.com/img/Content/user_1.jpg'
-        })
+      if (data) {
+        for (const [key, value] of Object.entries(data)) {
+          if (data) {
+            this.authService.getUserDataFromUsername(key).subscribe(data => {
+              this.havers.push({
+                username: key,
+                uid: value['uid'],
+                imageUrl: (data.imageUrl) ? data.imageUrl : 'https://djangular-front-end.appspot.com/assets/icons/1.png' 
+              })
+            })
+          }
+        }
       }
     })
 
     this.haveItWantIt.getCanGetsByBeer(bid).subscribe(data => {
-      if (data) for (const [key, value] of Object.entries(data)) {
-        if (data) this.cangetters.push({
-          username: key,
-          uid: value['uid'],
-          imageUrl: 'http://bootdey.com/img/Content/user_1.jpg'
-        })
+      if (data) {
+        for (const [key, value] of Object.entries(data)) {
+          if (data) {
+            this.authService.getUserDataFromUsername(key).subscribe(data => {
+              this.cangetters.push({
+                username: key,
+                uid: value['uid'],
+                imageUrl: (data.imageUrl) ? data.imageUrl : 'https://djangular-front-end.appspot.com/assets/icons/1.png' 
+              })
+            })
+          }
+        }
       }
     })
   }
@@ -114,12 +126,18 @@ export class BeerDetailComponent implements OnInit {
     this.wanters = [];
 
     this.haveItWantIt.getWantsByBeer(bid).subscribe(data => {
-      if (data) for (const [key, value] of Object.entries(data)) {
-        if (data) this.wanters.push({
-          username: key,
-          uid: value['uid'],
-          imageUrl: 'http://bootdey.com/img/Content/user_1.jpg'
-        })
+      if (data) {
+        for (const [key, value] of Object.entries(data)) {
+          if (data) {
+            this.authService.getUserDataFromUsername(key).subscribe(data => {
+              this.wanters.push({
+                username: key,
+                uid: value['uid'],
+                imageUrl: (data.imageUrl) ? data.imageUrl : 'https://djangular-front-end.appspot.com/assets/icons/1.png' 
+              })
+            })
+          }
+        }
       }
     })
   }
@@ -129,6 +147,7 @@ export class BeerDetailComponent implements OnInit {
     this.untappdService.getUntappdBeerById(bid)
     .subscribe(data => {
       this.beer = data.response.beer;
+      console.log(data.response.beer)
     });
   }
 
