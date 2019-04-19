@@ -58,10 +58,12 @@
               </div>
               <p style="margin-top: 10px; margin-bottom: 10px;">
                 <i (click)="toggleEditDescription()" class="fa fa-edit"></i>
-                  Description: <strong *ngIf="showDesc">{{description}}</strong>
+                  About: <strong *ngIf="showDesc">{{description}}</strong>
               </p>
               <div *ngIf="editDesc">
-                <textarea #newDesc id="desc" placeholder="Tell us something about you!" maxlength="500"></textarea>
+                <textarea #newDesc id="desc" 
+                  placeholder="Tell us something about you. Do you like IPAs? Lagers? Stouts?"
+                  maxlength="500"></textarea>
                 <br>
                 <button type="button" class="btn mt-2 btn-primary" (click)="saveDesc(newDesc.value)">
                   Save
