@@ -87,7 +87,7 @@ export class EditComponent implements OnInit {
 
   onSave() {
     let id = document.getElementsByClassName('active')[0].firstElementChild.id
-    this.authService.setUserImage(this.authService.username, `${environment.localUrl}/assets/icons/${id}.jpg`)
+    this.authService.setUserImage(this.user.uid, `${environment.localUrl}/assets/icons/${id}.jpg`)
   }
 
   onCancel() {

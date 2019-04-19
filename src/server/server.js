@@ -55,11 +55,13 @@ app.get("/api/username/:username", (req, res) => {
   }
 })
 
-app.post("/api/username/:username/editimg", (req, res) => {
-  if (req.params.username) {
-    console.log(req.body)
-    console.log(req.body.url)
-  }
+app.post("/api/editprofile/username/:username", (req, res) => {
+    console.log(req.params)
+    console.log(req.body.imageUrl)
+
+    db.ref(`usernames/${req.params.username}`).update({
+      imageUrl: req.body.imageUrl
+    }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`picset`))
 })
 
 
@@ -113,7 +115,6 @@ app.post("/api/user/:userid/iwantit", (req, res) => {
       beer_name: req.body.beer.beer_name,
       beer_style: (req.body.beer.beer_style) ? req.body.beer.beer_style : req.body.beer.style_name
   }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`iknowyoudo`)) 
-    
 })
 
 /* CAN GETS */

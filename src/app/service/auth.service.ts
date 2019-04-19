@@ -159,20 +159,21 @@ export class AuthenticationService {
     this.username = username;
   }
 
-  setUserImage(username: string, url?: string) {
-    if (url) {
-      console.log('url found', username)
-      this.http.post<any>(
-        `${environment.apiUrl}/api/username/${username}/editimg`, 
-        JSON.stringify(`url: ${url}`)
-      )  
-    } else {
-      console.log('no url found', username)
-      this.http.post<any>(
-        `${environment.apiUrl}/api/username/${username}/editimg`, 
-        JSON.stringify(`url: ${environment.localUrl}/assets/icons/1.png`)
-      )
-    }
+  async setUserImage(uid: string, url?: string) {
+    await this.getUserData(uid).subscribe(data => {
+      if (url) {
+        console.log('url found', data.username, url)
+        this.http.post<any>(`${environment.apiUrl}/api/editprofile/username/${data.username}`, {imageUrl: url}).subscribe(data => {
+          console.log(data)
+        })
+      } else {
+        console.log('no url found', data.username)
+        this.http.post<any>(
+          `${environment.apiUrl}/api/username/${data.username}/editimg`, 
+          JSON.stringify(`url: ${environment.localUrl}/assets/icons/1.png`)
+        )
+      }
+    })
   }
 
 }
