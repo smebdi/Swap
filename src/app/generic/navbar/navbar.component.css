@@ -29,3 +29,7 @@
   -moz-box-shadow: 0 !important;
   -webkit-box-shadow: 0 !important;
 }
+
+.profile-menu:focus {
+  outline: 0px solid transparent;
+}

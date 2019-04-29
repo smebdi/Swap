@@ -4,6 +4,7 @@ const path = require("path");
 const process = require("process");
 const cors = require('cors');
 
+const PORT = process.env.PORT || 8081;
 
 var admin = require("firebase-admin");
 var serviceAccount = require("./firebase-admin-key.json");
@@ -14,17 +15,14 @@ admin.initializeApp({
 var db = admin.database();
 
 const app = express();
+app.use(cors());
 app.enable("trust proxy");
 app.use(express.static(__dirname + "/"));
 app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true
-  })
-);
-app.use(cors());
-
+app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.resolve(__dirname, "../../dist/djangular-front")));
+
+// Begin routing
 app.get("/", (req, res) => {
   res.sendFile(path.resolve("index.html"));
 });
@@ -51,6 +49,14 @@ app.get("/api/username/:username", (req, res) => {
   if (req.params.username) {
     db.ref(`usernames/${req.params.username}`).once('value').then(function(snapshot) {
       res.status(200).json(snapshot.val())
+    }, (err) => res.status(400).json(err.message))
+  }
+})
+
+app.get("/api/getpublicuserid/username/:username", (req, res) => {
+  if (req.params.username) {
+    db.ref(`users`).orderByChild("username/username").equalTo(req.params.username).once('value').then(function(snapshot) {
+      res.status(200).json(Object.keys(snapshot.val())[0])
     }, (err) => res.status(400).json(err.message))
   }
 })
@@ -215,8 +221,58 @@ app.post("/api/user/:userid/likebeer", (req, res) => {
 })
 
 
+/* MESSAGES */
+app.post("/api/messages/user/:uid/send", (req, res) => {
+  // transform into notification feed
+  console.log(req.body)
 
-const PORT = process.env.PORT || 8081;
+  db.ref(`users/${req.params.uid}/messages`).push({
+      read: 0,
+      archived: 0,
+      datetime: Date.now(),
+      recipient: req.body.recipient,
+      sender: req.body.sender,
+      subject: req.body.subject,
+      message: req.body.message
+  }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`messagesent`)) 
+})
+
+
+//TODO handle archived
+app.get("/api/messages/user/:uid/all", (req, res) => {
+  db.ref(`users/${req.params.uid}/messages`).once('value').then(function(snapshot) {
+    res.status(200).json(isNotArchived(snapshot.val()))
+  }, (err) => res.status(400).json(err.message))
+})
+
+app.get("/api/messages/user/:uid/all/count", (req, res) => {
+  db.ref(`users/${req.params.uid}/messages`).once('value').then(function(snapshot) {
+    res.status(200).json(isNotArchived(snapshot.val()).length)
+  }, (err) => res.status(400).json(err.message))
+})
+
+app.get("/api/messages/user/:uid/unread", (req, res) => {
+  db.ref(`users/${req.params.uid}/messages`).orderByChild("read").equalTo(0).once('value').then(function(snapshot) {
+    res.status(200).json(isNotArchived(snapshot.val()))
+  }, (err) => res.status(400).json(err.message))
+})
+
+app.get("/api/messages/user/:uid/unread/count", (req, res) => {
+  db.ref(`users/${req.params.uid}/messages`).orderByChild("read").equalTo(0).once('value').then(function(snapshot) {
+    res.status(200).json(isNotArchived(snapshot.val()).length)
+  }, (err) => res.status(400).json(err.message))
+})
+
+function isNotArchived(response) {
+  return (response) ? 
+    Object.keys(response).map((v) => {
+      if (!response[v].archived) {
+        return response[v]
+      }
+    }).filter((v) => v) : []
+}
+
+
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log("Press Ctrl+C to quit.");
@@ -224,29 +280,3 @@ app.listen(PORT, () => {
 
 // anything above this line is exported
 module.exports = app;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Minimum beer object
-{   bid: 65644,
-    beer_name: 'Pseudo Sue',
-    beer_label: 'https://untappd.akamaized.net/site/beer_logos/beer-65644_7d104_sm.jpeg',
-    brewery_name: 'Toppling Goliath Brewing Co.'
-}
-
-beer_abv: 6.8,
-beer_ibu: 50,
-beer_description: 'This single hop pale ale showcases the Citra hop for a well balanced beer that is delicate in body with a mild bitterness in the finish. Ferocious hop aromas of citrus and mango give a refreshing taste that is bright with just enough bite!',
-*/

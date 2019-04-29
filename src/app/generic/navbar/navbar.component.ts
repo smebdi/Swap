@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavbarService } from '../../service/navbar.service';
+import { ChatService } from '../../service/chat.service';
+import { AuthenticationService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +12,13 @@ import { NavbarService } from '../../service/navbar.service';
 })
 
 export class NavbarComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder, private router: Router, public nav: NavbarService) { }
+  constructor(
+    public auth: AuthenticationService,
+    private formBuilder: FormBuilder, 
+    private router: Router, 
+    public nav: NavbarService,
+    private messages: ChatService
+  ) { }
 
   visibleSearch: boolean;
   navSearchForm: FormGroup;
@@ -23,10 +31,19 @@ export class NavbarComponent implements OnInit {
     });
 
     var user = JSON.parse(localStorage.getItem("user"))
-      if (user) { 
-        if (user.uid) this.nav.logIn()
-        else this.nav.logOut()
+    if (user) {
+      if (user.uid) {
+        this.nav.logIn()
+        this.auth.getUserData(user.uid).subscribe(data => {
+          this.auth.getUserDataFromUsername(data.username).subscribe(userData => {
+            this.nav.setUserProfileImage(userData.imageUrl)
+          })
+        })
+        this.messages.getUnreadMessagesCount(user.uid).subscribe(data => {
+          this.nav.setUnreadMessages(data)
+        })
       } else this.nav.logOut()
+    } else this.nav.logOut()
   }
 
   onSubmit() {

@@ -1,0 +1,22 @@
+<h1 class="mb-3" mat-dialog-title>Send a message to <strong>{{data.recipient}}</strong>
+  <mat-icon style="float: right" matSuffix>mode_edit</mat-icon>
+</h1>
+<hr>
+<div mat-dialog-content>
+  <div *ngIf="data.subject" class="mt-2 row justify-content-center">
+    <mat-form-field style="width:95%;">
+      <input matInput placeholder="Subject" [(ngModel)]="data.subject" readonly>
+    </mat-form-field>
+  </div>
+
+  <div class="mb-2 row justify-content-center">
+    <mat-form-field style="width:95%;">
+      <textarea style="max-height: 50vh" matInput placeholder="Message" [(ngModel)]="data.message" cdkFocusInitial></textarea>
+    </mat-form-field>
+  </div>
+</div>
+
+<div mat-dialog-actions class="row justify-content-center">
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button [mat-dialog-close]="{message: data.message, subject: data.subject, recipient: data.recipient, sender: data.sender}">Send</button>
+</div>

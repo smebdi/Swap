@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AuthenticationService } from './auth.service';
 
 @Injectable()
 export class NavbarService {
+
+  user: any;
+
   visible: boolean;
   loggedIn: boolean;
 
-  constructor() { 
+  imageUrl: string;
+  unreadMessages: number;
+
+  constructor() {
+    this.unreadMessages = 0
     this.visible = false; 
     this.start()
   }
 
   public start(): void {
-    const user = JSON.parse(localStorage.getItem('user'));
-    this.loggedIn = (user !== null && user.emailVerified !== false) ? true : false;
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.loggedIn = (this.user !== null && this.user.emailVerified !== false) ? true : false;
   }
 
   hide() { this.visible = false; }
@@ -25,5 +31,9 @@ export class NavbarService {
   logIn() { this.loggedIn = true }
 
   logOut() { this.loggedIn = false }
+
+  setUserProfileImage(url) { this.imageUrl = url }
+
+  setUnreadMessages(count) { this.unreadMessages = count }
 
 }

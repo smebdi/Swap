@@ -4,9 +4,16 @@
 
 
 ### Database
-- Usernames should contain uid, username, profile image
-- Beer section that contains a list of usernames (usernames used to get profile image)
+- ~~Usernames should contain uid, username, profile image, description~~
+- ~~Beer section that contains a list of usernames (usernames used to get profile image)~~
 - Swap Zone event logging
+
+
+### Chat
+- RxJS chat https://github.com/ng-book/angular2-rxjs-chat
+- Chatkit https://pusher.com/tutorials/chatroom-angular-chatkit
+- Custom socket.io chat https://www.djamware.com/post/58e0d15280aca75cdc948e4e/building-chat-application-using-mean-stack-angular-4-and-socketio
+
 
 
 ### Future
@@ -26,7 +33,7 @@
 
 ### Dashboard
 - Expand data to pass all fields (brewery as well)
-- Build search on dashboard
+- Build search on user profile / dashboard
 
 
 ### Swap the Hop

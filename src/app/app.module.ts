@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { AuthenticationService } from './service/auth.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from './material/material.module';
@@ -53,12 +53,22 @@ import { FeedComponent } from './generic/feed/feed.component';
 // Angular Core imports
 import { NgModule } from '@angular/core';
 import { SwapComponent } from './swap/swap.component';
-import { ChatComponent } from './swap/chat/chat.component';
 import { UntappdService } from './service/untappd.service';
 import { RateBeerService } from './service/ratebeer.service';
 import { NavbarService } from './service/navbar.service';
 import { BeerDetailComponent } from './find-beer/detail/detail.component';
 import { EditComponent } from './login/edit/edit.component';
+
+// Chat Service
+import { ChatService } from './service/chat.service';
+
+// Sockets
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from '../environments/environment';
+import { SendmessageComponent } from './login/dashboard/sendmessage/sendmessage.component';
+import { MessagesComponent } from './login/dashboard/messages/messages.component';
+
+const socketConfig: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
 
 @NgModule({
@@ -97,8 +107,9 @@ import { EditComponent } from './login/edit/edit.component';
 
     // Future components
     SwapComponent,
-    ChatComponent,
     EditComponent,
+    SendmessageComponent,
+    MessagesComponent,
   ],
   imports: [
     // Supporting modules
@@ -111,7 +122,9 @@ import { EditComponent } from './login/edit/edit.component';
     MoreMaterialModules,
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    FormsModule,
+    SocketIoModule.forRoot(socketConfig)
   ],
   // Services
   providers: [
@@ -122,9 +135,11 @@ import { EditComponent } from './login/edit/edit.component';
     UntappdService,
     RateBeerService,
     NavbarService,
+    ChatService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SendmessageComponent]
 })
 export class AppModule { }

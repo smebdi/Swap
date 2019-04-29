@@ -1,3 +1,43 @@
  .error{
   color: #FF0000;
 }
+
+.card {
+  padding-top: 25px;
+  padding-bottom: 40px;
+}
+.bd-placeholder-img {
+font-size: 1.125rem;
+text-anchor: middle;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+@media (min-width: 768px) {
+.bd-placeholder-img-lg {
+  font-size: 3.5rem;
+}
+}
+
+.form {
+min-width: 150px;
+max-width: 500px;
+width: 100%;
+}
+
+.full-width {
+margin-left: 10%;
+width: 80%;
+}
+
+.left {
+  text-align: left
+}
+.center {
+  text-align: center
+}
+.right {
+  text-align: right
+}

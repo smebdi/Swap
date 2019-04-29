@@ -87,7 +87,7 @@ export class EditComponent implements OnInit {
 
   async onSave() {
     let id = document.getElementsByClassName('active')[0].firstElementChild.id
-    await this.authService.setUserImage(this.user.uid, `${environment.localUrl}/assets/icons/${id}.jpg`);
+    await this.authService.putUserImage(this.user.uid, `${environment.localUrl}/assets/icons/${id}.jpg`);
     await this.navigateToDashboard();
   }
 

@@ -40,3 +40,4 @@ Thumbs.db
 
 firebase.config.js
 firebase-admin-key.json
+slack.config.js

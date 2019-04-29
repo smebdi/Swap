@@ -3,6 +3,10 @@ import { AuthenticationService } from "../../service/auth.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { HaveItWantIt } from '../../service/haveitwantit.service';
 
+import { MatDialog, MatDialogConfig } from "@angular/material";
+import { SendmessageComponent } from './sendmessage/sendmessage.component';
+import { ChatService } from '../../service/chat.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -17,11 +21,15 @@ export class DashboardComponent implements OnInit {
 
   user: any;
 
+  showMessages: boolean;
   showWantRow: boolean;
   showHasRow: boolean;
   showCanGetRow: boolean;
   showLikeRow: boolean;
   username: string;
+  publicUserName: string;
+  publicUserImageUrl: string;
+  publicUserDescription: string;
   imageUrl: string;
   userid: string;
   description: string;
@@ -36,23 +44,37 @@ export class DashboardComponent implements OnInit {
     public router: Router,
     private route: ActivatedRoute,
     public ngZone: NgZone,
-    public haveitwantit: HaveItWantIt
+    public haveitwantit: HaveItWantIt,
+    private dialog: MatDialog,
+    private chatService: ChatService
   ) {
     this.user = JSON.parse(localStorage.getItem("user"))
   }
 
   ngOnInit() {
+    this.showMessages = false;
+
     this.route.params.subscribe(params => {
       if (params.username) {
         this.isPublic = true;
-        this.getPublicUser(params)        
+        this.getPublicUser(params)
+        this.authService.setPublicUserId(params.username)
       } else {
         console.log('no params detected')
-        var user = JSON.parse(localStorage.getItem("user"))
-        if (user && user.uid) this.getData(user.uid) 
+        var user = this.getUserFromLocal()
+        if (user && user.uid) { 
+          this.getData(user.uid)
+          this.authService.setUserId(user.uid)
+        }
         else this.getData()
       }
     })
+  }
+
+  toggleMessages() { (!this.showMessages) ? this.showMessages = true : this.showMessages = false }
+
+  getUserFromLocal() {
+    return JSON.parse(localStorage.getItem("user"))
   }
 
   cleanData() {
@@ -113,8 +135,27 @@ export class DashboardComponent implements OnInit {
   
   async getPublicUser(params: any) {
     // async wrapper
-    console.log(params.username)
-    await this.getUserDataFromUsername(params.username)
+    await this.getPublicUserDataFromUsername(params.username)
+  }
+
+  async getPublicUserDataFromUsername(username?: string) {
+    if (username) {
+      console.log(`getting user data with username`)
+      this.authService.getUserDataFromUsername(username).subscribe(data => {
+        if (data) {
+          this.publicUserName = data.username
+          this.publicUserImageUrl = data.imageUrl
+          if (data.description) {
+            this.publicUserDescription = data.description; 
+            this.showDesc = true;
+          }
+          this.getDataAsync(data.uid)
+        }
+
+        // just sets service username variable
+        this.authService.setPublicUsername(data.username);
+      })
+    }
   }
 
   async getUserDataFromUsername(username?: string) {
@@ -135,6 +176,25 @@ export class DashboardComponent implements OnInit {
         this.authService.setUsername(data.username);
       })
     }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(SendmessageComponent, {
+      width: '640px',
+      maxWidth: '90%',
+      data: {
+        recipient: (this.authService.publicUser) ? this.authService.publicUser : this.username,
+        sender: this.authService.username,
+        subject: 'test',
+        message: ''
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      this.chatService.sendMessage(result.message, result.subject, result.recipient, result.sender, this.authService.publicUid)
+    });
   }
 
   getUserWants(uid?: string) {
@@ -188,7 +248,7 @@ export class DashboardComponent implements OnInit {
   async saveDesc(desc?: string) {
     if (desc) { 
       this.description = desc
-      await this.authService.setUserDescription(this.user.uid, desc)
+      await this.authService.putUserDescription(this.user.uid, desc)
     }
     this.toggleEditDescription()
   }

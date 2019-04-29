@@ -1,4 +1,12 @@
-button {
+.dashboard-container {
+    padding-top: 15px !important;
+}
+
+.contact-buttons {
+    width: 150px;
+}
+
+.button {
   width: 100px;
 }
 
@@ -20,6 +28,9 @@ textarea {
 @media(max-width:767px) {
     .media-width {
         width: 100%
+    }
+    .beer-wrapper {
+        max-width: 175px;
     }
 }
 

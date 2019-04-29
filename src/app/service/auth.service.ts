@@ -16,8 +16,11 @@ import { NavbarService } from './navbar.service';
 export class AuthenticationService {
 
     // user: User;
+    uid: string;
     userData: any;
     username: string;
+    publicUser: string;
+    publicUid: string;
 
     constructor(
         private http: HttpClient,
@@ -154,17 +157,35 @@ export class AuthenticationService {
     }
   }
 
-  getUserDataFromUsername(username?: string) {
-    if (username) {
-      return this.http.get<any>(`${environment.apiUrl}/api/getuserdata/username/${username}`)
-    } else console.log('no username')
+  getUserDataFromUsername(username: string) {
+    return this.http.get<any>(`${environment.apiUrl}/api/getuserdata/username/${username}`)
+  }
+
+  setUserId(uid: string) {
+    this.uid = uid;
+  }
+
+  setPublicUserId(username: string) {
+    this.setPublicUidFromUsername(username)
   }
 
   setUsername(username: string) {
     this.username = username;
+    console.log(`personal user set to: ${this.username}`)
   }
 
-  async setUserDescription(uid: string, desc: string) {
+  setPublicUsername(username: string) {
+    this.publicUser = username;
+    console.log(`public user set to: ${this.publicUser}`)
+  }
+
+  setPublicUidFromUsername(username) {
+    return this.http.get<any>(`${environment.apiUrl}/api/getpublicuserid/username/${username}`).subscribe(data => {
+      this.publicUid = data
+    })
+  }
+
+  async putUserDescription(uid: string, desc: string) {
     await this.getUserData(uid).subscribe(data => {
       return this.http.post<any>(
         `${environment.apiUrl}/api/editprofile/username/${data.username}`, {description: desc}
@@ -175,7 +196,7 @@ export class AuthenticationService {
     })
   }
 
-  async setUserImage(uid: string, url?: string, username?: string) {
+  async putUserImage(uid: string, url?: string, username?: string) {
     await this.getUserData(uid).subscribe(data => {
       if (url) {
         return this.http.post<any>(

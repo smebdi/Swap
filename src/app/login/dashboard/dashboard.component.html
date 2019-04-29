@@ -2,13 +2,23 @@
 <div class="container-fluid">
   <div class="row">
 
-    <ng-container *ngIf="!isPublic">
+    <ng-container *ngIf="!isPublic || (username == publicUserName)">
       <nav class="col-md-2 d-md-block sidebar">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active">
+              <a class="nav-link">
                 <i class="fas fa-user"></i>User Profile
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="toggleMessages()">
+                <i class="fas fa-envelope"></i>Messages
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="toggleMessages()">
+                <i class="fas fa-envelope"></i>Messages
               </a>
             </li>
             <!-- Calling SignOut() Api from AuthService -->
@@ -24,10 +34,10 @@
 
     <!-- Main content -->
     <ng-container *ngIf="!isPublic; else isPublicView">
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3 dashboard-container">
         <div class="inner-adjust">
 
-          <div class="pt-3 pb-2 mb-5 border-bottom">
+          <div class="pt-1 pb-2 mb-2 border-bottom">
             <h1 class="h2">User Profile</h1>
           </div>
           <!-- Show user data when logged in -->
@@ -58,25 +68,176 @@
               </div>
               <p style="margin-top: 10px; margin-bottom: 10px;">
                 <i (click)="toggleEditDescription()" class="fa fa-edit"></i>
-                  About: <strong *ngIf="showDesc">{{description}}</strong>
+                About: <strong *ngIf="showDesc">{{description}}</strong>
               </p>
               <div *ngIf="editDesc">
-                <textarea #newDesc id="desc" 
+                <textarea #newDesc id="desc"
                   placeholder="Tell us something about you. Do you like IPAs? Lagers? Stouts?"
                   maxlength="500"></textarea>
                 <br>
-                <button type="button" class="btn mt-2 btn-primary" (click)="saveDesc(newDesc.value)">
+                <button type="button" class="btn mt-2 btn-primary button" (click)="saveDesc(newDesc.value)">
                   Save
                 </button>
               </div>
             </div>
           </div>
 
-          <div *ngIf="want.length > 0">
+          <ng-container *ngIf="!showMessages; else showMessage">
+
+            <!-- Start beers -->
+            <div *ngIf="want.length > 0">
+
+              <div class="mt-3 mb-1 border-bottom">
+                <h1 class="h4" *ngIf="showWantRow; else carrotDownWants" (click)="toggleWantRow()">Wants <i
+                    class="fa fa-caret-up"></i></h1>
+              </div>
+              <ng-template #carrotDownWants>
+                <h1 class="h4" (click)="toggleWantRow()">Wants <i *ngIf="want.length > 0" class="fa fa-caret-down"></i>
+                </h1>
+              </ng-template>
+              <div *ngIf="showWantRow" class="row justify-content-start">
+                <div *ngFor="let item of want" class="beer-wrapper">
+                  <div class="col-md-12" (click)="goToDetail(item.bid)">
+                    <div class="beer-item" style="text-align: center; margin: 10px !important">
+                      <div style="text-align: center">
+                        <img class="align-self-start mb-2 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
+                      </div>
+                      <p style="text-align: center">
+                        <strong>{{item.beer_name}}</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div *ngIf="has.length > 0">
+
+              <div class="pt-2 mb-1 border-bottom">
+                <h1 class="h4" *ngIf="showHasRow; else carrotDownHas" (click)="toggleHasRow()">Has <i
+                    class="fa fa-caret-up"></i></h1>
+              </div>
+              <ng-template #carrotDownHas>
+                <h1 class="h4" (click)="toggleHasRow()">Has <i *ngIf="has.length > 0" class="fa fa-caret-down"></i></h1>
+              </ng-template>
+              <div *ngIf="showHasRow" class="row justify-content-start">
+                <div *ngFor="let item of has" class="beer-wrapper">
+                  <div class="col-md-12" (click)="goToDetail(item.bid)">
+                    <div class="beer-item" style="text-align: center; margin: 10px !important">
+                      <div style="text-align: center">
+                        <img class="align-self-start mb-2 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
+                      </div>
+                      <p style="text-align: center">
+                        <strong>{{item.beer_name}}</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div *ngIf="canget.length > 0">
+
+              <div class="pt-2 mb-1 border-bottom">
+                <h1 class="h4" *ngIf="showCanGetRow; else carrotDownCanGet" (click)="toggleCanGetRow()">Can Get <i
+                    class="fa fa-caret-up"></i></h1>
+              </div>
+              <ng-template #carrotDownCanGet>
+                <h1 class="h4" (click)="toggleCanGetRow()">Can Get <i *ngIf="canget.length > 0"
+                    class="fa fa-caret-down"></i></h1>
+              </ng-template>
+              <div *ngIf="showCanGetRow" class="row justify-content-start">
+                <div *ngFor="let item of canget" class="beer-wrapper">
+                  <div class="col-md-12" (click)="goToDetail(item.bid)">
+                    <div class="beer-item" style="text-align: center; margin: 10px !important">
+                      <div style="text-align: center">
+                        <img class="align-self-start mb-2 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
+                      </div>
+                      <p style="text-align: center">
+                        <strong>{{item.beer_name}}</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div *ngIf="likes.length > 0">
+
+              <div class="pt-2 mb-1 border-bottom">
+                <h1 class="h4" *ngIf="showLikeRow; else carrotDownLikes" (click)="toggleLikeRow()">Likes <i
+                    class="fa fa-caret-up"></i></h1>
+              </div>
+              <ng-template #carrotDownLikes>
+                <h1 class="h4" (click)="toggleLikeRow()">Likes <i *ngIf="likes.length > 0" class="fa fa-caret-down"></i>
+                </h1>
+              </ng-template>
+              <div *ngIf="showLikeRow" class="row justify-content-start">
+                <div *ngFor="let item of likes" class="beer-wrapper">
+                  <div class="col-md-12" (click)="goToDetail(item.bid)">
+                    <div class="beer-item" style="text-align: center; margin: 10px !important">
+                      <div style="text-align: center">
+                        <img class="align-self-start mb-2 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
+                      </div>
+                      <p style="text-align: center">
+                        <strong>{{item.beer_name}}</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- End beers -->
+            
+          </ng-container>
+          <ng-template #showMessage>
+            <app-messages></app-messages>
+          </ng-template>
+
+        </div>
+
+      </main>
+    </ng-container>
+
+    <ng-template #isPublicView>
+
+      <main role="main" class="col-md-12 ml-sm-auto">
+
+        <!-- Show user data when logged in -->
+        <div class="pt-3 pb-3 ml-1 mb-2 row">
+          <div class="col-md-12">
+            <div class="media">
+              <img class="align-self-start mr-2 img-thumbnail avatar" style="height: 150px; width: 150px"
+                src="{{(publicUserImageUrl) ? publicUserImageUrl : 'https://djangular-front-end.appspot.com/assets/icons/1.png'}}">
+              <div class="media-body">
+                <h2 style="text-align: left">{{publicUserName}}</h2>
+                <p *ngIf="publicUserDescription" style="max-width: 625px">{{publicUserDescription}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3 pb-3">
+          <button type="button" class="btn mt-2 btn-secondary pl-1 pr-1 ml-1 mr-1 contact-buttons"
+            (click)="openDialog()">
+            Send Message
+          </button>
+          <button type="button" class="btn mt-2 btn-secondary pl-1 pr-1 ml-1 mr-1 contact-buttons"
+            (click)="openDialog()">
+            Swap
+          </button>
+        </div>
+
+        <div class="col-12">
+          <div *ngIf="want && want.length > 0">
 
             <div class="mt-3 mb-1 border-bottom">
               <h1 class="h4" *ngIf="showWantRow; else carrotDownWants" (click)="toggleWantRow()">Wants <i
-                  class="fa fa-caret-up"></i></h1>
+                  *ngIf="want.length > 0" class="fa fa-caret-up"></i></h1>
             </div>
             <ng-template #carrotDownWants>
               <h1 class="h4" (click)="toggleWantRow()">Wants <i *ngIf="want.length > 0" class="fa fa-caret-down"></i>
@@ -99,11 +260,11 @@
 
           </div>
 
-          <div *ngIf="has.length > 0">
+          <div *ngIf="has && has.length > 0">
 
             <div class="pt-2 mb-1 border-bottom">
               <h1 class="h4" *ngIf="showHasRow; else carrotDownHas" (click)="toggleHasRow()">Has <i
-                  class="fa fa-caret-up"></i></h1>
+                  *ngIf="has.length > 0" class="fa fa-caret-up"></i></h1>
             </div>
             <ng-template #carrotDownHas>
               <h1 class="h4" (click)="toggleHasRow()">Has <i *ngIf="has.length > 0" class="fa fa-caret-down"></i></h1>
@@ -125,11 +286,11 @@
 
           </div>
 
-          <div *ngIf="canget.length > 0">
+          <div *ngIf="canget && canget.length > 0">
 
             <div class="pt-2 mb-1 border-bottom">
               <h1 class="h4" *ngIf="showCanGetRow; else carrotDownCanGet" (click)="toggleCanGetRow()">Can Get <i
-                  class="fa fa-caret-up"></i></h1>
+                  *ngIf="canget.length > 0" class="fa fa-caret-up"></i></h1>
             </div>
             <ng-template #carrotDownCanGet>
               <h1 class="h4" (click)="toggleCanGetRow()">Can Get <i *ngIf="canget.length > 0"
@@ -152,11 +313,11 @@
 
           </div>
 
-          <div *ngIf="likes.length > 0">
+          <div *ngIf="likes && likes.length > 0">
 
             <div class="pt-2 mb-1 border-bottom">
               <h1 class="h4" *ngIf="showLikeRow; else carrotDownLikes" (click)="toggleLikeRow()">Likes <i
-                  class="fa fa-caret-up"></i></h1>
+                  *ngIf="likes.length > 0" class="fa fa-caret-up"></i></h1>
             </div>
             <ng-template #carrotDownLikes>
               <h1 class="h4" (click)="toggleLikeRow()">Likes <i *ngIf="likes.length > 0" class="fa fa-caret-down"></i>
@@ -178,134 +339,6 @@
             </div>
 
           </div>
-
-        </div>
-
-      </main>
-    </ng-container>
-
-    <ng-template #isPublicView>
-
-      <main role="main" class="col-md-12 ml-sm-auto">
-
-        <!-- Show user data when logged in -->
-        <div class="pt-3 pb-3 ml-3 mb-4 row">
-          <div class="col-md-12">
-            <div class="media">
-              <img class="align-self-start mr-5 img-thumbnail avatar" style="height: 150px; width: 150px"
-                src="{{(imageUrl) ? imageUrl : 'https://djangular-front-end.appspot.com/assets/icons/1.png'}}">
-              <div class="media-body">
-                <h2 style="text-align: left">{{username}}</h2>
-                <p *ngIf="description" style="max-width: 625px">{{description}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="want && want.length > 0">
-
-          <div class="mt-3 mb-1 border-bottom">
-            <h1 class="h4" *ngIf="showWantRow; else carrotDownWants" (click)="toggleWantRow()">Wants <i
-                *ngIf="want.length > 0" class="fa fa-caret-up"></i></h1>
-          </div>
-          <ng-template #carrotDownWants>
-            <h1 class="h4" (click)="toggleWantRow()">Wants <i *ngIf="want.length > 0" class="fa fa-caret-down"></i></h1>
-          </ng-template>
-          <div *ngIf="showWantRow" class="row justify-content-start">
-            <div *ngFor="let item of want" class="beer-wrapper">
-              <div class="col-md-12" (click)="goToDetail(item.bid)">
-                <div class="beer-item" style="text-align: center; margin: 10px !important">
-                  <div style="text-align: center">
-                    <img class="align-self-start mb-2 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
-                  </div>
-                  <p style="text-align: center">
-                    <strong>{{item.beer_name}}</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div *ngIf="has && has.length > 0">
-
-          <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h4" *ngIf="showHasRow; else carrotDownHas" (click)="toggleHasRow()">Has <i *ngIf="has.length > 0"
-                class="fa fa-caret-up"></i></h1>
-          </div>
-          <ng-template #carrotDownHas>
-            <h1 class="h4" (click)="toggleHasRow()">Has <i *ngIf="has.length > 0" class="fa fa-caret-down"></i></h1>
-          </ng-template>
-          <div *ngIf="showHasRow" class="row justify-content-start">
-            <div *ngFor="let item of has" class="beer-wrapper">
-              <div class="col-md-12" (click)="goToDetail(item.bid)">
-                <div class="beer-item" style="text-align: center; margin: 10px !important">
-                  <div style="text-align: center">
-                    <img class="align-self-start mb-2 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
-                  </div>
-                  <p style="text-align: center">
-                    <strong>{{item.beer_name}}</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div *ngIf="canget && canget.length > 0">
-
-          <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h4" *ngIf="showCanGetRow; else carrotDownCanGet" (click)="toggleCanGetRow()">Can Get <i
-                *ngIf="canget.length > 0" class="fa fa-caret-up"></i></h1>
-          </div>
-          <ng-template #carrotDownCanGet>
-            <h1 class="h4" (click)="toggleCanGetRow()">Can Get <i *ngIf="canget.length > 0"
-                class="fa fa-caret-down"></i></h1>
-          </ng-template>
-          <div *ngIf="showCanGetRow" class="row justify-content-start">
-            <div *ngFor="let item of canget" class="beer-wrapper">
-              <div class="col-md-12" (click)="goToDetail(item.bid)">
-                <div class="beer-item" style="text-align: center; margin: 10px !important">
-                  <div style="text-align: center">
-                    <img class="align-self-start mb-2 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
-                  </div>
-                  <p style="text-align: center">
-                    <strong>{{item.beer_name}}</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div *ngIf="likes && likes.length > 0">
-
-          <div class="pt-2 mb-1 border-bottom">
-            <h1 class="h4" *ngIf="showLikeRow; else carrotDownLikes" (click)="toggleLikeRow()">Likes <i
-                *ngIf="likes.length > 0" class="fa fa-caret-up"></i></h1>
-          </div>
-          <ng-template #carrotDownLikes>
-            <h1 class="h4" (click)="toggleLikeRow()">Likes <i *ngIf="likes.length > 0" class="fa fa-caret-down"></i>
-            </h1>
-          </ng-template>
-          <div *ngIf="showLikeRow" class="row justify-content-start">
-            <div *ngFor="let item of likes" class="beer-wrapper">
-              <div class="col-md-12" (click)="goToDetail(item.bid)">
-                <div class="beer-item" style="text-align: center; margin: 10px !important">
-                  <div style="text-align: center">
-                    <img class="align-self-start mb-2 img-thumbnail avatar beer-label" src="{{item.beer_label}}">
-                  </div>
-                  <p style="text-align: center">
-                    <strong>{{item.beer_name}}</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
 
       </main>
