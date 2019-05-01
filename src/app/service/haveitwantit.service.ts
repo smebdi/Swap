@@ -20,78 +20,53 @@ export class HaveItWantIt {
   }
 
   iWantIt(beer: UntappdBeer, username: string) {
-    console.log(`posting to: ${environment.apiUrl}/api/user/:userid/iwantit`)
-    
     if (this.authenticationService.userData && this.authenticationService.userData.uid) {
-
       return this.http.post<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/iwantit`, { 
         beer: beer,
         username: username
       })
-      .pipe(data => {
-          console.log(data)
-          return data; 
-      });
+      .pipe(data => { return data });
     }
 
   }
 
   iCanGetIt(beer: UntappdBeer, username: string) {
-    console.log(`posting to: ${environment.apiUrl}/api/user/:userid/icangetit`)
-    
     if (this.authenticationService.userData && this.authenticationService.userData.uid) {
       return this.http.post<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/icangetit`, { 
         beer: beer, 
         username: username
       })
-      .pipe(data => {
-          console.log(data)
-          return data; 
-      });
+      .pipe(data => { return data });
     }
 
   }
 
   iHaveIt(beer: UntappdBeer, username: string) {
-    console.log(`posting to: ${environment.apiUrl}/api/user/:userid/ihaveit`)
-
     if (this.authenticationService.userData && this.authenticationService.userData.uid) {
       return this.http.post<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/ihaveit`, { 
         beer: beer, 
         username: username
       })
-      .pipe(data => {
-          console.log(data)
-          return data; 
-      });
+      .pipe(data => { return data });
     }
     
   }
 
   iLikeIt(beer: Untappd, username: string) {
-    console.log(`posting to: ${environment.apiUrl}/api/user/:userid/likebeer`)
-    
     if (this.authenticationService.userData && this.authenticationService.userData.uid) {
       return this.http.post<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/likebeer`, { 
         beer: beer, 
         username: username
       })
-      .pipe(data => {
-          console.log(data)
-          return data;
-        })
+      .pipe(data => { return data })
     }
   }
 
   getWants(uid?: string) {
-    console.log(`getting wants`)
     try {
       return (uid) ?
       this.http.get<any>(`${environment.apiUrl}/api/user/${uid}/wants`).pipe(data => data) : 
-      this.http.get<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/wants`).pipe(data => {
-        console.log(data)
-        return data
-      })
+      this.http.get<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/wants`).pipe(data => { return data })
     }
     catch {
       this.router.navigate(['/login']);
@@ -99,14 +74,10 @@ export class HaveItWantIt {
   }
 
   getCanGets(uid?: string) {
-    console.log(`getting can gets`)
     try {
       return (uid) ? 
       this.http.get<any>(`${environment.apiUrl}/api/user/${uid}/cangets`).pipe(data => data) :
-      this.http.get<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/cangets`).pipe(data => {
-        console.log(data)
-        return data
-      })
+      this.http.get<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/cangets`).pipe(data => { return data })
     }
     catch {
       this.router.navigate(['/login']);
@@ -114,14 +85,10 @@ export class HaveItWantIt {
   }
 
   getHas(uid?: string) {
-    console.log(`getting has`)
     try {
       return (uid) ? 
       this.http.get<any>(`${environment.apiUrl}/api/user/${uid}/has`).pipe(data => data) :
-      this.http.get<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/has`).pipe(data => {
-        console.log(data)
-        return data
-      })
+      this.http.get<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/has`).pipe(data => { return data })
     }
     catch {
       this.router.navigate(['/login']);
@@ -129,14 +96,10 @@ export class HaveItWantIt {
   }
 
   getLikes(uid?: string) {
-    console.log(`getting likes`)
     try {
       return (uid) ?
       this.http.get<any>(`${environment.apiUrl}/api/user/${uid}/likes`).pipe(data => data) :
-      this.http.get<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/likes`).pipe(data => {
-        console.log(data)
-        return data
-      })
+      this.http.get<any>(`${environment.apiUrl}/api/user/${this.authenticationService.userData.uid}/likes`).pipe(data => { return data })
     }
     catch {
       this.router.navigate(['/login']);

@@ -21,7 +21,10 @@ export class DashboardComponent implements OnInit {
 
   user: any;
 
+  showProfile: boolean;
   showMessages: boolean;
+  showTrading: boolean;
+
   showWantRow: boolean;
   showHasRow: boolean;
   showCanGetRow: boolean;
@@ -52,7 +55,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.showProfile = true;
     this.showMessages = false;
+    this.showTrading = false;
 
     this.route.params.subscribe(params => {
       if (params.username) {
@@ -60,7 +66,6 @@ export class DashboardComponent implements OnInit {
         this.getPublicUser(params)
         this.authService.setPublicUserId(params.username)
       } else {
-        console.log('no params detected')
         var user = this.getUserFromLocal()
         if (user && user.uid) { 
           this.getData(user.uid)
@@ -69,9 +74,8 @@ export class DashboardComponent implements OnInit {
         else this.getData()
       }
     })
-  }
 
-  toggleMessages() { (!this.showMessages) ? this.showMessages = true : this.showMessages = false }
+  }
 
   getUserFromLocal() {
     return JSON.parse(localStorage.getItem("user"))
@@ -84,11 +88,22 @@ export class DashboardComponent implements OnInit {
     this.likes = [];
   }
 
+  toggleMessages() { (!this.showMessages) ? this.showMessages = true : this.showMessages = false }
   toggleWantRow() { (!this.showWantRow) ? this.showWantRow = true : this.showWantRow = false }
   toggleHasRow() { (!this.showHasRow) ? this.showHasRow = true : this.showHasRow = false }
   toggleCanGetRow() { (!this.showCanGetRow) ? this.showCanGetRow = true : this.showCanGetRow = false }
   toggleLikeRow() { (!this.showLikeRow) ? this.showLikeRow = true : this.showLikeRow = false }
   toggleEditDescription() { this.editDesc = !this.editDesc; }
+
+  toggleView(passedView) {
+    this.showTrading = false
+    this.showMessages = false
+    this.showProfile = false
+
+    if (passedView == "showProfile") this.showProfile = true
+    if (passedView == "showMessages") this.showMessages = true
+    if (passedView == "showTrading") this.showTrading = true
+  }
 
   getData(uid?: string) {
     this.cleanData();
@@ -122,11 +137,9 @@ export class DashboardComponent implements OnInit {
     if (uid) {
       this.authService.getUserData(uid).subscribe(data => {
         if (data) {
-          console.log('data exists')
           this.getUserDataFromUsername(data.username)
         }
         if (this.authService.userData && this.authService.userData.displayName) {
-          console.log('userData exists')
           this.username = this.authService.userData.displayName
         }
       })
@@ -140,7 +153,6 @@ export class DashboardComponent implements OnInit {
 
   async getPublicUserDataFromUsername(username?: string) {
     if (username) {
-      console.log(`getting user data with username`)
       this.authService.getUserDataFromUsername(username).subscribe(data => {
         if (data) {
           this.publicUserName = data.username
@@ -160,7 +172,6 @@ export class DashboardComponent implements OnInit {
 
   async getUserDataFromUsername(username?: string) {
     if (username) {
-      console.log(`getting user data with username`)
       this.authService.getUserDataFromUsername(username).subscribe(data => {
         if (data) {
           this.username = data.username
@@ -185,15 +196,15 @@ export class DashboardComponent implements OnInit {
       data: {
         recipient: (this.authService.publicUser) ? this.authService.publicUser : this.username,
         sender: this.authService.username,
-        subject: 'test',
+        subject: '',
         message: ''
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-      this.chatService.sendMessage(result.message, result.subject, result.recipient, result.sender, this.authService.publicUid)
+      if (result && result.message) {
+        this.chatService.sendMessage(result.message, result.subject, result.recipient, result.sender, this.authService.publicUid)
+      }
     });
   }
 

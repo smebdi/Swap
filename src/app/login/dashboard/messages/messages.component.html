@@ -1,3 +1,62 @@
-<p>
-  messages works!
-</p>
+<h2 style="margin-top: 15px">Messages</h2>
+<hr>
+
+<mat-accordion>
+
+    <!-- Unread messages -->
+    <div style="margin-bottom: 25px" *ngIf="unreadMessages && unreadMessages.length > 0">
+      <h4 style="margin-bottom: 15px;">New Messages</h4>
+      <div *ngFor="let message of unreadMessages" style="margin-bottom: 5px">
+        <mat-expansion-panel (opened)="readMessage(message)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              From: {{message.sender}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Subject: {{message.subject}}
+            </mat-panel-description>
+            <mat-panel-description>
+              Received: {{message.datetime | date}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+      
+          <ng-template matExpansionPanelContent>
+            <div style="margin-bottom: 10px">
+              {{message.message}}
+            </div>
+          </ng-template>
+
+          <button (click)="deleteUnreadMessage(message)" style="text-align: right; float: right;" matButton>Delete</button>
+        </mat-expansion-panel>
+      </div>
+    </div>
+
+    <!-- Read messages -->
+    <div *ngIf="readMessages && readMessages.length > 0">
+      <h4 style="margin-bottom: 15px;">All Messages</h4>
+      <div *ngFor="let message of readMessages" style="margin-bottom: 5px">
+        <mat-expansion-panel (opened)="readMessage(message)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              From: {{message.sender}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Subject: {{message.subject}}
+            </mat-panel-description>
+            <mat-panel-description>
+              Received: {{message.datetime | date}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+      
+          <ng-template matExpansionPanelContent>
+              <div style="margin-bottom: 10px">
+                {{message.message}}
+              </div>
+            </ng-template>
+
+          <button (click)="deleteReadMessage(message)" style="text-align: right; float: right;" matButton>Delete</button>
+        </mat-expansion-panel>
+      </div>
+    </div>
+
+</mat-accordion>

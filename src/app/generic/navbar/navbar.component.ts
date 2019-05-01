@@ -12,6 +12,9 @@ import { AuthenticationService } from '../../service/auth.service';
 })
 
 export class NavbarComponent implements OnInit {
+
+  public isLoggedIn: any
+
   constructor(
     public auth: AuthenticationService,
     private formBuilder: FormBuilder, 

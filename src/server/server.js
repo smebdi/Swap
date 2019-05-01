@@ -237,8 +237,6 @@ app.post("/api/messages/user/:uid/send", (req, res) => {
   }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`messagesent`)) 
 })
 
-
-//TODO handle archived
 app.get("/api/messages/user/:uid/all", (req, res) => {
   db.ref(`users/${req.params.uid}/messages`).once('value').then(function(snapshot) {
     res.status(200).json(isNotArchived(snapshot.val()))
@@ -263,11 +261,24 @@ app.get("/api/messages/user/:uid/unread/count", (req, res) => {
   }, (err) => res.status(400).json(err.message))
 })
 
+app.put("/api/messages/user/:uid/message/:messageId/markasread", (req, res) => {
+  db.ref(`users/${req.params.uid}/messages/${req.params.messageId}`).update({
+    read: "1"
+  }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`markedasread`))
+})
+
+app.put("/api/messages/user/:uid/message/:messageId/delete", (req, res) => {
+  db.ref(`users/${req.params.uid}/messages/${req.params.messageId}`).update({
+    archived: "1"
+  }, (err) => (err) ? res.status(400).json(err.message) : res.status(200).json(`archived`))
+})
+
 function isNotArchived(response) {
   return (response) ? 
-    Object.keys(response).map((v) => {
-      if (!response[v].archived) {
-        return response[v]
+    Object.keys(response).map((val) => {
+      console.log(response[val])
+      if (response[val].archived == 0 || response[val].archived == "0") {
+        return { [val]: response[val] }
       }
     }).filter((v) => v) : []
 }

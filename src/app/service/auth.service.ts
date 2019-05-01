@@ -116,10 +116,7 @@ export class AuthenticationService {
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user: User, username?: string) {
     if (username) {
-      console.log(user)
-
       this.userData.username = username
-
       // simple output
       console.log(`posting create ${username} to ${environment.apiUrl}, id is ${user.uid}`)
       this.http.post<any>(`${environment.apiUrl}/api/createuser/username/${username}/uid/${user.uid}`, '').subscribe(data => {
@@ -142,8 +139,7 @@ export class AuthenticationService {
   isValidUsername(username: string) {
     // run some regex here to validate
     if (username) {
-      const res = this.http.get<any>(`${environment.apiUrl}/api/username/${username}`)
-      return res
+      return this.http.get<any>(`${environment.apiUrl}/api/username/${username}`)
     }
   }
 
@@ -171,12 +167,10 @@ export class AuthenticationService {
 
   setUsername(username: string) {
     this.username = username;
-    console.log(`personal user set to: ${this.username}`)
   }
 
   setPublicUsername(username: string) {
     this.publicUser = username;
-    console.log(`public user set to: ${this.publicUser}`)
   }
 
   setPublicUidFromUsername(username) {
@@ -189,10 +183,7 @@ export class AuthenticationService {
     await this.getUserData(uid).subscribe(data => {
       return this.http.post<any>(
         `${environment.apiUrl}/api/editprofile/username/${data.username}`, {description: desc}
-      ).subscribe(data => {
-        console.log(data)
-        return data
-      })
+      ).subscribe(data => { return data })
     })
   }
 
@@ -201,17 +192,11 @@ export class AuthenticationService {
       if (url) {
         return this.http.post<any>(
             `${environment.apiUrl}/api/editprofile/username/${data.username}`, {imageUrl: url}
-          ).subscribe(data => {
-            console.log(data)
-            return data
-          })
+          ).subscribe(data => { return data })
       } else {
         return this.http.post<any>(
             `${environment.apiUrl}/api/editprofile/username/${username}`, ''
-          ).subscribe(data => {
-            console.log(data)
-            return data
-          })
+          ).subscribe(data => { return data })
       }
     })
   }

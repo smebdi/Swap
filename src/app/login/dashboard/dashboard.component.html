@@ -7,18 +7,18 @@
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link">
+              <a class="nav-link" (click)="toggleView('showProfile')">
                 <i class="fas fa-user"></i>User Profile
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" (click)="toggleMessages()">
+              <a class="nav-link" (click)="toggleView('showMessages')">
                 <i class="fas fa-envelope"></i>Messages
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" (click)="toggleMessages()">
-                <i class="fas fa-envelope"></i>Messages
+              <a class="nav-link" (click)="toggleView('showTrading')">
+                <i class="fas fa-envelope"></i>Trades
               </a>
             </li>
             <!-- Calling SignOut() Api from AuthService -->
@@ -82,7 +82,7 @@
             </div>
           </div>
 
-          <ng-container *ngIf="!showMessages; else showMessage">
+          <ng-container *ngIf="showProfile">
 
             <!-- Start beers -->
             <div *ngIf="want.length > 0">
@@ -194,11 +194,15 @@
             <!-- End beers -->
             
           </ng-container>
-          <ng-template #showMessage>
-            <app-messages></app-messages>
-          </ng-template>
 
         </div>
+
+        <ng-container *ngIf="showMessages">
+          <app-messages></app-messages>
+        </ng-container>
+        <ng-container *ngIf="showTrading">
+          <app-trades></app-trades>
+        </ng-container>
 
       </main>
     </ng-container>

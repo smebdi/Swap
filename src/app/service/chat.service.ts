@@ -25,15 +25,21 @@ export class ChatService {
     return this.http.get<any>(`${environment.apiUrl}/api/messages/user/${uid}/unread/count`)
   }
 
+  markMessageAsRead(uid, messageId) {
+    return this.http.put<any>(`${environment.apiUrl}/api/messages/user/${uid}/message/${messageId}/markasread`, "")
+  }
+
+  deleteMessage(uid, messageId) {
+    return this.http.put<any>(`${environment.apiUrl}/api/messages/user/${uid}/message/${messageId}/delete`, "")
+  }
+
   sendMessage(message, subject, recipient, sender, uid) {
-    console.log(uid)
     return this.http.post<any>(`${environment.apiUrl}/api/messages/user/${uid}/send`, {
       sender: sender,
       message: message,
       subject: subject,
       recipient: recipient,
     }).subscribe(data => {
-      console.log(data)
       return data
     })
   }

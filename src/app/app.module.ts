@@ -67,6 +67,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { environment } from '../environments/environment';
 import { SendmessageComponent } from './login/dashboard/sendmessage/sendmessage.component';
 import { MessagesComponent } from './login/dashboard/messages/messages.component';
+import { TradesComponent } from './login/dashboard/trades/trades.component';
 
 const socketConfig: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
@@ -110,6 +111,7 @@ const socketConfig: SocketIoConfig = { url: environment.apiUrl, options: {} };
     EditComponent,
     SendmessageComponent,
     MessagesComponent,
+    TradesComponent,
   ],
   imports: [
     // Supporting modules
