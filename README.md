@@ -7,10 +7,10 @@ _To download the project_
   Navigate to the directory you want the project installed and in your command line run:
 - `git clone https://github.com/smebdi/Swap.git`
   
-_In the app_
-- `npm install`
-- `npm run fullstart` to build and deploy the server
-- `npm start` to just deploy the server if files are already build
+_Navigate into the app folder_
+- `npm install` then:
+- `npm run fullstart` to build and deploy the server, or to run for the first time
+- `npm start` to just deploy the server if files are already built
 
 ## To Write to Firebase
 _You'll need two files_
