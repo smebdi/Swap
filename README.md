@@ -2,6 +2,11 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.
 
 # Getting started
+_To download the project_
+  Make sure you have git installed
+  Navigate to the directory you want the project installed and in your command line run:
+- `git clone https://github.com/smebdi/Swap.git`
+  
 _In the app_
 - `npm install`
 - `npm run fullstart` to build and deploy the server
